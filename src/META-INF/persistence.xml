@@ -2,19 +2,19 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="VeterinariaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>models.Prontuario</class>
-    <class>models.Especie</class>
-    <class>models.Pet</class>
-    <class>models.Exame</class>
-    <class>models.ConsultaExame</class>
-    <class>models.GrupoAcesso</class>
-    <class>models.Raca</class>
-    <class>models.Item</class>
-    <class>models.Proprietario</class>
-    <class>models.Funcionario</class>
-    <class>models.Usuario</class>
-    <class>models.ResultadoItem</class>
-    <class>models.Veterinario</class>
+    <class>db.mysql.Raca</class>
+    <class>db.mysql.Pet</class>
+    <class>db.mysql.Veterinario</class>
+    <class>db.mysql.Usuario</class>
+    <class>db.mysql.ResultadoItem</class>
+    <class>db.mysql.GrupoAcesso</class>
+    <class>db.mysql.Prontuario</class>
+    <class>db.mysql.Item</class>
+    <class>db.mysql.Exame</class>
+    <class>db.mysql.Especie</class>
+    <class>db.mysql.ConsultaExame</class>
+    <class>db.mysql.Funcionario</class>
+    <class>db.mysql.Proprietario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/veterinaria"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
