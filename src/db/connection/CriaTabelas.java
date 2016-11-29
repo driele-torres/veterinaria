@@ -8,6 +8,5 @@ public class CriaTabelas {
 	//	Configuration cfg = new CriadorDeSessao().getConfig();;
 	//	SchemaExport se = new SchemaExport(cfg);
 	//	se.create(true, true);
-	//};
-        
+	//};      
 }

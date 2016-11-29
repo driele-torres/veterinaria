@@ -1,28 +1,33 @@
 package view;
 
+import controller.EspecieController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.Especie;
 
-public class PanelEspecie{
-    private JPanel panelEspecie = new JPanel();
-    private Font fonte = new Font("Serif", Font.PLAIN, 14);
-    private Font fonteTitle = new Font("Serif", Font.CENTER_BASELINE, 20);
+public class PanelEspecie implements ActionListener{
+    private final EspecieController cntEspecie = new EspecieController();
+    private final JPanel panelEspecie = new JPanel();
+    private final Font fonte = new Font("Serif", Font.PLAIN, 14);
+    private final Font fonteTitle = new Font("Serif", Font.CENTER_BASELINE, 20);
     
-    private JLabel lblTitulo = new JLabel("Cadastro de Espécie");
-    private JLabel lbldescricaoEspecie = new JLabel("Descrição da Espécie:");
-    private JTextField txtdescricaoEspecie = new JTextField();
-    private JLabel lblNomeEspecie = new JLabel("Nome Científico da Espécie:");
-    private JTextField txtNomeEspecie = new JTextField();
-    private JButton btnLimpar = new JButton("Limpar");
-    private JButton btnSalvar = new JButton("Salvar"); 
-    private GridBagLayout layout = new GridBagLayout();
+    private final JLabel lblTitulo = new JLabel("Cadastro de Espécie");
+    private final JLabel lbldescricaoEspecie = new JLabel("Descrição da Espécie:");
+    private final JTextField txtdescricaoEspecie = new JTextField();
+    private final JLabel lblNomeEspecie = new JLabel("Nome Científico da Espécie:");
+    private final JTextField txtNomeEspecie = new JTextField();
+    private final JButton btnLimpar = new JButton("Limpar");
+    private final JButton btnSalvar = new JButton("Salvar"); 
+    private final GridBagLayout layout = new GridBagLayout();
     
     public GridBagConstraints genConstraint(int x, int y, int w, int h){
         GridBagConstraints c = new GridBagConstraints();
@@ -51,7 +56,16 @@ public class PanelEspecie{
         panelEspecie.add(txtdescricaoEspecie, genConstraint(1, 2, 1, 1));
         panelEspecie.add(btnLimpar, genConstraint(0, 3, 1, 1));
         panelEspecie.add(btnSalvar, genConstraint(1, 3, 1, 1));
+        
+        btnSalvar.addActionListener(this);
 
         return panelEspecie;
+    }  
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Especie especie = new Especie();
+        especie.setDescricao(txtNomeEspecie.getText());
+        especie.setNomeCientifico(txtdescricaoEspecie.getText());
+        cntEspecie.salvarEspecie(especie);
     }
 }
