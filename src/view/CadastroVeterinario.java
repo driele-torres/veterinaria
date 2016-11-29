@@ -9,10 +9,11 @@ public class CadastroVeterinario extends JFrame{//implements ActionListener
     JTextField txfCRV, txtfEspecialidade;
     JLabel lblInfo, lblCRV, lblEspecialidade;
     JButton btnConfirma;
+    
     public CadastroVeterinario(){
         setTitle("Cadastro Veterinario");
-        setSize(400,300);
-        setLocation(100,100);
+        setSize(400, 300);
+        setLocation(100, 100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         lblInfo = new JLabel("Dados do Veterinario");
