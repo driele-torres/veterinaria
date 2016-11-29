@@ -10,35 +10,30 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import main.Veterinaria;
 import model.Especie;
 import model.Raca;
 
 public class TelaPrincipalClass extends JFrame{
     private VeterinariaController controller = new VeterinariaController();
     
-    private PanelEspecie panelEspecie = new PanelEspecie();
-    private PanelRaca panelRaca = new PanelRaca();
-    private PanelAnimal panelAnimal = new PanelAnimal();
-    private PanelProprietario panelProprietario = new PanelProprietario();
-    private PanelItem panelItem = new PanelItem();
-    private PanelExame panelExame = new PanelExame();
-    private PanelFuncionario panelFuncionario = new PanelFuncionario();
-    private PanelProntuario panelProntuario = new PanelProntuario();
-    private PanelVeterinario panelVeterinario = new PanelVeterinario();
+    private PanelEspecie panelEspecie;
+    private PanelRaca panelRaca;
+    private PanelAnimal panelAnimal;
+    private PanelProprietario panelProprietario;
+    private PanelItem panelItem;
+    private PanelExame panelExame;
+    private PanelFuncionario panelFuncionario;
+    private PanelProntuario panelProntuario;
+    private PanelVeterinario panelVeterinario;
+    private JPanel panelInicial;
+    private JPanel panelPrincipal;
     
-    private JPanel panelInicial = new JPanel();
-    private JPanel panelPrincipal = new JPanel();
-   
     public GridBagConstraints genConstraint(int x, int y, int w, int h){
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = x;
@@ -52,7 +47,8 @@ public class TelaPrincipalClass extends JFrame{
     public TelaPrincipalClass(){
         String nome = "Consultório Veterinário";
         this.setTitle(nome);
-        this.setLayout(new GridLayout(3, 3));
+        this.setLayout(new GridBagLayout());
+        panelPrincipal = new JPanel();
         
           // Cria uma barra de menu para o JFrame
         JMenuBar menuVeterinaria = new JMenuBar();
@@ -71,6 +67,7 @@ public class TelaPrincipalClass extends JFrame{
         especieAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelEspecie = new PanelEspecie();
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelEspecie.setPainelEspecie());
                 panelPrincipal.repaint();
@@ -81,6 +78,7 @@ public class TelaPrincipalClass extends JFrame{
         racaAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelRaca = new PanelRaca();
                 List<Especie> allEspecies = controller.recuperarEspecies();
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelRaca.setPainelRaca(allEspecies));
@@ -92,6 +90,7 @@ public class TelaPrincipalClass extends JFrame{
         animalAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelAnimal = new PanelAnimal();
                 List<Raca> allRacas = controller.recuperarRacas();
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelAnimal.setPainelAnimal(allRacas));
@@ -103,6 +102,7 @@ public class TelaPrincipalClass extends JFrame{
         donoAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelProprietario = new PanelProprietario();
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelProprietario.setPanelProprietario());
                 panelPrincipal.repaint();
@@ -113,6 +113,7 @@ public class TelaPrincipalClass extends JFrame{
         itemAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelItem = new PanelItem();
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelItem.setPanelItem());
                 panelPrincipal.repaint();
@@ -123,6 +124,7 @@ public class TelaPrincipalClass extends JFrame{
         exameAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelExame = new PanelExame();
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelExame.setPanelExame());
                 panelPrincipal.repaint();
@@ -133,6 +135,7 @@ public class TelaPrincipalClass extends JFrame{
         funcionarioAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelFuncionario = new PanelFuncionario();
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelFuncionario.setPanelFuncionario());
                 panelPrincipal.repaint();
@@ -143,6 +146,7 @@ public class TelaPrincipalClass extends JFrame{
         prontuarioAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelProntuario = new PanelProntuario();
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelProntuario.setPanelProntuario());
                 panelPrincipal.repaint();
@@ -153,6 +157,7 @@ public class TelaPrincipalClass extends JFrame{
         veterinarioAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelVeterinario = new PanelVeterinario();
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelVeterinario.setPanelVeterinario());
                 panelPrincipal.repaint();
@@ -170,8 +175,18 @@ public class TelaPrincipalClass extends JFrame{
         cadastrosMenu.add(prontuarioAction);
         cadastrosMenu.add(veterinarioAction);
         
-        JLabel labelClinica = new JLabel("Clínica Veterinária");
+        panelInicial = new JPanel();
+        
         Font fonte = new Font("Serif", Font.PLAIN, 100);
+        JLabel labelClinica = new JLabel("Clínica Veterinária");
+        
+//        labelClinica.setFont(fonte);
+//        labelClinica.setForeground(Color.DARK_GRAY);       
+//        
+//        panelInicial.add(labelClinica);
+//        panelPrincipal.add(panelInicial);
+//        this.add(panelPrincipal);
+        
         labelClinica.setFont(fonte);
         labelClinica.setForeground(Color.DARK_GRAY);
         panelInicial.add(labelClinica);
@@ -179,7 +194,5 @@ public class TelaPrincipalClass extends JFrame{
         
         panelPrincipal.add(panelInicial);
         this.add(panelPrincipal);
-        
-    }
-    
+    }  
 }
