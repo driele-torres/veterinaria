@@ -87,8 +87,12 @@ public class PanelAnimal extends PanelMae{
        panelAnimal.add(txtDataNascimento, genConstraint(1, 2, 1, 1));
        panelAnimal.add(lblRacaAnimal, genConstraint(0, 3, 1, 1));
        panelAnimal.add(cmbRacaAnimal, genConstraint(1, 3, 1, 1));
-       panelAnimal.add(btnLimpar, genConstraint(0, 4, 1, 1));
-       panelAnimal.add(btnSalvar, genConstraint(1, 4, 1, 1));
+       
+       panelAnimal.add(lblProprietarioAnimal, genConstraint(0, 4, 1, 1));
+       panelAnimal.add(cmbProprietarioAnimal, genConstraint(1, 4, 1, 1));
+       
+       panelAnimal.add(btnLimpar, genConstraint(0, 5, 1, 1));
+       panelAnimal.add(btnSalvar, genConstraint(1, 5, 1, 1));
 
        return panelAnimal;
     }
