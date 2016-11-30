@@ -1,43 +1,33 @@
 package view;
 
-import controller.EspecieController;
+import controller.VeterinariaController;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Especie;
 
-public class PanelEspecie implements ActionListener{
-    private final EspecieController cntEspecie = new EspecieController();
-    private final JPanel panelEspecie = new JPanel();
-    private final Font fonte = new Font("Serif", Font.PLAIN, 14);
-    private final Font fonteTitle = new Font("Serif", Font.CENTER_BASELINE, 20);
+public class PanelEspecie extends PanelMae{
+    private JPanel panelEspecie = new JPanel();
+    private Font fonte = new Font("Serif", Font.PLAIN, 14);
+    private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
+    private VeterinariaController cont = new VeterinariaController();
     
-    private final JLabel lblTitulo = new JLabel("Cadastro de Espécie");
-    private final JLabel lbldescricaoEspecie = new JLabel("Descrição da Espécie:");
-    private final JTextField txtdescricaoEspecie = new JTextField();
-    private final JLabel lblNomeEspecie = new JLabel("Nome Científico da Espécie:");
-    private final JTextField txtNomeEspecie = new JTextField();
-    private final JButton btnLimpar = new JButton("Limpar");
-    private final JButton btnSalvar = new JButton("Salvar"); 
-    private final GridBagLayout layout = new GridBagLayout();
+    private JLabel lblTitulo = new JLabel("Cadastro de Espécie");
+    private JLabel lbldescricaoEspecie = new JLabel("Descrição da Espécie:");
+    private JTextField txtdescricaoEspecie = new JTextField();
+    private JLabel lblNomeEspecie = new JLabel("Nome Científico da Espécie:");
+    private JTextField txtNomeEspecie = new JTextField();
+    private JButton btnLimpar = new JButton("Limpar");
+    private JButton btnSalvar = new JButton("Salvar"); 
+    private GridBagLayout layout = new GridBagLayout();
     
-    public GridBagConstraints genConstraint(int x, int y, int w, int h){
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = x;
-        c.gridy = y;
-        c.gridwidth = w;
-        c.gridheight = h;
-        c.insets = new Insets(10, 10, 10, 10);
-        return c;
-     }
     
     public JPanel setPainelEspecie(){
         panelEspecie.setLayout(layout);
@@ -49,6 +39,21 @@ public class PanelEspecie implements ActionListener{
         txtNomeEspecie.setPreferredSize(new Dimension(200, 24));
         txtdescricaoEspecie.setPreferredSize(new Dimension(200, 24));
         
+        btnLimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparPanelEspecie();
+            }
+        });
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(salvarPanelEspecie()!= null){
+                    JOptionPane.showMessageDialog(null, "Espécie salvo com sucesso!");
+                }
+            }
+        });
+        
         panelEspecie.add(lblTitulo, genConstraint(0, 0, 1, 1));
         panelEspecie.add(lblNomeEspecie, genConstraint(0, 1, 1, 1));
         panelEspecie.add(txtNomeEspecie, genConstraint(1, 1, 1, 1));
@@ -56,16 +61,20 @@ public class PanelEspecie implements ActionListener{
         panelEspecie.add(txtdescricaoEspecie, genConstraint(1, 2, 1, 1));
         panelEspecie.add(btnLimpar, genConstraint(0, 3, 1, 1));
         panelEspecie.add(btnSalvar, genConstraint(1, 3, 1, 1));
-        
-        btnSalvar.addActionListener(this);
 
         return panelEspecie;
-    }  
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    }
+    
+    public void limparPanelEspecie(){
+        txtNomeEspecie.setText("");
+        txtdescricaoEspecie.setText("");        
+    }
+    
+    public Especie salvarPanelEspecie(){
         Especie especie = new Especie();
-        especie.setDescricao(txtNomeEspecie.getText());
-        especie.setNomeCientifico(txtdescricaoEspecie.getText());
-        cntEspecie.salvarEspecie(especie);
+        especie.setDescricao(txtdescricaoEspecie.getText());
+        especie.setNomeCientifico(txtNomeEspecie.getText());
+        cont.salvarEspecie(especie);
+        return especie;
     }
 }
