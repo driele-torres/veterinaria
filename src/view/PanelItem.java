@@ -92,7 +92,7 @@ public class PanelItem extends PanelMae{
         Exame exame = cont.recuperarExameporDesc(cmbExame.getSelectedItem().toString());
         item.setNome(txtNomeItem.getText());
         item.setReferencia(txtReferencia.getText());
-        item.setIdItemExame(exame);
+//        item.setIdItemExame(exame);
         cont.salvarItem(item);
         return item; 
     }

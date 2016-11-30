@@ -105,8 +105,8 @@ public class PanelAnimal extends PanelMae{
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         pet.setDataNascimento(format.parse(txtDataNascimento.getText().toString()));
         pet.setDescricao(txtNomeAnimal.getText());
-        pet.setIdPetRaca(raca);
-        pet.setIdPetProprietario(prop);
+//        pet.setIdPetRaca(raca);
+//        pet.setIdPetProprietario(prop);
         cont.salvarPet(pet);
         return pet;
     }

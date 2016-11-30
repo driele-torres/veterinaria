@@ -13,10 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Exame;
 
-/**
- *
- * @author lala
- */
 public class PanelExame extends PanelMae{
     
     private JPanel panelExame = new JPanel();

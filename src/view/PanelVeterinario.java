@@ -130,7 +130,7 @@ public class PanelVeterinario extends PanelMae{
         usuario.setSenha(txtSenha.getText());
         vet.setCrv(txtCRV.getText());
         vet.setEspecialidade(txtEspecialidade.getText());
-        vet.setIdVeterinarioUsuario(usuario);
+//        vet.setIdVeterinarioUsuario(usuario);
         cont.salvarVeterinario(vet);
         return vet;
     }

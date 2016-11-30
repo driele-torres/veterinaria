@@ -1,5 +1,6 @@
 package controller;
 
+import db.connection.CriadorDeSessao;
 import db.dao.EspecieDAO;
 import db.dao.ExameDAO;
 import db.dao.ItemDAO;
@@ -27,6 +28,17 @@ public class VeterinariaController {
     private VeterinarioDAO veterinarioDao;
     private UsuarioDAO usuarioDao;
     private ItemDAO itemDao;
+    
+    public VeterinariaController(){
+        especieDao = new EspecieDAO(CriadorDeSessao.getSession());
+        racaDao = new RacaDAO(CriadorDeSessao.getSession());
+        petDao = new PetDAO(CriadorDeSessao.getSession());
+        proprietarioDao = new ProprietarioDAO(CriadorDeSessao.getSession());
+        exameDao = new ExameDAO(CriadorDeSessao.getSession());
+        veterinarioDao = new VeterinarioDAO(CriadorDeSessao.getSession());
+        usuarioDao = new UsuarioDAO(CriadorDeSessao.getSession());
+        itemDao = new ItemDAO(CriadorDeSessao.getSession());
+    }
    
     public void salvarEspecie(Especie especie){
         especieDao.adiciona(especie);

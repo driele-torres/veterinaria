@@ -54,7 +54,7 @@ public class PanelProntuario extends PanelMae{
         cmbVeterinario.setPreferredSize(new Dimension(200, 24));
         cmbAnimal.addItem("Selecione");
         for(Veterinario item: allVeterinarios){
-           cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
+//           cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
         }
         cmbRealizado.addItem("Selecione");
         for(Pet item: allPets){
@@ -62,7 +62,7 @@ public class PanelProntuario extends PanelMae{
         }
         cmbVeterinario.addItem("Selecione");
         for(Veterinario item: allVeterinarios){
-           cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
+//           cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
         }
         cmbRealizado.addItem("Sim");
         cmbRealizado.addItem("Não");
