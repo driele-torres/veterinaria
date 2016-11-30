@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,16 +32,6 @@ public class TelaPrincipalClass extends JFrame{
     private PanelVeterinario panelVeterinario;
     private JPanel panelInicial;
     private JPanel panelPrincipal;
-    
-    public GridBagConstraints genConstraint(int x, int y, int w, int h){
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = x;
-        c.gridy = y;
-        c.gridwidth = w;
-        c.gridheight = h;
-        c.insets = new Insets(10, 10, 10, 10);
-        return c;
-     }
 
     public TelaPrincipalClass(){
         String nome = "Consultório Veterinário";
@@ -115,7 +104,7 @@ public class TelaPrincipalClass extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 panelItem = new PanelItem();
                 panelPrincipal.removeAll();
-                panelPrincipal.add(panelItem.setPanelItem());
+                panelPrincipal.add(panelItem.setPanelItem(controller.recuperarExames()));
                 panelPrincipal.repaint();
                 panelPrincipal.revalidate();
             }
@@ -148,7 +137,7 @@ public class TelaPrincipalClass extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 panelProntuario = new PanelProntuario();
                 panelPrincipal.removeAll();
-                panelPrincipal.add(panelProntuario.setPanelProntuario());
+                panelPrincipal.add(panelProntuario.setPanelProntuario(controller.recuperarVeterinarios(), controller.recuperarPets()));
                 panelPrincipal.repaint();
                 panelPrincipal.revalidate();
             }
@@ -175,17 +164,9 @@ public class TelaPrincipalClass extends JFrame{
         cadastrosMenu.add(prontuarioAction);
         cadastrosMenu.add(veterinarioAction);
         
-        panelInicial = new JPanel();
-        
+        panelInicial = new JPanel();        
         Font fonte = new Font("Serif", Font.PLAIN, 100);
         JLabel labelClinica = new JLabel("Clínica Veterinária");
-        
-//        labelClinica.setFont(fonte);
-//        labelClinica.setForeground(Color.DARK_GRAY);       
-//        
-//        panelInicial.add(labelClinica);
-//        panelPrincipal.add(panelInicial);
-//        this.add(panelPrincipal);
         
         labelClinica.setFont(fonte);
         labelClinica.setForeground(Color.DARK_GRAY);
@@ -194,5 +175,15 @@ public class TelaPrincipalClass extends JFrame{
         
         panelPrincipal.add(panelInicial);
         this.add(panelPrincipal);
-    }  
+    } 
+    
+      public GridBagConstraints genConstraint(int x, int y, int w, int h){
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = x;
+        c.gridy = y;
+        c.gridwidth = w;
+        c.gridheight = h;
+        c.insets = new Insets(10, 10, 10, 10);
+        return c;
+     }
 }

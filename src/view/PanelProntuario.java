@@ -1,28 +1,80 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import main.Veterinaria;
+import model.Pet;
+import model.Veterinario;
 
-/**
- *
- * @author lala
- */
-public class PanelProntuario {
+public class PanelProntuario extends PanelMae{
     private JPanel panelProntuario = new JPanel();
+    private Font fonte = new Font("Serif", Font.PLAIN, 14);
+    private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
     
-    public JPanel setPanelProntuario(){
-        JLabel lblNomeProprietario = new JLabel("Nome:");
-        JTextField txtNomeProprietario = new JTextField();
-        JLabel lblCPFProprietario = new JLabel("CPF:");
-        JTextField txtCPFProprietario = new JTextField();
-        JLabel lblEnderecoProprietario = new JLabel("Endereço:");
-        JTextField txtEnderecoProprietario = new JTextField();
-        JLabel lblTelefoneProprietario = new JLabel("Telefone:");
-        JTextField txtTelefoneProprietario = new JTextField();
+    JLabel lblTitulo = new JLabel("Cadastro de Prontuário");
+    JLabel lblData = new JLabel("Data de realização:");
+    JTextField txtData = new JTextField();
+    JLabel lblObservacao = new JLabel("Observação:");
+    JTextField txtObservacao = new JTextField();
+    JLabel lblRealizado = new JLabel("Foi realizado:");
+    JComboBox cmbRealizado = new JComboBox();
+    JLabel lblVeterinario = new JLabel("Veterinário Responsável:");
+    JComboBox cmbVeterinario = new JComboBox();
+    JLabel lblAnimal = new JLabel("Animal Consultado:");
+    JComboBox cmbAnimal = new JComboBox();
+    private JButton btnLimpar = new JButton("Limpar");
+    private JButton btnSalvar = new JButton("Salvar"); 
+    private GridBagLayout layout = new GridBagLayout();
+    
+    public JPanel setPanelProntuario(List<Veterinario> allVeterinarios, List<Pet> allPets){
         
-        panelProntuario.add(lblNomeProprietario);
-        panelProntuario.add(txtNomeProprietario);
+        panelProntuario.setLayout(layout);
+        
+        lblAnimal.setFont(fonte);
+        lblData.setFont(fonte);
+        lblObservacao.setFont(fonte);
+        lblRealizado.setFont(fonte);
+        lblVeterinario.setFont(fonte);
+        lblTitulo.setFont(fonteTitle);
+        
+        txtData.setPreferredSize(new Dimension(200, 24));
+        txtObservacao.setPreferredSize(new Dimension(200, 24));
+        cmbAnimal.setPreferredSize(new Dimension(200, 24));
+        cmbRealizado.setPreferredSize(new Dimension(200, 24));
+        cmbVeterinario.setPreferredSize(new Dimension(200, 24));
+        for(Veterinario item: allVeterinarios){
+           cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
+        }
+        for(Pet item: allPets){
+           cmbAnimal.addItem(item.getDescricao());
+        }
+        for(Veterinario item: allVeterinarios){
+           cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
+        }
+        cmbRealizado.addItem("Sim");
+        cmbRealizado.addItem("Não");
+        
+        panelProntuario.add(lblTitulo, genConstraint(0, 0, 1, 1));
+        panelProntuario.add(lblData, genConstraint(0, 1, 1, 1));
+        panelProntuario.add(txtData, genConstraint(1, 1, 1, 1));
+        panelProntuario.add(lblAnimal, genConstraint(0, 2, 1, 1));
+        panelProntuario.add(cmbAnimal, genConstraint(1, 2, 1, 1));
+        panelProntuario.add(lblObservacao, genConstraint(0, 3, 1, 1));
+        panelProntuario.add(txtObservacao, genConstraint(1, 3, 1, 1));
+        panelProntuario.add(lblVeterinario, genConstraint(0, 4, 1, 1));
+        panelProntuario.add(cmbVeterinario, genConstraint(1, 4, 1, 1));
+        panelProntuario.add(lblRealizado, genConstraint(0, 5, 1, 1));
+        panelProntuario.add(cmbRealizado, genConstraint(1, 5, 1, 1));
+        panelProntuario.add(btnLimpar, genConstraint(0, 6, 1, 1));
+        panelProntuario.add(btnSalvar, genConstraint(1, 6, 1, 1));
+        
         return panelProntuario;
     }
     
