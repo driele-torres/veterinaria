@@ -3,10 +3,13 @@ package view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.Usuario;
 
 /**
  *
@@ -32,10 +35,7 @@ public class PanelFuncionario extends PanelMae{
     JTextField txtUser = new JTextField();
     JLabel lblSenha = new JLabel("Senha:");
     JTextField txtSenha = new JTextField();
-    JLabel lblCRV = new JLabel("CRV:");
-    JTextField txtCRV = new JTextField();
-    JLabel lblEspecialidade = new JLabel("Especialidade:");
-    JTextField txtEspecialidade = new JTextField();
+    
     private JButton btnLimpar = new JButton("Limpar");
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
@@ -45,9 +45,7 @@ public class PanelFuncionario extends PanelMae{
         panelFuncionario.setLayout(layout);
         
         lblCPF.setFont(fonte);
-        lblCRV.setFont(fonte);
         lblEndereco.setFont(fonte);
-        lblEspecialidade.setFont(fonte);
         lblNome.setFont(fonte);
         lblSenha.setFont(fonte);
         lblTelefone.setFont(fonte);
@@ -55,14 +53,24 @@ public class PanelFuncionario extends PanelMae{
         lblTitulo.setFont(fonteTitle);
         
         txtCPF.setPreferredSize(new Dimension(200, 24));
-        txtCRV.setPreferredSize(new Dimension(200, 24));
         txtEndereco.setPreferredSize(new Dimension(200, 24));
-        txtEspecialidade.setPreferredSize(new Dimension(200, 24));
         txtNome.setPreferredSize(new Dimension(200, 24));
         txtSenha.setPreferredSize(new Dimension(200, 24));
         txtTelefone.setPreferredSize(new Dimension(200, 24));
         txtUser.setPreferredSize(new Dimension(200, 24));
         
+        btnLimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparPanelFuncionario();
+            }
+        });
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarPanelFuncionario();
+            }
+        });
         panelFuncionario.add(lblTitulo, genConstraint(0, 0, 1, 1));
         panelFuncionario.add(lblNome, genConstraint(0, 1, 1, 1));
         panelFuncionario.add(txtNome, genConstraint(1, 1, 1, 1));
@@ -82,4 +90,24 @@ public class PanelFuncionario extends PanelMae{
         return panelFuncionario;
     }
     
+    public void limparPanelFuncionario(){
+        txtCPF.setText("");
+        txtEndereco.setText("");
+        txtNome.setText("");
+        txtSenha.setText("");
+        txtTelefone.setText("");
+        txtUser.setText("");
+    }
+    
+    public Usuario salvarPanelFuncionario(){
+        Usuario usuario = new Usuario();
+        usuario.setCpf(txtCPF.getText());
+        usuario.setEndereco(txtEndereco.getText());
+        usuario.setNome(txtNome.getText());
+        usuario.setTelefone(txtTelefone.getText());
+        usuario.setUsername(txtUser.getText());
+        usuario.setSenha(txtSenha.getText());
+        return usuario;
+    }
+ 
 }

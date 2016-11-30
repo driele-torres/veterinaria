@@ -10,6 +10,7 @@ import java.util.List;
 import model.Especie;
 import model.Exame;
 import model.Pet;
+import model.Proprietario;
 import model.Raca;
 import model.Veterinario;
 
@@ -56,4 +57,15 @@ public class VeterinariaController {
      public Especie recuperarEspecieporDesc(String descricao){
          return especieDao.procuraEspeciePorDescricao(descricao);
      }
+     public Exame recuperarExameporDesc(String descricao){
+         return exameDao.procuraExamePorNome(descricao);
+     }
+     public Raca recuperarRacaDesc(String descricao){
+         return racaDao.procuraRacaPorDescricao(descricao);
+     }
+     
+    public Proprietario recuperarProprietarioDesc(String descricao){
+         return proprietarioDao.procuraProprietarioPorNome(descricao);
+    }
+     
 }

@@ -3,10 +3,13 @@ package view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.Especie;
 
 public class PanelEspecie extends PanelMae{
     private JPanel panelEspecie = new JPanel();
@@ -33,6 +36,19 @@ public class PanelEspecie extends PanelMae{
         txtNomeEspecie.setPreferredSize(new Dimension(200, 24));
         txtdescricaoEspecie.setPreferredSize(new Dimension(200, 24));
         
+        btnLimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparPanelEspecie();
+            }
+        });
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarPanelEspecie();
+            }
+        });
+        
         panelEspecie.add(lblTitulo, genConstraint(0, 0, 1, 1));
         panelEspecie.add(lblNomeEspecie, genConstraint(0, 1, 1, 1));
         panelEspecie.add(txtNomeEspecie, genConstraint(1, 1, 1, 1));
@@ -42,5 +58,17 @@ public class PanelEspecie extends PanelMae{
         panelEspecie.add(btnSalvar, genConstraint(1, 3, 1, 1));
 
         return panelEspecie;
+    }
+    
+    public void limparPanelEspecie(){
+        txtNomeEspecie.setText("");
+        txtdescricaoEspecie.setText("");        
+    }
+    
+    public Especie salvarPanelEspecie(){
+        Especie especie = new Especie();
+        especie.setDescricao(txtdescricaoEspecie.getText());
+        especie.setNomeCientifico(txtNomeEspecie.getText());
+        return especie;
     }
 }

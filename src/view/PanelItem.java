@@ -1,8 +1,11 @@
 package view;
 
+import controller.VeterinariaController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Exame;
+import model.Item;
 
 /**
  *
@@ -20,6 +24,7 @@ public class PanelItem extends PanelMae{
     private JPanel panelItem = new JPanel();
     private Font fonte = new Font("Serif", Font.PLAIN, 14);
     private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
+    private VeterinariaController cont = new VeterinariaController();
     
     private JLabel lblTitulo = new JLabel("Cadastro de Itens");
 
@@ -47,6 +52,20 @@ public class PanelItem extends PanelMae{
            cmbExame.addItem(item.getNome());
         }
         
+        btnLimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparPanelItem();
+            }
+        });
+        
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarPanelItem();
+            }
+        });
+        
         panelItem.add(lblTitulo, genConstraint(0, 0, 1, 1));
         panelItem.add(lblNomeItem, genConstraint(0, 1, 1, 1));
         panelItem.add(txtNomeItem, genConstraint(1, 1, 1, 1));
@@ -58,6 +77,20 @@ public class PanelItem extends PanelMae{
         panelItem.add(btnSalvar, genConstraint(1, 4, 1, 1));
         
         return panelItem;
+    }
+    
+    public void limparPanelItem(){
+        txtNomeItem.setText("");
+        txtReferencia.setText("");
+    }
+    
+    public Item salvarPanelItem(){
+        Item item = new Item();
+        Exame exame = cont.recuperarExameporDesc(cmbExame.getSelectedItem().toString());
+        item.setNome(txtNomeItem.getText());
+        item.setReferencia(txtReferencia.getText());
+        item.setIdItemExame(exame);
+        return item; 
     }
     
     

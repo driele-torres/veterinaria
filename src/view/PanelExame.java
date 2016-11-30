@@ -3,10 +3,13 @@ package view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.Exame;
 
 /**
  *
@@ -35,6 +38,20 @@ public class PanelExame extends PanelMae{
         
         txtAreaExame.setPreferredSize(new Dimension(200, 24));
         txtNomeExame.setPreferredSize(new Dimension(200, 24));
+        
+        btnLimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparPanelExame();
+            }
+        });
+        
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarPanelExame();
+            }
+        });
        
         panelExame.add(lblTitulo, genConstraint(0, 0, 1, 1));
         panelExame.add(lblNomeExame , genConstraint(0, 1, 1, 1));
@@ -46,4 +63,15 @@ public class PanelExame extends PanelMae{
         return panelExame;
     }
     
+    public void limparPanelExame(){
+        txtAreaExame.setText("");
+        txtNomeExame.setText("");
+    }
+    
+    public Exame salvarPanelExame(){
+        Exame exame = new Exame();
+        exame.setArea(txtAreaExame.getText());
+        exame.setNome(txtNomeExame.getText());
+        return exame;
+    } 
 }
