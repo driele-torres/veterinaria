@@ -52,8 +52,13 @@ public class VeterinariaController {
         return false;      
     }   
     
-    public void salvarPet(Pet pet){
-        petDao.adiciona(pet);   
+    public boolean salvarPet(Pet pet){
+        if(petDao.procuraPetPorDescricao(pet.getDescricao()) != null){
+            petDao.adiciona(pet);
+            return true;
+        }
+        return false;
+           
     }
     public boolean salvarExame(Exame exame){
         if(exameDao.procuraExamePorNome(exame.getNome()) != null){
@@ -90,8 +95,7 @@ public class VeterinariaController {
            veterinarioDao.adiciona(veterinario); 
            return true;
         }
-        return false;
-          
+        return false;         
     }
     
     public List<Especie> recuperarEspecies(){

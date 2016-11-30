@@ -59,7 +59,7 @@ public class PanelAnimal extends PanelMae{
            cmbRacaAnimal.addItem(item.getDescricao());
        }
        for(Proprietario item : allProprietarios){
-           cmbProprietarioAnimal.addItem(item.getNome());
+           cmbProprietarioAnimal.addItem(item.getCpf());
        }
        
        btnLimpar.addActionListener(new ActionListener() {
@@ -110,8 +110,10 @@ public class PanelAnimal extends PanelMae{
         pet.setDescricao(txtNomeAnimal.getText());
         pet.setRaca(raca);
         pet.setProprietario(prop);
-        cont.salvarPet(pet);
-        return pet;
+        if(cont.salvarPet(pet)){
+            return pet;
+        }
+        return null;
     }
     
 }

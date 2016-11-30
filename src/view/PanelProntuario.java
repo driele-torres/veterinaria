@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import main.Veterinaria;
 import model.Pet;
 import model.Prontuario;
 import model.Veterinario;
@@ -60,7 +59,7 @@ public class PanelProntuario extends PanelMae{
         cmbVeterinario.setPreferredSize(new Dimension(200, 24));
         cmbAnimal.addItem("Selecione");
         for(Veterinario item: allVeterinarios){
-           cmbVeterinario.addItem(item.getUsuario().getNome());   
+           cmbVeterinario.addItem(item.getUsuario().getCpf());   
         }
         cmbRealizado.addItem("Selecione");
         for(Pet item: allPets){
@@ -68,7 +67,7 @@ public class PanelProntuario extends PanelMae{
         }
         cmbVeterinario.addItem("Selecione");
         for(Veterinario item: allVeterinarios){
-           cmbVeterinario.addItem(item.getUsuario().getNome());
+           cmbVeterinario.addItem(item.getUsuario().getCpf());
         }
         cmbRealizado.addItem("Sim");
         cmbRealizado.addItem("Não");
