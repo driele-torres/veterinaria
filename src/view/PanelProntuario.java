@@ -5,10 +5,16 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import main.Veterinaria;
@@ -54,7 +60,7 @@ public class PanelProntuario extends PanelMae{
         cmbVeterinario.setPreferredSize(new Dimension(200, 24));
         cmbAnimal.addItem("Selecione");
         for(Veterinario item: allVeterinarios){
-//           cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
+           cmbVeterinario.addItem(item.getUsuario().getNome());   
         }
         cmbRealizado.addItem("Selecione");
         for(Pet item: allPets){
@@ -62,7 +68,7 @@ public class PanelProntuario extends PanelMae{
         }
         cmbVeterinario.addItem("Selecione");
         for(Veterinario item: allVeterinarios){
-//           cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
+           cmbVeterinario.addItem(item.getUsuario().getNome());
         }
         cmbRealizado.addItem("Sim");
         cmbRealizado.addItem("Não");
@@ -77,7 +83,16 @@ public class PanelProntuario extends PanelMae{
         btnSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarPanelProntuario();
+                try {
+                    if(salvarPanelProntuario() != null){
+                        JOptionPane.showMessageDialog(null, "Prontuário salvo com sucesso!");
+                        limparPanelProntuario();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Cadastro não realizado!");
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(PanelProntuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         panelProntuario.add(lblTitulo, genConstraint(0, 0, 1, 1));
@@ -105,12 +120,16 @@ public class PanelProntuario extends PanelMae{
         cmbVeterinario.setSelectedItem("Selecione");
     }
     
-    public Prontuario salvarPanelProntuario(){
+    public Prontuario salvarPanelProntuario() throws ParseException{
         Prontuario pront = new Prontuario();
-//        pront.setData(txtData.getText());
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        pront.setData(format.parse(txtData.getText()));
         pront.setObservacao(txtObservacao.getText());
-//        pront.setRealizado();
-        limparPanelProntuario();
+        if(cmbRealizado.getSelectedItem() == "Sim"){
+            pront.setRealizado(true);
+        }else{
+            pront.setRealizado(false);
+        }
         return pront;
     }
 }
