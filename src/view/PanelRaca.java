@@ -53,6 +53,9 @@ public class PanelRaca extends PanelMae{
             public void actionPerformed(ActionEvent e) {
                 if(salvarPanelRaca()!= null){
                     JOptionPane.showMessageDialog(null, "Raça salva com sucesso!");
+                    limparPanelRaca();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cadastro não realizado!");
                 }
             }
         });
@@ -82,9 +85,13 @@ public class PanelRaca extends PanelMae{
         especie = cont.recuperarEspecieporDesc(cmbnomeEspecie.getSelectedItem().toString());
         raca.setDescricao(txtdescricaoRaca.getText());
         raca.setEspecie(especie);
-        cont.salvarRaca(raca);
+        if(cont.salvarRaca(raca)){
         limparPanelRaca();
-        return raca;
+            return raca;
+        }else{
+            return null;
+        }
+        
     }
     
 }

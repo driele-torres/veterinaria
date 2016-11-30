@@ -65,6 +65,9 @@ public class PanelItem extends PanelMae{
             public void actionPerformed(ActionEvent e) {
                 if(salvarPanelItem() != null){
                     JOptionPane.showMessageDialog(null, "Item salvo com sucesso!");
+                    limparPanelItem();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cadastro não realizado!");
                 }
             }
         });
@@ -93,9 +96,11 @@ public class PanelItem extends PanelMae{
         item.setNome(txtNomeItem.getText());
         item.setReferencia(txtReferencia.getText());
         item.setExame(exame);
-        limparPanelItem();
-        cont.salvarItem(item);
-        return item; 
+        if(cont.salvarItem(item)){
+            return item;
+        }else{
+            return null;
+        }        
     }
     
     

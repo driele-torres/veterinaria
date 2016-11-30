@@ -1,5 +1,6 @@
 package view;
 
+import controller.VeterinariaController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -19,6 +20,7 @@ import model.Usuario;
 public class PanelFuncionario extends PanelMae{
     
     private JPanel panelFuncionario = new JPanel();
+    VeterinariaController cont = new VeterinariaController();
     
     private Font fonte = new Font("Serif", Font.PLAIN, 14);
     private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
@@ -71,6 +73,9 @@ public class PanelFuncionario extends PanelMae{
             public void actionPerformed(ActionEvent e) {
                 if(salvarPanelFuncionario() != null){
                     JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
+                    limparPanelFuncionario();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cadastro não realizado!");
                 }
             }
         });
@@ -110,8 +115,10 @@ public class PanelFuncionario extends PanelMae{
         usuario.setTelefone(txtTelefone.getText());
         usuario.setUsername(txtUser.getText());
         usuario.setSenha(txtSenha.getText());
-        limparPanelFuncionario();
-        return usuario;
+        if(cont.salvarUsuario(usuario)){
+            return usuario;
+        }
+        return null;
     }
  
 }

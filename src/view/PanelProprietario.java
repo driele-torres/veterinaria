@@ -58,6 +58,9 @@ public class PanelProprietario extends PanelMae{
             public void actionPerformed(ActionEvent e) {
                 if(salvarPanelProprietario() != null){
                     JOptionPane.showMessageDialog(null, "Proprietário salvo com sucesso!");
+                    limparPanelProprietario();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cadastro não realizado!");
                 }
             }
         });
@@ -90,9 +93,12 @@ public class PanelProprietario extends PanelMae{
         prop.setEndereco(txtEnderecoProprietario.getText());
         prop.setNome(txtNomeProprietario.getText());
         prop.setTelefone(txtTelefoneProprietario.getText());
-        cont.salvarProprietario(prop);
+        if(cont.salvarProprietario(prop)){
         limparPanelProprietario();
-        return prop;
+           return prop; 
+        }else{
+            return null;
+        }   
     }
     
 }

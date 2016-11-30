@@ -50,6 +50,9 @@ public class PanelEspecie extends PanelMae{
             public void actionPerformed(ActionEvent e) {
                 if(salvarPanelEspecie()!= null){
                     JOptionPane.showMessageDialog(null, "Espécie salvo com sucesso!");
+                    limparPanelEspecie();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cadastro não realizado!");
                 }
             }
         });

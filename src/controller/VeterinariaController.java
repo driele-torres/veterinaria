@@ -44,27 +44,58 @@ public class VeterinariaController {
         especieDao.adiciona(especie);
     }
     
-    public void salvarRaca(Raca raca){
-        racaDao.adiciona(raca);
+    public boolean salvarRaca(Raca raca){
+        if(racaDao.procuraRacaPorDescricao(raca.getDescricao()) != null){
+            racaDao.adiciona(raca);
+            return true;
+        }
+        return false;      
     }   
     
-    public void salvarPet(Pet pet){
-        petDao.adiciona(pet);   
+    public boolean salvarPet(Pet pet){
+        if(petDao.procuraPetPorDescricao(pet.getDescricao()) != null){
+            petDao.adiciona(pet);
+            return true;
+        }
+        return false;
+           
     }
-    public void salvarExame(Exame exame){
-        exameDao.adiciona(exame);   
+    public boolean salvarExame(Exame exame){
+        if(exameDao.procuraExamePorNome(exame.getNome()) != null){
+           exameDao.adiciona(exame); 
+           return true;
+        }
+        return false;
     }
-    public void salvarUsuario(Usuario usuario){
-        usuarioDao.adiciona(usuario);   
+    public boolean salvarUsuario(Usuario usuario){
+        if(usuarioDao.procuraUsuarioPorCPPF(usuario.getCpf()) != null){
+            usuarioDao.adiciona(usuario);  
+            return true;
+        }
+        return false;
+         
     }
-    public void salvarItem(Item item){
-        itemDao.adiciona(item);   
+    public boolean salvarItem(Item item){
+        if(itemDao.procuraItemPorNome(item.getNome()) != null){
+             itemDao.adiciona(item);
+             return true;
+        }
+        return false;
     }
-    public void salvarProprietario(Proprietario prop){
-        proprietarioDao.adiciona(prop);   
+    public boolean salvarProprietario(Proprietario prop){
+        if(proprietarioDao.procuraProprietarioPorCPF(prop.getCpf()) != null){
+            proprietarioDao.adiciona(prop);  
+            return true;
+        }
+        return false;
+         
     }
-    public void salvarVeterinario(Veterinario veterinario){
-        veterinarioDao.adiciona(veterinario);   
+    public boolean salvarVeterinario(Veterinario veterinario){
+        if(usuarioDao.procuraUsuarioPorCPPF(veterinario.getUsuario().getCpf()) != null){
+           veterinarioDao.adiciona(veterinario); 
+           return true;
+        }
+        return false;         
     }
     
     public List<Especie> recuperarEspecies(){
