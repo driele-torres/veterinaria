@@ -74,6 +74,9 @@ public class PanelAnimal extends PanelMae{
                try {
                    if(salvarPanelAnimal() != null){
                        JOptionPane.showMessageDialog(null, "Animal salvo com sucesso!");
+                       limparPanelAnimal();
+                   }else{
+                       JOptionPane.showMessageDialog(null, "Cadastro não realizado!");
                    }
                } catch (ParseException ex) {
                    Logger.getLogger(PanelAnimal.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,7 +106,7 @@ public class PanelAnimal extends PanelMae{
         Raca raca = cont.recuperarRacaDesc(cmbRacaAnimal.getSelectedItem().toString());
         Proprietario prop = cont.recuperarProprietarioDesc(cmbProprietarioAnimal.getSelectedItem().toString());
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        pet.setDataNascimento(format.parse(txtDataNascimento.getText().toString()));
+        pet.setDataNascimento(format.parse(txtDataNascimento.getText()));
         pet.setDescricao(txtNomeAnimal.getText());
         pet.setRaca(raca);
         pet.setProprietario(prop);

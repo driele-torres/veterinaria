@@ -14,4 +14,9 @@ public class UsuarioDAO extends DAOHibernate<Usuario>{
 		return (Usuario) getSession().createQuery("from Usuario u where u.username = :username")
 				.setParameter("username", username).uniqueResult();
 	}
+        public Usuario procuraUsuarioPorCPPF(String cpf) {
+		return (Usuario) getSession().createQuery("from Usuario u where u.cpf = :cpf")
+				.setParameter("cpf", cpf).uniqueResult();
+	}
+
 }

@@ -81,6 +81,9 @@ public class PanelVeterinario extends PanelMae{
             public void actionPerformed(ActionEvent e) {
                 if(salvarPanelVet() != null){
                     JOptionPane.showMessageDialog(null, "Veterinário(a) salvo com sucesso!");
+                    limparPanelVet();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cadastro não realizado!");
                 }
             }
         });
@@ -131,8 +134,10 @@ public class PanelVeterinario extends PanelMae{
         vet.setCrv(txtCRV.getText());
         vet.setEspecialidade(txtEspecialidade.getText());
         vet.setUsuario(usuario);
-        cont.salvarVeterinario(vet);
-        return vet;
+        if(cont.salvarVeterinario(vet)){
+           return vet; 
+        }
+        return null;
     }
     
 }

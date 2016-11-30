@@ -50,6 +50,9 @@ public class PanelExame extends PanelMae{
             public void actionPerformed(ActionEvent e) {
                 if(salvarPanelExame() != null){
                     JOptionPane.showMessageDialog(null, "Exame cadastrado com sucesso!");
+                    limparPanelExame();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cadastro não realizado!");
                 }
             }
         });
@@ -73,7 +76,11 @@ public class PanelExame extends PanelMae{
         Exame exame = new Exame();
         exame.setArea(txtAreaExame.getText());
         exame.setNome(txtNomeExame.getText());
-        cont.salvarExame(exame);
-        return exame;
+        if(cont.salvarExame(exame)){
+            return exame;
+        }else{
+            return null;
+        }
+        
     } 
 }
