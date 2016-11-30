@@ -3,10 +3,14 @@ package view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.Usuario;
+import model.Veterinario;
 
 /**
  *
@@ -62,6 +66,20 @@ public class PanelVeterinario extends PanelMae{
         txtTelefone.setPreferredSize(new Dimension(200, 24));
         txtUser.setPreferredSize(new Dimension(200, 24));
         
+        btnLimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparPanelVet();
+            }
+        });
+        
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarPanelVet();
+            }
+        });
+        
         panelVeterinario.add(lblTitulo, genConstraint(0, 0, 1, 1));
         panelVeterinario.add(lblNome, genConstraint(0, 1, 1, 1));
         panelVeterinario.add(txtNome, genConstraint(1, 1, 1, 1));
@@ -83,6 +101,32 @@ public class PanelVeterinario extends PanelMae{
         panelVeterinario.add(btnSalvar, genConstraint(1, 9, 1, 1));
         
         return panelVeterinario;
+    }
+    
+    private void limparPanelVet() {
+        txtCPF.setText("");
+        txtCRV.setText("");
+        txtEndereco.setText("");
+        txtEspecialidade.setText("");
+        txtNome.setText("");
+        txtSenha.setText("");
+        txtTelefone.setText("");
+        txtUser.setText("");
+    }
+    
+    private Veterinario salvarPanelVet(){
+        Veterinario vet = new Veterinario();
+        Usuario usuario = new Usuario();
+        usuario.setCpf(txtCPF.getText());
+        usuario.setEndereco(txtEndereco.getText());
+        usuario.setNome(txtNome.getText());
+        usuario.setTelefone(txtTelefone.getText());
+        usuario.setUsername(txtUser.getText());
+        usuario.setSenha(txtSenha.getText());
+        vet.setCrv(txtCRV.getText());
+        vet.setEspecialidade(txtEspecialidade.getText());
+        vet.setIdVeterinarioUsuario(usuario);
+        return vet;
     }
     
 }

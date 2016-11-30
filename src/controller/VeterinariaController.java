@@ -52,4 +52,8 @@ public class VeterinariaController {
      public List<Veterinario> recuperarVeterinarios(){
          return veterinarioDao.procuraTodos();
      }
+     
+     public Especie recuperarEspecieporDesc(String descricao){
+         return especieDao.procuraEspeciePorDescricao(descricao);
+     }
 }

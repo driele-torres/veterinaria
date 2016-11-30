@@ -1,20 +1,26 @@
 package view;
 
+import controller.VeterinariaController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import main.Veterinaria;
 import model.Especie;
+import model.Raca;
 
 public class PanelRaca extends PanelMae{
     private JPanel panelRaca = new JPanel();
     private Font fonte = new Font("Serif", Font.PLAIN, 14);
     private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
+    private VeterinariaController cont = new VeterinariaController();
     
     JLabel lblTitulo = new JLabel("Cadastro de Raças");
     JLabel lbldescricaoRaca = new JLabel("Nome da Raça:");
@@ -34,6 +40,20 @@ public class PanelRaca extends PanelMae{
         
         txtdescricaoRaca.setPreferredSize(new Dimension(200, 24));
         cmbnomeEspecie.setPreferredSize(new Dimension(200, 24));
+        
+        btnLimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparPanelRaca();
+            }
+        });
+        
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarPanelRaca();
+            }
+        });
        
         for(Especie item: allEspecies){
            cmbnomeEspecie.addItem(item.getDescricao());
@@ -47,6 +67,19 @@ public class PanelRaca extends PanelMae{
        panelRaca.add(btnSalvar, genConstraint(1, 3, 1, 1));
 
        return panelRaca;  
+    }
+     
+    public void limparPanelRaca(){
+        txtdescricaoRaca.setText("");
+    }
+    
+    public Raca salvarPanelRaca(){
+        Raca raca = new Raca();
+        Especie especie;
+        especie = cont.recuperarEspecieporDesc(cmbnomeEspecie.getSelectedItem().toString());
+        raca.setDescricao(txtdescricaoRaca.getText());
+        raca.setIdRacaEspecie(especie);
+        return raca;
     }
     
 }

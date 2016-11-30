@@ -3,6 +3,8 @@ package view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import main.Veterinaria;
 import model.Pet;
+import model.Prontuario;
 import model.Veterinario;
 
 public class PanelProntuario extends PanelMae{
@@ -49,18 +52,34 @@ public class PanelProntuario extends PanelMae{
         cmbAnimal.setPreferredSize(new Dimension(200, 24));
         cmbRealizado.setPreferredSize(new Dimension(200, 24));
         cmbVeterinario.setPreferredSize(new Dimension(200, 24));
+        cmbAnimal.addItem("Selecione");
         for(Veterinario item: allVeterinarios){
            cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
         }
+        cmbRealizado.addItem("Selecione");
         for(Pet item: allPets){
            cmbAnimal.addItem(item.getDescricao());
         }
+        cmbVeterinario.addItem("Selecione");
         for(Veterinario item: allVeterinarios){
            cmbVeterinario.addItem(item.getIdVeterinarioUsuario().getNome());
         }
         cmbRealizado.addItem("Sim");
         cmbRealizado.addItem("Não");
         
+        btnLimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparPanelProntuario();
+            }
+        });
+        
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarPanelProntuario();
+            }
+        });
         panelProntuario.add(lblTitulo, genConstraint(0, 0, 1, 1));
         panelProntuario.add(lblData, genConstraint(0, 1, 1, 1));
         panelProntuario.add(txtData, genConstraint(1, 1, 1, 1));
@@ -78,4 +97,19 @@ public class PanelProntuario extends PanelMae{
         return panelProntuario;
     }
     
+    public void limparPanelProntuario(){
+        txtData.setText("");
+        txtObservacao.setText("");
+        cmbAnimal.setSelectedItem("Selecione");
+        cmbRealizado.setSelectedItem("Selecione");
+        cmbVeterinario.setSelectedItem("Selecione");
+    }
+    
+    public Prontuario salvarPanelProntuario(){
+        Prontuario pront = new Prontuario();
+//        pront.setData(txtData.getText());
+        pront.setObservacao(txtObservacao.getText());
+//        pront.setRealizado();
+        return pront;
+    }
 }

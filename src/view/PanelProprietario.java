@@ -3,10 +3,13 @@ package view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.Proprietario;
 
 public class PanelProprietario extends PanelMae{
     private JPanel panelProprietario = new JPanel();
@@ -39,6 +42,20 @@ public class PanelProprietario extends PanelMae{
         txtEnderecoProprietario.setPreferredSize(new Dimension(200, 24));
         txtNomeProprietario.setPreferredSize(new Dimension(200, 24));
         txtTelefoneProprietario.setPreferredSize(new Dimension(200, 24));
+        
+        btnLimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparPanelProprietario();
+            }
+        });
+        
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarPanelProprietario();
+            }
+        });
        
         panelProprietario.add(lblTitulo, genConstraint(0, 0, 1, 1));
         panelProprietario.add(lblNomeProprietario, genConstraint(0, 1, 1, 1));
@@ -53,6 +70,22 @@ public class PanelProprietario extends PanelMae{
         panelProprietario.add(btnSalvar, genConstraint(1, 5, 1, 1));
         
         return panelProprietario;
+    }
+    
+    public void limparPanelProprietario(){
+        txtCPFProprietario.setText("");
+        txtEnderecoProprietario.setText("");
+        txtNomeProprietario.setText("");
+        txtTelefoneProprietario.setText("");
+    }
+    
+    public Proprietario salvarPanelProprietario(){
+        Proprietario prop = new Proprietario();
+        prop.setCpf(txtCPFProprietario.getText());
+        prop.setEndereco(txtEnderecoProprietario.getText());
+        prop.setNome(txtNomeProprietario.getText());
+        prop.setTelefone(txtTelefoneProprietario.getText());
+        return prop;
     }
     
 }
