@@ -80,7 +80,7 @@ public class PanelRaca extends PanelMae{
         Especie especie;
         especie = cont.recuperarEspecieporDesc(cmbnomeEspecie.getSelectedItem().toString());
         raca.setDescricao(txtdescricaoRaca.getText());
-//        raca.setIdRacaEspecie(especie);
+        raca.setEspecie(especie);
         cont.salvarRaca(raca);
         return raca;
     }
