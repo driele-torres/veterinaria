@@ -12,10 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Pet;
@@ -36,11 +36,13 @@ public class PanelAnimal extends PanelMae{
     private JTextField txtDataNascimento = new JTextField();
     private JLabel lblRacaAnimal = new JLabel("Raça do Animal:");
     private JComboBox cmbRacaAnimal = new JComboBox();
+    private JLabel lblProprietarioAnimal = new JLabel("Proprietário do Animal:");
+    private JComboBox cmbProprietarioAnimal = new JComboBox();
     private JButton btnLimpar = new JButton("Limpar");
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
     
-    public JPanel setPainelAnimal(List<Raca> allRacas){
+    public JPanel setPainelAnimal(List<Raca> allRacas, List<Proprietario> allProprietarios){
        panelAnimal.setLayout(layout);
        
        lblDataNascimento.setFont(fonte);
@@ -51,9 +53,13 @@ public class PanelAnimal extends PanelMae{
        txtDataNascimento.setPreferredSize(new Dimension(200, 24));
        txtNomeAnimal.setPreferredSize(new Dimension(200, 24));
        cmbRacaAnimal.setPreferredSize(new Dimension(200, 24));
+       cmbProprietarioAnimal.setPreferredSize(new Dimension(200, 24));
        
        for(Raca item: allRacas){
            cmbRacaAnimal.addItem(item.getDescricao());
+       }
+       for(Proprietario item : allProprietarios){
+           cmbProprietarioAnimal.addItem(item.getNome());
        }
        
        btnLimpar.addActionListener(new ActionListener() {
@@ -66,7 +72,9 @@ public class PanelAnimal extends PanelMae{
            @Override
            public void actionPerformed(ActionEvent e) {
                try {
-                   salvarPanelAnimal();
+                   if(salvarPanelAnimal() != null){
+                       JOptionPane.showMessageDialog(null, "Animal salvo com sucesso!");
+                   }
                } catch (ParseException ex) {
                    Logger.getLogger(PanelAnimal.class.getName()).log(Level.SEVERE, null, ex);
                }
@@ -87,17 +95,19 @@ public class PanelAnimal extends PanelMae{
     
     public void limparPanelAnimal(){
         txtDataNascimento.setText("");
-        txtNomeAnimal.setText("");
-        
+        txtNomeAnimal.setText("");     
     }
     
     public Pet salvarPanelAnimal() throws ParseException{
         Pet pet = new Pet();
         Raca raca = cont.recuperarRacaDesc(cmbRacaAnimal.getSelectedItem().toString());
+        Proprietario prop = cont.recuperarProprietarioDesc(cmbProprietarioAnimal.getSelectedItem().toString());
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         pet.setDataNascimento(format.parse(txtDataNascimento.getText().toString()));
         pet.setDescricao(txtNomeAnimal.getText());
         pet.setIdPetRaca(raca);
+        pet.setIdPetProprietario(prop);
+        cont.salvarPet(pet);
         return pet;
     }
     

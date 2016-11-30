@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Usuario;
@@ -68,7 +69,9 @@ public class PanelFuncionario extends PanelMae{
         btnSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarPanelFuncionario();
+                if(salvarPanelFuncionario() != null){
+                    JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
+                }
             }
         });
         panelFuncionario.add(lblTitulo, genConstraint(0, 0, 1, 1));

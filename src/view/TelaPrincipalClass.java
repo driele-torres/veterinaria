@@ -16,6 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import model.Especie;
+import model.Proprietario;
 import model.Raca;
 
 public class TelaPrincipalClass extends JFrame{
@@ -81,8 +82,9 @@ public class TelaPrincipalClass extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 panelAnimal = new PanelAnimal();
                 List<Raca> allRacas = controller.recuperarRacas();
+                List<Proprietario> allProprietarios = controller.recuperarProprietarios();
                 panelPrincipal.removeAll();
-                panelPrincipal.add(panelAnimal.setPainelAnimal(allRacas));
+                panelPrincipal.add(panelAnimal.setPainelAnimal(allRacas, allProprietarios));
                 panelPrincipal.repaint();
                 panelPrincipal.revalidate();
             }

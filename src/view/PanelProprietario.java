@@ -1,5 +1,6 @@
 package view;
 
+import controller.VeterinariaController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -7,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Proprietario;
@@ -15,6 +17,7 @@ public class PanelProprietario extends PanelMae{
     private JPanel panelProprietario = new JPanel();
     private Font fonte = new Font("Serif", Font.PLAIN, 14);
     private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
+    private VeterinariaController cont = new VeterinariaController();
     
     private JLabel lblTitulo = new JLabel("Cadastro de Proprietários"); 
     JLabel lblNomeProprietario = new JLabel("Nome:");
@@ -53,7 +56,9 @@ public class PanelProprietario extends PanelMae{
         btnSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarPanelProprietario();
+                if(salvarPanelProprietario() != null){
+                    JOptionPane.showMessageDialog(null, "Proprietário salvo com sucesso!");
+                }
             }
         });
        
@@ -85,6 +90,7 @@ public class PanelProprietario extends PanelMae{
         prop.setEndereco(txtEnderecoProprietario.getText());
         prop.setNome(txtNomeProprietario.getText());
         prop.setTelefone(txtTelefoneProprietario.getText());
+        cont.salvarProprietario(prop);
         return prop;
     }
     

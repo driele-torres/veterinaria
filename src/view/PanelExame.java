@@ -1,5 +1,6 @@
 package view;
 
+import controller.VeterinariaController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -7,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Exame;
@@ -18,6 +20,7 @@ import model.Exame;
 public class PanelExame extends PanelMae{
     
     private JPanel panelExame = new JPanel();
+    private VeterinariaController cont = new VeterinariaController();
     private Font fonte = new Font("Serif", Font.PLAIN, 14);
     private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
     private JLabel lblTitulo = new JLabel("Cadastro de Exames");
@@ -49,7 +52,9 @@ public class PanelExame extends PanelMae{
         btnSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarPanelExame();
+                if(salvarPanelExame() != null){
+                    JOptionPane.showMessageDialog(null, "Exame cadastrado com sucesso!");
+                }
             }
         });
        
@@ -72,6 +77,7 @@ public class PanelExame extends PanelMae{
         Exame exame = new Exame();
         exame.setArea(txtAreaExame.getText());
         exame.setNome(txtNomeExame.getText());
+        cont.salvarExame(exame);
         return exame;
     } 
 }

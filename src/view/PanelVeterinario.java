@@ -1,5 +1,6 @@
 package view;
 
+import controller.VeterinariaController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -7,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Usuario;
@@ -21,6 +23,7 @@ public class PanelVeterinario extends PanelMae{
     private JPanel panelVeterinario = new JPanel();
     private Font fonte = new Font("Serif", Font.PLAIN, 14);
     private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
+    private VeterinariaController cont = new VeterinariaController();
     
     JLabel lblTitulo = new JLabel("Cadastro de Veterinário");
     JLabel lblNome = new JLabel("Nome:");
@@ -76,7 +79,9 @@ public class PanelVeterinario extends PanelMae{
         btnSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarPanelVet();
+                if(salvarPanelVet() != null){
+                    JOptionPane.showMessageDialog(null, "Veterinário(a) salvo com sucesso!");
+                }
             }
         });
         
@@ -126,6 +131,7 @@ public class PanelVeterinario extends PanelMae{
         vet.setCrv(txtCRV.getText());
         vet.setEspecialidade(txtEspecialidade.getText());
         vet.setIdVeterinarioUsuario(usuario);
+        cont.salvarVeterinario(vet);
         return vet;
     }
     

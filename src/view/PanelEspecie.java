@@ -1,5 +1,6 @@
 package view;
 
+import controller.VeterinariaController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -7,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Especie;
@@ -15,6 +17,7 @@ public class PanelEspecie extends PanelMae{
     private JPanel panelEspecie = new JPanel();
     private Font fonte = new Font("Serif", Font.PLAIN, 14);
     private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
+    private VeterinariaController cont = new VeterinariaController();
     
     private JLabel lblTitulo = new JLabel("Cadastro de Espécie");
     private JLabel lbldescricaoEspecie = new JLabel("Descrição da Espécie:");
@@ -45,7 +48,9 @@ public class PanelEspecie extends PanelMae{
         btnSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarPanelEspecie();
+                if(salvarPanelEspecie()!= null){
+                    JOptionPane.showMessageDialog(null, "Espécie salvo com sucesso!");
+                }
             }
         });
         
@@ -69,6 +74,7 @@ public class PanelEspecie extends PanelMae{
         Especie especie = new Especie();
         especie.setDescricao(txtdescricaoEspecie.getText());
         especie.setNomeCientifico(txtNomeEspecie.getText());
+        cont.salvarEspecie(especie);
         return especie;
     }
 }

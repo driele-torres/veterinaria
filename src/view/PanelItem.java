@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Exame;
@@ -62,7 +63,9 @@ public class PanelItem extends PanelMae{
         btnSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarPanelItem();
+                if(salvarPanelItem() != null){
+                    JOptionPane.showMessageDialog(null, "Item salvo com sucesso!");
+                }
             }
         });
         
@@ -90,6 +93,7 @@ public class PanelItem extends PanelMae{
         item.setNome(txtNomeItem.getText());
         item.setReferencia(txtReferencia.getText());
         item.setIdItemExame(exame);
+        cont.salvarItem(item);
         return item; 
     }
     

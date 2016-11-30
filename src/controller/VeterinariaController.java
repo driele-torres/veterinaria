@@ -2,16 +2,20 @@ package controller;
 
 import db.dao.EspecieDAO;
 import db.dao.ExameDAO;
+import db.dao.ItemDAO;
 import db.dao.PetDAO;
 import db.dao.ProprietarioDAO;
 import db.dao.RacaDAO;
+import db.dao.UsuarioDAO;
 import db.dao.VeterinarioDAO;
 import java.util.List;
 import model.Especie;
 import model.Exame;
+import model.Item;
 import model.Pet;
 import model.Proprietario;
 import model.Raca;
+import model.Usuario;
 import model.Veterinario;
 
 public class VeterinariaController {
@@ -21,6 +25,8 @@ public class VeterinariaController {
     private ProprietarioDAO proprietarioDao;
     private ExameDAO exameDao;
     private VeterinarioDAO veterinarioDao;
+    private UsuarioDAO usuarioDao;
+    private ItemDAO itemDao;
    
     public void salvarEspecie(Especie especie){
         especieDao.adiciona(especie);
@@ -30,8 +36,23 @@ public class VeterinariaController {
         racaDao.adiciona(raca);
     }
     
-    public void salvarVeterinario(Pet pet){
+    public void salvarPet(Pet pet){
         petDao.adiciona(pet);   
+    }
+    public void salvarExame(Exame exame){
+        exameDao.adiciona(exame);   
+    }
+    public void salvarUsuario(Usuario usuario){
+        usuarioDao.adiciona(usuario);   
+    }
+    public void salvarItem(Item item){
+        itemDao.adiciona(item);   
+    }
+    public void salvarProprietario(Proprietario prop){
+        proprietarioDao.adiciona(prop);   
+    }
+    public void salvarVeterinario(Veterinario veterinario){
+        veterinarioDao.adiciona(veterinario);   
     }
     
     public List<Especie> recuperarEspecies(){
@@ -48,6 +69,9 @@ public class VeterinariaController {
      
      public List<Pet> recuperarPets(){
          return petDao.procuraTodos();
+     }
+     public List<Proprietario> recuperarProprietarios(){
+         return proprietarioDao.procuraTodos();
      }
      
      public List<Veterinario> recuperarVeterinarios(){
