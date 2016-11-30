@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 30, 2016 1:53:31 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="veterinaria" name="model.Funcionario" optimistic-lock="version" table="funcionario">
+    <id name="idfuncionario" type="java.lang.Integer">
+      <column name="idfuncionario"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.Usuario" fetch="select" name="usuario">
+      <column name="id_funcionario_usuario"/>
+    </many-to-one>
+    <property name="funcao" type="java.lang.Integer">
+      <column name="funcao"/>
+    </property>
+  </class>
+</hibernate-mapping>

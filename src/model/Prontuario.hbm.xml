@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 30, 2016 1:53:31 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="veterinaria" name="model.Prontuario" optimistic-lock="version" table="prontuario">
+    <id name="idprontuario" type="java.lang.Integer">
+      <column name="idprontuario"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.Pet" fetch="select" name="pet">
+      <column name="id_prontuario_pet"/>
+    </many-to-one>
+    <many-to-one class="model.Veterinario" fetch="select" name="veterinario">
+      <column name="id_prontuario_veterinario"/>
+    </many-to-one>
+    <property name="data" type="date">
+      <column length="10" name="data"/>
+    </property>
+    <property name="observacao" type="string">
+      <column length="45" name="observacao"/>
+    </property>
+    <property name="realizado" type="java.lang.Boolean">
+      <column name="realizado"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="consultaExames" table="consulta_exame">
+      <key>
+        <column name="id_consulta_prontuario" not-null="true"/>
+      </key>
+      <one-to-many class="model.ConsultaExame"/>
+    </set>
+  </class>
+</hibernate-mapping>

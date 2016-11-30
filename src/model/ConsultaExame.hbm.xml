@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 30, 2016 1:53:31 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="veterinaria" name="model.ConsultaExame" optimistic-lock="version" table="consulta_exame">
+    <id name="idconsultaExame" type="java.lang.Integer">
+      <column name="idconsulta_exame"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.Exame" fetch="select" name="exame">
+      <column name="id_consulta_exame"/>
+    </many-to-one>
+    <many-to-one class="model.Prontuario" fetch="select" name="prontuario">
+      <column name="id_consulta_prontuario" not-null="true"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>

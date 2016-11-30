@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 30, 2016 1:53:31 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="veterinaria" name="model.Especie" optimistic-lock="version" table="especie">
+    <id name="idespecie" type="java.lang.Integer">
+      <column name="idespecie"/>
+      <generator class="identity"/>
+    </id>
+    <property name="descricao" type="string">
+      <column length="45" name="descricao"/>
+    </property>
+    <property name="nomeCientifico" type="string">
+      <column length="45" name="nome_cientifico"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="racas" table="raca">
+      <key>
+        <column name="id_raca_especie"/>
+      </key>
+      <one-to-many class="model.Raca"/>
+    </set>
+  </class>
+</hibernate-mapping>

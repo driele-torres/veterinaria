@@ -41,8 +41,8 @@ public class CriadorDeSessao
     private static SessionFactory sessionFactory;
     private static ServiceRegistry serviceRegistry;
 
-    static
-    {
+    public static void inicializar(){
+        if ((serviceRegistry == null)||(sessionFactory == null)){
         try
         {
             Configuration configuration = new Configuration().configure();
@@ -54,14 +54,17 @@ public class CriadorDeSessao
             System.err.println("Error creating Session: " + he);
             throw new ExceptionInInitializerError(he);
         }
+        }
     }
 
-    public static SessionFactory getSessionFactory()
-    {
-        return sessionFactory;
-    } 
+//    public static SessionFactory getSessionFactory()
+//    {
+//        inicializar();
+//        return sessionFactory;
+//    } 
     public static Session getSession()
     {
+        inicializar();
         return sessionFactory.openSession();
     } 
 }

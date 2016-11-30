@@ -20,7 +20,7 @@ USE `veterinaria` ;
 DROP TABLE IF EXISTS `veterinaria`.`proprietario` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`proprietario` (
-  `idproprietario` INT NOT NULL,
+  `idproprietario` INT NOT NULL auto_increment,
   `nome` VARCHAR(45) NULL,
   `endereco` VARCHAR(45) NULL,
   `telefone` VARCHAR(45) NULL,
@@ -34,7 +34,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `veterinaria`.`especie` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`especie` (
-  `idespecie` INT NOT NULL,
+  `idespecie` INT NOT NULL auto_increment,
   `descricao` VARCHAR(45) NULL,
   `nome_cientifico` VARCHAR(45) NULL,
   PRIMARY KEY (`idespecie`))
@@ -46,7 +46,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `veterinaria`.`raca` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`raca` (
-  `idraca` INT NOT NULL,
+  `idraca` INT NOT NULL auto_increment,
   `descricao` VARCHAR(45) NULL,
   `id_raca_especie` INT NULL,
   PRIMARY KEY (`idraca`),
@@ -66,7 +66,7 @@ CREATE INDEX `fk_especie_idx` ON `veterinaria`.`raca` (`id_raca_especie` ASC);
 DROP TABLE IF EXISTS `veterinaria`.`exame` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`exame` (
-  `idexame` INT NOT NULL,
+  `idexame` INT NOT NULL auto_increment ,
   `nome` VARCHAR(45) NULL,
   `area` VARCHAR(45) NULL,
   PRIMARY KEY (`idexame`))
@@ -78,7 +78,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `veterinaria`.`item` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`item` (
-  `iditem` INT NOT NULL,
+  `iditem` INT NOT NULL auto_increment,
   `nome` VARCHAR(45) NULL,
   `referencia` VARCHAR(45) NULL,
   `id_item_exame` INT NOT NULL,
@@ -101,7 +101,7 @@ CREATE INDEX `fk_exame_idx` ON `veterinaria`.`item` (`id_item_exame` ASC);
 DROP TABLE IF EXISTS `veterinaria`.`pet` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`pet` (
-  `idpet` INT NOT NULL,
+  `idpet` INT NOT NULL auto_increment,
   `descricao` VARCHAR(45) NULL,
   `data_nascimento` DATE NULL,
   `id_pet_raca` INT NOT NULL,
@@ -130,7 +130,7 @@ CREATE INDEX `fk_proprietario_idx` ON `veterinaria`.`pet` (`id_pet_proprietario`
 DROP TABLE IF EXISTS `veterinaria`.`grupo_acesso` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`grupo_acesso` (
-  `idgrupo_acesso` INT NOT NULL,
+  `idgrupo_acesso` INT NOT NULL auto_increment,
   `descricao` VARCHAR(45) NULL,
   PRIMARY KEY (`idgrupo_acesso`))
 ENGINE = InnoDB;
@@ -142,7 +142,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `veterinaria`.`usuario` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`usuario` (
-  `idusuario` INT NOT NULL,
+  `idusuario` INT NOT NULL auto_increment,
   `username` VARCHAR(45) NULL,
   `senha` VARCHAR(45) NULL,
   `id_usuario_grupo_acesso` INT NULL,
@@ -167,7 +167,7 @@ CREATE INDEX `fk_grupo_acesso_idx` ON `veterinaria`.`usuario` (`id_usuario_grupo
 DROP TABLE IF EXISTS `veterinaria`.`veterinario` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`veterinario` (
-  `idveterinario` INT NOT NULL,
+  `idveterinario` INT NOT NULL auto_increment,
   `id_veterinario_usuario` INT NULL,
   `crv` VARCHAR(45) NULL,
   `especialidade` VARCHAR(45) NULL,
@@ -188,7 +188,7 @@ CREATE INDEX `fk_usuario_idx` ON `veterinaria`.`veterinario` (`id_veterinario_us
 DROP TABLE IF EXISTS `veterinaria`.`prontuario` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`prontuario` (
-  `idprontuario` INT NOT NULL,
+  `idprontuario` INT NOT NULL auto_increment,
   `data` DATE NULL,
   `id_prontuario_veterinario` INT NULL,
   `id_prontuario_pet` INT NULL,
@@ -218,7 +218,7 @@ CREATE INDEX `fk_veterinario_idx` ON `veterinaria`.`prontuario` (`id_prontuario_
 DROP TABLE IF EXISTS `veterinaria`.`consulta_exame` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`consulta_exame` (
-  `idconsulta_exame` INT NOT NULL,
+  `idconsulta_exame` INT NOT NULL auto_increment,
   `id_consulta_prontuario` INT NOT NULL,
   `id_consulta_exame` INT NULL,
   PRIMARY KEY (`idconsulta_exame`),
@@ -245,7 +245,7 @@ CREATE INDEX `fk_protuario_idx` ON `veterinaria`.`consulta_exame` (`id_consulta_
 DROP TABLE IF EXISTS `veterinaria`.`resultado_item` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`resultado_item` (
-  `idresultado_item` INT NOT NULL,
+  `idresultado_item` INT NOT NULL auto_increment,
   `id_resultado_item` INT NOT NULL,
   PRIMARY KEY (`idresultado_item`),
   CONSTRAINT `fk_item`
@@ -264,7 +264,7 @@ CREATE INDEX `fk_item_idx` ON `veterinaria`.`resultado_item` (`id_resultado_item
 DROP TABLE IF EXISTS `veterinaria`.`funcionario` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`funcionario` (
-  `idfuncionario` INT NOT NULL,
+  `idfuncionario` INT NOT NULL auto_increment,
   `funcao` INT NULL,
   `id_funcionario_usuario` INT NULL,
   PRIMARY KEY (`idfuncionario`),
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`funcionario` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_funcionario_usuario_idx` ON `veterinaria`.`Funcionario` (`id_funcionario_usuario` ASC);
+CREATE INDEX `fk_funcionario_usuario_idx` ON `veterinaria`.`funcionario` (`id_funcionario_usuario` ASC);
 
 
 -- -----------------------------------------------------
@@ -284,7 +284,7 @@ CREATE INDEX `fk_funcionario_usuario_idx` ON `veterinaria`.`Funcionario` (`id_fu
 DROP TABLE IF EXISTS `veterinaria`.`tipo_acesso` ;
 
 CREATE TABLE IF NOT EXISTS `veterinaria`.`tipo_acesso` (
-  `idtipo_acesso` INT NOT NULL,
+  `idtipo_acesso` INT NOT NULL auto_increment,
   `rotina` VARCHAR(45) NULL,
   `id_tipo_grupo_acesso` INT NULL,
   PRIMARY KEY (`idtipo_acesso`),

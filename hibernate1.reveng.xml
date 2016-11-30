@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -39,41 +39,20 @@ made subject to such option by the copyright holder.
 
 Contributor(s):
 -->
-<hibernate-configuration>
-  <session-factory> 
-    <property name="hibernate.connection.autocommit">true</property>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/veterinaria?createDatabaseIfNotExist=true</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">gm123</property>
-    <!--
-   <mapping class="model.ConsultaExame"/>
-    <mapping class="model.Especie"/>
-    <mapping class="model.Exame"/>
-    <mapping class="model.Funcionario"/>
-    <mapping class="model.GrupoAcesso"/>
-    <mapping class="model.Item"/>
-    <mapping class="model.Pet"/>
-    <mapping class="model.Prontuario"/>
-    <mapping class="model.Proprietario"/>
-    <mapping class="model.Raca"/>
-    <mapping class="model.ResultadoItem"/>
-    <mapping class="model.Usuario"/>
-    <mapping class="model.Veterinario"/>
-    -->
-    <mapping resource="model/ConsultaExame.hbm.xml"/>
-    <mapping resource="model/ResultadoItem.hbm.xml"/>
-    <mapping resource="model/Prontuario.hbm.xml"/>
-    <mapping resource="model/Raca.hbm.xml"/>
-    <mapping resource="model/Proprietario.hbm.xml"/>
-    <mapping resource="model/Item.hbm.xml"/>
-    <mapping resource="model/GrupoAcesso.hbm.xml"/>
-    <mapping resource="model/Veterinario.hbm.xml"/>
-    <mapping resource="model/Usuario.hbm.xml"/>
-    <mapping resource="model/Especie.hbm.xml"/>
-    <mapping resource="model/Pet.hbm.xml"/>
-    <mapping resource="model/Exame.hbm.xml"/>
-    <mapping resource="model/Funcionario.hbm.xml"/>
-  </session-factory>
-</hibernate-configuration>
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="veterinaria"/>
+  <table-filter match-name="veterinario"/>
+  <table-filter match-name="proprietario"/>
+  <table-filter match-name="item"/>
+  <table-filter match-name="especie"/>
+  <table-filter match-name="funcionario"/>
+  <table-filter match-name="exame"/>
+  <table-filter match-name="grupo_acesso"/>
+  <table-filter match-name="tipo_acesso"/>
+  <table-filter match-name="consulta_exame"/>
+  <table-filter match-name="pet"/>
+  <table-filter match-name="raca"/>
+  <table-filter match-name="prontuario"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="resultado_item"/>
+</hibernate-reverse-engineering>
