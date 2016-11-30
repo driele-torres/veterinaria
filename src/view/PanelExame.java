@@ -74,6 +74,7 @@ public class PanelExame extends PanelMae{
         exame.setArea(txtAreaExame.getText());
         exame.setNome(txtNomeExame.getText());
         cont.salvarExame(exame);
+        limparPanelExame();
         return exame;
     } 
 }

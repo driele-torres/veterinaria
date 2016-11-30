@@ -110,6 +110,7 @@ public class PanelProntuario extends PanelMae{
 //        pront.setData(txtData.getText());
         pront.setObservacao(txtObservacao.getText());
 //        pront.setRealizado();
+        limparPanelProntuario();
         return pront;
     }
 }

@@ -110,6 +110,7 @@ public class PanelFuncionario extends PanelMae{
         usuario.setTelefone(txtTelefone.getText());
         usuario.setUsername(txtUser.getText());
         usuario.setSenha(txtSenha.getText());
+        limparPanelFuncionario();
         return usuario;
     }
  

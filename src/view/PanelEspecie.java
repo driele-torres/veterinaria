@@ -75,6 +75,7 @@ public class PanelEspecie extends PanelMae{
         especie.setDescricao(txtdescricaoEspecie.getText());
         especie.setNomeCientifico(txtNomeEspecie.getText());
         cont.salvarEspecie(especie);
+        limparPanelEspecie();
         return especie;
     }
 }

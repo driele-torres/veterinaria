@@ -93,6 +93,7 @@ public class PanelItem extends PanelMae{
         item.setNome(txtNomeItem.getText());
         item.setReferencia(txtReferencia.getText());
 //        item.setIdItemExame(exame);
+        limparPanelItem();
         cont.salvarItem(item);
         return item; 
     }

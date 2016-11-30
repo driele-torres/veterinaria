@@ -108,6 +108,7 @@ public class PanelAnimal extends PanelMae{
 //        pet.setIdPetRaca(raca);
 //        pet.setIdPetProprietario(prop);
         cont.salvarPet(pet);
+        limparPanelAnimal();
         return pet;
     }
     

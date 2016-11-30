@@ -59,7 +59,7 @@ public class PanelRaca extends PanelMae{
        
         for(Especie item: allEspecies){
            cmbnomeEspecie.addItem(item.getDescricao());
-       }
+        }
        panelRaca.add(lblTitulo, genConstraint(0, 0, 1, 1));
        panelRaca.add(lbldescricaoRaca, genConstraint(0, 1, 1, 1));
        panelRaca.add(txtdescricaoRaca, genConstraint(1, 1, 1, 1));
@@ -73,6 +73,7 @@ public class PanelRaca extends PanelMae{
      
     public void limparPanelRaca(){
         txtdescricaoRaca.setText("");
+        cmbnomeEspecie.setSelectedIndex(0);
     }
     
     public Raca salvarPanelRaca(){
@@ -82,6 +83,7 @@ public class PanelRaca extends PanelMae{
         raca.setDescricao(txtdescricaoRaca.getText());
 //        raca.setIdRacaEspecie(especie);
         cont.salvarRaca(raca);
+        limparPanelRaca();
         return raca;
     }
     

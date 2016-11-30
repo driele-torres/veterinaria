@@ -91,6 +91,7 @@ public class PanelProprietario extends PanelMae{
         prop.setNome(txtNomeProprietario.getText());
         prop.setTelefone(txtTelefoneProprietario.getText());
         cont.salvarProprietario(prop);
+        limparPanelProprietario();
         return prop;
     }
     
