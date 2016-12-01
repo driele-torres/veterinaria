@@ -5,6 +5,7 @@ import db.dao.EspecieDAO;
 import db.dao.ExameDAO;
 import db.dao.ItemDAO;
 import db.dao.PetDAO;
+import db.dao.ProntuarioDAO;
 import db.dao.ProprietarioDAO;
 import db.dao.RacaDAO;
 import db.dao.UsuarioDAO;
@@ -14,6 +15,7 @@ import model.Especie;
 import model.Exame;
 import model.Item;
 import model.Pet;
+import model.Prontuario;
 import model.Proprietario;
 import model.Raca;
 import model.Usuario;
@@ -24,6 +26,7 @@ public class VeterinariaController {
     private RacaDAO racaDao;
     private PetDAO petDao;
     private ProprietarioDAO proprietarioDao;
+    private ProntuarioDAO prontuarioDao;
     private ExameDAO exameDao;
     private VeterinarioDAO veterinarioDao;
     private UsuarioDAO usuarioDao;
@@ -38,6 +41,7 @@ public class VeterinariaController {
         veterinarioDao = new VeterinarioDAO(CriadorDeSessao.getSession());
         usuarioDao = new UsuarioDAO(CriadorDeSessao.getSession());
         itemDao = new ItemDAO(CriadorDeSessao.getSession());
+        prontuarioDao = new ProntuarioDAO(CriadorDeSessao.getSession());
     }
    
     public void salvarEspecie(Especie especie){
@@ -45,7 +49,7 @@ public class VeterinariaController {
     }
     
     public boolean salvarRaca(Raca raca){
-        if(racaDao.procuraRacaPorDescricao(raca.getDescricao()) != null){
+        if(racaDao.procuraRacaPorDescricao(raca.getDescricao()) == null){
             racaDao.adiciona(raca);
             return true;
         }
@@ -53,7 +57,7 @@ public class VeterinariaController {
     }   
     
     public boolean salvarPet(Pet pet){
-        if(petDao.procuraPetPorDescricao(pet.getDescricao()) != null){
+        if(petDao.procuraPetPorDescricao(pet.getDescricao()) == null){
             petDao.adiciona(pet);
             return true;
         }
@@ -61,14 +65,14 @@ public class VeterinariaController {
            
     }
     public boolean salvarExame(Exame exame){
-        if(exameDao.procuraExamePorNome(exame.getNome()) != null){
+        if(exameDao.procuraExamePorNome(exame.getNome()) == null){
            exameDao.adiciona(exame); 
            return true;
         }
         return false;
     }
     public boolean salvarUsuario(Usuario usuario){
-        if(usuarioDao.procuraUsuarioPorCPPF(usuario.getCpf()) != null){
+        if(usuarioDao.procuraUsuarioPorCPPF(usuario.getCpf()) == null){
             usuarioDao.adiciona(usuario);  
             return true;
         }
@@ -76,14 +80,14 @@ public class VeterinariaController {
          
     }
     public boolean salvarItem(Item item){
-        if(itemDao.procuraItemPorNome(item.getNome()) != null){
+        if(itemDao.procuraItemPorNome(item.getNome()) == null){
              itemDao.adiciona(item);
              return true;
         }
         return false;
     }
     public boolean salvarProprietario(Proprietario prop){
-        if(proprietarioDao.procuraProprietarioPorCPF(prop.getCpf()) != null){
+        if(proprietarioDao.procuraProprietarioPorCPF(prop.getCpf()) == null){
             proprietarioDao.adiciona(prop);  
             return true;
         }
@@ -91,7 +95,7 @@ public class VeterinariaController {
          
     }
     public boolean salvarVeterinario(Veterinario veterinario){
-        if(usuarioDao.procuraUsuarioPorCPPF(veterinario.getUsuario().getCpf()) != null){
+        if(usuarioDao.procuraUsuarioPorCPPF(veterinario.getUsuario().getCpf()) == null){
            veterinarioDao.adiciona(veterinario); 
            return true;
         }
@@ -133,6 +137,10 @@ public class VeterinariaController {
      
     public Proprietario recuperarProprietarioDesc(String descricao){
          return proprietarioDao.procuraProprietarioPorNome(descricao);
+    }
+    
+    public List<Prontuario> recuperarProntuarios(){
+         return prontuarioDao.procuraTodos();
     }
      
 }
