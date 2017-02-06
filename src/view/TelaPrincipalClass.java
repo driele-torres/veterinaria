@@ -31,6 +31,7 @@ public class TelaPrincipalClass extends JFrame{
     private PanelFuncionario panelFuncionario;
     private PanelProntuario panelProntuario;
     private PanelVeterinario panelVeterinario;
+    private PanelRelatorio panelRelatorio;
     private JPanel panelInicial;
     private JPanel panelPrincipal;
 
@@ -49,6 +50,17 @@ public class TelaPrincipalClass extends JFrame{
         // Define e adiciona dois menus drop down na barra de menus
         JMenu cadastrosMenu = new JMenu("Cadastros");
         JMenu relatoriosMenu = new JMenu("Relatórios");
+        
+           relatoriosMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelRelatorio = new PanelRelatorio();
+                panelPrincipal.removeAll();
+                panelPrincipal.add(panelRelatorio.setJTable(controller.recuperarProntuarios()));
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+            }
+        });
         menuVeterinaria.add(cadastrosMenu);
         menuVeterinaria.add(relatoriosMenu);
         
