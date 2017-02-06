@@ -63,13 +63,13 @@ public class PanelRaca extends PanelMae{
         for(Especie item: allEspecies){
            cmbnomeEspecie.addItem(item.getDescricao());
         }
-       panelRaca.add(lblTitulo, genConstraint(0, 0, 1, 1));
-       panelRaca.add(lbldescricaoRaca, genConstraint(0, 1, 1, 1));
-       panelRaca.add(txtdescricaoRaca, genConstraint(1, 1, 1, 1));
-       panelRaca.add(lblNomeEspecie, genConstraint(0, 2, 1, 1));
-       panelRaca.add(cmbnomeEspecie, genConstraint(1, 2, 1, 1));
-       panelRaca.add(btnLimpar, genConstraint(0, 3, 1, 1));
-       panelRaca.add(btnSalvar, genConstraint(1, 3, 1, 1));
+       panelRaca.add(lblTitulo, genConstraint(0, 1, 3, 3));
+       panelRaca.add(lbldescricaoRaca, genConstraint(0, 4, 1, 1));
+       panelRaca.add(txtdescricaoRaca, genConstraint(1, 4, 1, 1));
+       panelRaca.add(lblNomeEspecie, genConstraint(0, 5, 1, 1));
+       panelRaca.add(cmbnomeEspecie, genConstraint(1, 5, 1, 1));
+       panelRaca.add(btnLimpar, genConstraint(0, 6, 1, 1));
+       panelRaca.add(btnSalvar, genConstraint(1, 6, 1, 1));
 
        return panelRaca;  
     }

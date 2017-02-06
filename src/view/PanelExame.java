@@ -57,15 +57,15 @@ public class PanelExame extends PanelMae{
             }
         });
        
-        panelExame.add(lblTitulo, genConstraint(0, 0, 1, 1));
+        panelExame.add(lblTitulo, genConstraint(0, 1, 3, 3));
         
-        panelExame.add(lblNomeExame , genConstraint(0, 1, 1, 1));
-        panelExame.add(txtNomeExame, genConstraint(1, 1, 1, 1));
+        panelExame.add(lblNomeExame , genConstraint(0, 4, 1, 1));
+        panelExame.add(txtNomeExame, genConstraint(1, 4, 1, 1));
         
-        panelExame.add(lblAreaExame, genConstraint(0, 2, 1, 1));
-        panelExame.add(txtAreaExame, genConstraint(1, 2, 1, 1));
-        panelExame.add(btnLimpar, genConstraint(0, 3, 1, 1));
-        panelExame.add(btnSalvar, genConstraint(1, 3, 1, 1));
+        panelExame.add(lblAreaExame, genConstraint(0, 5, 1, 1));
+        panelExame.add(txtAreaExame, genConstraint(1, 5, 1, 1));
+        panelExame.add(btnLimpar, genConstraint(0, 6, 1, 1));
+        panelExame.add(btnSalvar, genConstraint(1, 6, 1, 1));
         
         return panelExame;
     }

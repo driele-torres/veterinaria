@@ -79,21 +79,21 @@ public class PanelFuncionario extends PanelMae{
                 }
             }
         });
-        panelFuncionario.add(lblTitulo, genConstraint(0, 0, 1, 1));
-        panelFuncionario.add(lblNome, genConstraint(0, 1, 1, 1));
-        panelFuncionario.add(txtNome, genConstraint(1, 1, 1, 1));
-        panelFuncionario.add(lblCPF, genConstraint(0, 2, 1, 1));
-        panelFuncionario.add(txtCPF, genConstraint(1, 2, 1, 1));
-        panelFuncionario.add(lblEndereco, genConstraint(0, 3, 1, 1));
-        panelFuncionario.add(txtEndereco, genConstraint(1, 3, 1, 1) );
-        panelFuncionario.add(lblTelefone, genConstraint(0, 4, 1, 1));
-        panelFuncionario.add(txtTelefone, genConstraint(1, 4, 1, 1));
-        panelFuncionario.add(lblUser, genConstraint(0, 5, 1, 1));
-        panelFuncionario.add(txtUser, genConstraint(1, 5, 1, 1));
-        panelFuncionario.add(lblSenha, genConstraint(0, 6, 1, 1));
-        panelFuncionario.add(txtSenha, genConstraint(1, 6, 1, 1));
-        panelFuncionario.add(btnLimpar, genConstraint(0, 7, 1, 1));
-        panelFuncionario.add(btnSalvar, genConstraint(1, 7, 1, 1));
+        panelFuncionario.add(lblTitulo, genConstraint(0, 1, 3, 3));
+        panelFuncionario.add(lblNome, genConstraint(0, 4, 1, 1));
+        panelFuncionario.add(txtNome, genConstraint(1, 4, 1, 1));
+        panelFuncionario.add(lblCPF, genConstraint(0, 5, 1, 1));
+        panelFuncionario.add(txtCPF, genConstraint(1, 5, 1, 1));
+        panelFuncionario.add(lblEndereco, genConstraint(0, 6, 1, 1));
+        panelFuncionario.add(txtEndereco, genConstraint(1, 6, 1, 1) );
+        panelFuncionario.add(lblTelefone, genConstraint(0, 7, 1, 1));
+        panelFuncionario.add(txtTelefone, genConstraint(1, 7, 1, 1));
+        panelFuncionario.add(lblUser, genConstraint(0, 8, 1, 1));
+        panelFuncionario.add(txtUser, genConstraint(1, 8, 1, 1));
+        panelFuncionario.add(lblSenha, genConstraint(0, 9, 1, 1));
+        panelFuncionario.add(txtSenha, genConstraint(1, 9, 1, 1));
+        panelFuncionario.add(btnLimpar, genConstraint(0, 10, 1, 1));
+        panelFuncionario.add(btnSalvar, genConstraint(1, 10, 1, 1));
         
         return panelFuncionario;
     }

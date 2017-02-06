@@ -72,15 +72,15 @@ public class PanelItem extends PanelMae{
             }
         });
         
-        panelItem.add(lblTitulo, genConstraint(0, 0, 1, 1));
-        panelItem.add(lblNomeItem, genConstraint(0, 1, 1, 1));
-        panelItem.add(txtNomeItem, genConstraint(1, 1, 1, 1));
-        panelItem.add(lblReferencia, genConstraint(0, 2, 1, 1));
-        panelItem.add(txtReferencia, genConstraint(1, 2, 1, 1));
-        panelItem.add(lblExame, genConstraint(0, 3, 1, 1));
-        panelItem.add(cmbExame, genConstraint(0, 3, 1, 1));
-        panelItem.add(btnLimpar, genConstraint(0, 4, 1, 1));
-        panelItem.add(btnSalvar, genConstraint(1, 4, 1, 1));
+        panelItem.add(lblTitulo, genConstraint(0, 1, 3, 3));
+        panelItem.add(lblNomeItem, genConstraint(0, 4, 1, 1));
+        panelItem.add(txtNomeItem, genConstraint(1, 4, 1, 1));
+        panelItem.add(lblReferencia, genConstraint(0, 5, 1, 1));
+        panelItem.add(txtReferencia, genConstraint(1, 5, 1, 1));
+        panelItem.add(lblExame, genConstraint(0, 6, 1, 1));
+        panelItem.add(cmbExame, genConstraint(0, 6, 1, 1));
+        panelItem.add(btnLimpar, genConstraint(0, 7, 1, 1));
+        panelItem.add(btnSalvar, genConstraint(1, 7, 1, 1));
         
         return panelItem;
     }

@@ -2,13 +2,16 @@ package view;
 
 import controller.VeterinariaController;
 import java.awt.Color;
+import static java.awt.Component.TOP_ALIGNMENT;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -54,117 +57,76 @@ public class TelaPrincipalClass extends JFrame{
            relatoriosMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelRelatorio = new PanelRelatorio();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelRelatorio.setJTable(controller.recuperarProntuarios()));
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+                clickedRelatorioMenu();
             }
         });
         menuVeterinaria.add(cadastrosMenu);
         menuVeterinaria.add(relatoriosMenu);
+        
         
         // Cria e adiciona um item simples para o menu
         JMenuItem especieAction = new JMenuItem("Espécie");
         especieAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelEspecie = new PanelEspecie();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelEspecie.setPainelEspecie());
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+               clickedEspecieMenu();
             }
         });
         JMenuItem racaAction = new JMenuItem("Raça");
         racaAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelRaca = new PanelRaca();
-                List<Especie> allEspecies = controller.recuperarEspecies();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelRaca.setPainelRaca(allEspecies));
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+                clickedRacaMenu();
             }
         });
         JMenuItem animalAction = new JMenuItem("Animal");
         animalAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelAnimal = new PanelAnimal();
-                List<Raca> allRacas = controller.recuperarRacas();
-                List<Proprietario> allProprietarios = controller.recuperarProprietarios();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelAnimal.setPainelAnimal(allRacas, allProprietarios));
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+                clickedAnimalMenu();
             }
         });        
         JMenuItem donoAction = new JMenuItem("Proprietário");
         donoAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelProprietario = new PanelProprietario();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelProprietario.setPanelProprietario());
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+                clickedDonoMenu();
+                
             }
         });
         JMenuItem itemAction = new JMenuItem("Item");
         itemAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelItem = new PanelItem();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelItem.setPanelItem(controller.recuperarExames()));
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+                clickedItemMenu();
             }
         });
         JMenuItem exameAction = new JMenuItem("Exame");
         exameAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelExame = new PanelExame();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelExame.setPanelExame());
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+                clickedExameMenu();
             }
         });
         JMenuItem funcionarioAction = new JMenuItem("Funcionário");
         funcionarioAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelFuncionario = new PanelFuncionario();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelFuncionario.setPanelFuncionario());
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+                clickedFuncionarioMenu();
             }
         });
         JMenuItem prontuarioAction = new JMenuItem("Prontuário");
         prontuarioAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelProntuario = new PanelProntuario();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelProntuario.setPanelProntuario(controller.recuperarVeterinarios(), controller.recuperarPets()));
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+                clickedProntuarioMenu();
             }
         });
         JMenuItem veterinarioAction = new JMenuItem("Veterinário");
         veterinarioAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelVeterinario = new PanelVeterinario();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelVeterinario.setPanelVeterinario());
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+                clickedVeterinarioMenu();
             }
         });
         
@@ -178,13 +140,24 @@ public class TelaPrincipalClass extends JFrame{
         cadastrosMenu.add(prontuarioAction);
         cadastrosMenu.add(veterinarioAction);
         
-        panelInicial = new JPanel();        
-        Font fonte = new Font("Serif", Font.PLAIN, 100);
+        JLabel lblIcone = new JLabel();
+        ImageIcon imagePrincipal = new ImageIcon(new ImageIcon("resources/animal-paw-print.png").getImage().
+                getScaledInstance(200, 200, Image.SCALE_DEFAULT));
+        lblIcone.setIcon(imagePrincipal);
+        lblIcone.setAlignmentX(TOP_ALIGNMENT);
+        panelInicial = new JPanel(); 
+        panelInicial.setLayout(new GridBagLayout());
+        Font fonte = new Font("Serif", Font.PLAIN, 50);
         JLabel labelClinica = new JLabel("Clínica Veterinária");
+        JLabel labelNome = new JLabel("Santa Luzia");
         
         labelClinica.setFont(fonte);
+        labelNome.setFont(fonte);
         labelClinica.setForeground(Color.DARK_GRAY);
-        panelInicial.add(labelClinica);
+        labelNome.setForeground(Color.DARK_GRAY);
+        panelInicial.add(lblIcone, genConstraint(0, 1, 4 , 4));
+        panelInicial.add(labelClinica, genConstraint(0, 5, 3, 3));
+        panelInicial.add(labelNome, genConstraint(0, 8, 3, 3));
         this.add(panelInicial, genConstraint(0, 0, 1, 1));       
         
         panelPrincipal.add(panelInicial);
@@ -200,4 +173,89 @@ public class TelaPrincipalClass extends JFrame{
         c.insets = new Insets(10, 10, 10, 10);
         return c;
      }
+      
+      public void clickedEspecieMenu(){
+           panelEspecie = new PanelEspecie();
+                panelPrincipal.removeAll();
+                panelPrincipal.add(panelEspecie.setPainelEspecie());
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+          
+      }
+      
+      public void clickedRelatorioMenu(){
+          panelRelatorio = new PanelRelatorio();
+          panelPrincipal.removeAll();
+          panelPrincipal.add(panelRelatorio.setJTable(controller.recuperarProntuarios()));
+          panelPrincipal.repaint();
+          panelPrincipal.revalidate();
+      }
+      
+      public void clickedRacaMenu(){
+          panelRaca = new PanelRaca();
+                List<Especie> allEspecies = controller.recuperarEspecies();
+                panelPrincipal.removeAll();
+                panelPrincipal.add(panelRaca.setPainelRaca(allEspecies));
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+      }
+      
+      public void clickedAnimalMenu(){
+                panelAnimal = new PanelAnimal();
+                List<Raca> allRacas = controller.recuperarRacas();
+                List<Proprietario> allProprietarios = controller.recuperarProprietarios();
+                panelPrincipal.removeAll();
+                panelPrincipal.add(panelAnimal.setPainelAnimal(allRacas, allProprietarios));
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+      }
+      
+      public void clickedDonoMenu(){
+          panelProprietario = new PanelProprietario();
+                panelPrincipal.removeAll();
+                panelPrincipal.add(panelProprietario.setPanelProprietario());
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+      }
+      
+      public void clickedItemMenu(){
+          panelItem = new PanelItem();
+                panelPrincipal.removeAll();
+                panelPrincipal.add(panelItem.setPanelItem(controller.recuperarExames()));
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+      }
+      
+      public void clickedExameMenu(){
+                      panelExame = new PanelExame();
+                panelPrincipal.removeAll();
+                panelPrincipal.add(panelExame.setPanelExame());
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+      }
+      
+      public void clickedFuncionarioMenu(){
+          panelFuncionario = new PanelFuncionario();
+                panelPrincipal.removeAll();
+                panelPrincipal.add(panelFuncionario.setPanelFuncionario());
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+      }
+              
+        public void clickedProntuarioMenu(){
+            panelProntuario = new PanelProntuario();
+          panelPrincipal.removeAll();
+          panelPrincipal.add(panelProntuario.setPanelProntuario(controller.recuperarVeterinarios(), controller.recuperarPets()));
+          panelPrincipal.repaint();
+          panelPrincipal.revalidate();
+        }
+        
+        public void clickedVeterinarioMenu(){
+                          panelVeterinario = new PanelVeterinario();
+                panelPrincipal.removeAll();
+                panelPrincipal.add(panelVeterinario.setPanelVeterinario());
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+                     }
+                              
 }

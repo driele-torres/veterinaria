@@ -12,7 +12,7 @@ public class Veterinaria {
             @Override
             public void run() {
                 TelaPrincipalClass telaPrincipal = new TelaPrincipalClass();
-                telaPrincipal.setBounds(20, 20, 1800, 1000);
+                telaPrincipal.setBounds(20, 20, 600, 600);
                 telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 JScrollPane scroll = new JScrollPane();
                 telaPrincipal.add(scroll);

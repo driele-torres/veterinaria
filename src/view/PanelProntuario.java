@@ -94,19 +94,19 @@ public class PanelProntuario extends PanelMae{
                 }
             }
         });
-        panelProntuario.add(lblTitulo, genConstraint(0, 0, 1, 1));
-        panelProntuario.add(lblData, genConstraint(0, 1, 1, 1));
-        panelProntuario.add(txtData, genConstraint(1, 1, 1, 1));
-        panelProntuario.add(lblAnimal, genConstraint(0, 2, 1, 1));
-        panelProntuario.add(cmbAnimal, genConstraint(1, 2, 1, 1));
-        panelProntuario.add(lblObservacao, genConstraint(0, 3, 1, 1));
-        panelProntuario.add(txtObservacao, genConstraint(1, 3, 1, 1));
-        panelProntuario.add(lblVeterinario, genConstraint(0, 4, 1, 1));
-        panelProntuario.add(cmbVeterinario, genConstraint(1, 4, 1, 1));
-        panelProntuario.add(lblRealizado, genConstraint(0, 5, 1, 1));
-        panelProntuario.add(cmbRealizado, genConstraint(1, 5, 1, 1));
-        panelProntuario.add(btnLimpar, genConstraint(0, 6, 1, 1));
-        panelProntuario.add(btnSalvar, genConstraint(1, 6, 1, 1));
+        panelProntuario.add(lblTitulo, genConstraint(0, 1, 3, 3));
+        panelProntuario.add(lblData, genConstraint(0, 4, 1, 1));
+        panelProntuario.add(txtData, genConstraint(1, 4, 1, 1));
+        panelProntuario.add(lblAnimal, genConstraint(0, 5, 1, 1));
+        panelProntuario.add(cmbAnimal, genConstraint(1, 5, 1, 1));
+        panelProntuario.add(lblObservacao, genConstraint(0, 6, 1, 1));
+        panelProntuario.add(txtObservacao, genConstraint(1, 6, 1, 1));
+        panelProntuario.add(lblVeterinario, genConstraint(0, 7, 1, 1));
+        panelProntuario.add(cmbVeterinario, genConstraint(1, 7, 1, 1));
+        panelProntuario.add(lblRealizado, genConstraint(0, 8, 1, 1));
+        panelProntuario.add(cmbRealizado, genConstraint(1, 8, 1, 1));
+        panelProntuario.add(btnLimpar, genConstraint(0, 9, 1, 1));
+        panelProntuario.add(btnSalvar, genConstraint(1, 9, 1, 1));
         
         return panelProntuario;
     }

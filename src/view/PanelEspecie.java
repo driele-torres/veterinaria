@@ -57,13 +57,13 @@ public class PanelEspecie extends PanelMae{
             }
         });
         
-        panelEspecie.add(lblTitulo, genConstraint(0, 0, 1, 1));
-        panelEspecie.add(lblNomeEspecie, genConstraint(0, 1, 1, 1));
-        panelEspecie.add(txtNomeEspecie, genConstraint(1, 1, 1, 1));
-        panelEspecie.add(lbldescricaoEspecie, genConstraint(0, 2, 1, 1));
-        panelEspecie.add(txtdescricaoEspecie, genConstraint(1, 2, 1, 1));
-        panelEspecie.add(btnLimpar, genConstraint(0, 3, 1, 1));
-        panelEspecie.add(btnSalvar, genConstraint(1, 3, 1, 1));
+        panelEspecie.add(lblTitulo, genConstraint(0, 1, 4, 4));
+        panelEspecie.add(lblNomeEspecie, genConstraint(0, 5, 1, 1));
+        panelEspecie.add(txtNomeEspecie, genConstraint(1, 5, 1, 1));
+        panelEspecie.add(lbldescricaoEspecie, genConstraint(0, 6, 1, 1));
+        panelEspecie.add(txtdescricaoEspecie, genConstraint(1, 6, 1, 1));
+        panelEspecie.add(btnLimpar, genConstraint(0, 7, 1, 1));
+        panelEspecie.add(btnSalvar, genConstraint(1, 7, 1, 1));
 
         return panelEspecie;
     }

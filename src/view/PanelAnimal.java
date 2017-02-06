@@ -83,19 +83,19 @@ public class PanelAnimal extends PanelMae{
                }
            }
        });
-       panelAnimal.add(lblTitulo, genConstraint(0, 0, 1, 1));
-       panelAnimal.add(lblNomeAnimal, genConstraint(0, 1, 1, 1));
-       panelAnimal.add(txtNomeAnimal, genConstraint(1, 1, 1, 1));
-       panelAnimal.add(lblDataNascimento, genConstraint(0, 2, 1, 1));
-       panelAnimal.add(txtDataNascimento, genConstraint(1, 2, 1, 1));
-       panelAnimal.add(lblRacaAnimal, genConstraint(0, 3, 1, 1));
-       panelAnimal.add(cmbRacaAnimal, genConstraint(1, 3, 1, 1));
+       panelAnimal.add(lblTitulo, genConstraint(0, 1, 3, 3));
+       panelAnimal.add(lblNomeAnimal, genConstraint(0, 4, 1, 1));
+       panelAnimal.add(txtNomeAnimal, genConstraint(1, 4, 1, 1));
+       panelAnimal.add(lblDataNascimento, genConstraint(0, 5, 1, 1));
+       panelAnimal.add(txtDataNascimento, genConstraint(1, 5, 1, 1));
+       panelAnimal.add(lblRacaAnimal, genConstraint(0, 6, 1, 1));
+       panelAnimal.add(cmbRacaAnimal, genConstraint(1, 6, 1, 1));
        
-       panelAnimal.add(lblProprietarioAnimal, genConstraint(0, 4, 1, 1));
-       panelAnimal.add(cmbProprietarioAnimal, genConstraint(1, 4, 1, 1));
+       panelAnimal.add(lblProprietarioAnimal, genConstraint(0, 7, 1, 1));
+       panelAnimal.add(cmbProprietarioAnimal, genConstraint(1, 7, 1, 1));
        
-       panelAnimal.add(btnLimpar, genConstraint(0, 5, 1, 1));
-       panelAnimal.add(btnSalvar, genConstraint(1, 5, 1, 1));
+       panelAnimal.add(btnLimpar, genConstraint(0, 8, 1, 1));
+       panelAnimal.add(btnSalvar, genConstraint(1, 8, 1, 1));
 
        return panelAnimal;
     }
