@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -17,10 +18,14 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Especie;
+import model.Exame;
+import model.Pet;
 import model.Proprietario;
 import model.Raca;
+import model.Veterinario;
 
 public class TelaPrincipalClass extends JFrame{
     private VeterinariaController controller = new VeterinariaController();
@@ -176,10 +181,10 @@ public class TelaPrincipalClass extends JFrame{
       
       public void clickedEspecieMenu(){
            panelEspecie = new PanelEspecie();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelEspecie.setPainelEspecie());
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+           panelPrincipal.removeAll();
+           panelPrincipal.add(panelEspecie.setPainelEspecie());
+           panelPrincipal.repaint();
+           panelPrincipal.revalidate();
           
       }
       
@@ -193,17 +198,32 @@ public class TelaPrincipalClass extends JFrame{
       
       public void clickedRacaMenu(){
           panelRaca = new PanelRaca();
-                List<Especie> allEspecies = controller.recuperarEspecies();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelRaca.setPainelRaca(allEspecies));
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+          List<Especie> allEspecies = new ArrayList<Especie>();
+          try{
+              allEspecies = controller.recuperarEspecies();
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null, "É necessário informar uma Espécie para cadastrar a Raça!");
+              clickedEspecieMenu();
+              return;
+          }
+          panelPrincipal.removeAll();
+          panelPrincipal.add(panelRaca.setPainelRaca(allEspecies));
+          panelPrincipal.repaint();
+          panelPrincipal.revalidate();
       }
       
       public void clickedAnimalMenu(){
                 panelAnimal = new PanelAnimal();
-                List<Raca> allRacas = controller.recuperarRacas();
-                List<Proprietario> allProprietarios = controller.recuperarProprietarios();
+                List<Raca> allRacas = new ArrayList<Raca>();
+                List<Proprietario> allProprietarios = new ArrayList<Proprietario>();
+                try{
+                    allRacas = controller.recuperarRacas();                
+                    allProprietarios = controller.recuperarProprietarios();
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "É necessário informar uma Raça e uma Espécie para cadastrar um Animal!"); 
+                    clickedEspecieMenu();
+                    return;
+                }
                 panelPrincipal.removeAll();
                 panelPrincipal.add(panelAnimal.setPainelAnimal(allRacas, allProprietarios));
                 panelPrincipal.repaint();
@@ -220,42 +240,61 @@ public class TelaPrincipalClass extends JFrame{
       
       public void clickedItemMenu(){
           panelItem = new PanelItem();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelItem.setPanelItem(controller.recuperarExames()));
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+          panelPrincipal.removeAll();
+          List<Exame> exames = new ArrayList<Exame>();
+          try{
+              exames = controller.recuperarExames();
+          }catch(Exception e){
+             JOptionPane.showMessageDialog(null, "É necessário informar um Exame para cadastrar um Item!"); 
+             clickedRacaMenu();
+             return; 
+          }
+          panelPrincipal.add(panelItem.setPanelItem(exames));
+          panelPrincipal.repaint();
+          panelPrincipal.revalidate();
       }
       
       public void clickedExameMenu(){
-                      panelExame = new PanelExame();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelExame.setPanelExame());
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+          panelExame = new PanelExame();
+          panelPrincipal.removeAll();
+          panelPrincipal.add(panelExame.setPanelExame());
+          panelPrincipal.repaint();
+          panelPrincipal.revalidate();
       }
       
       public void clickedFuncionarioMenu(){
           panelFuncionario = new PanelFuncionario();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelFuncionario.setPanelFuncionario());
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
+          panelPrincipal.removeAll();
+          panelPrincipal.add(panelFuncionario.setPanelFuncionario());
+          panelPrincipal.repaint();
+          panelPrincipal.revalidate();
       }
               
         public void clickedProntuarioMenu(){
-            panelProntuario = new PanelProntuario();
+            
+          panelProntuario = new PanelProntuario();
           panelPrincipal.removeAll();
-          panelPrincipal.add(panelProntuario.setPanelProntuario(controller.recuperarVeterinarios(), controller.recuperarPets()));
+          List<Pet> pets = new ArrayList<Pet>();
+          List<Veterinario> veterinarios = new ArrayList<Veterinario>();
+            try {
+                veterinarios = controller.recuperarVeterinarios(); 
+                pets = controller.recuperarPets();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "É necessário informar o Animal e o Veterinario para cadastrar um Prontuário!"); 
+                clickedVeterinarioMenu();
+                return;
+            }
+          panelPrincipal.add(panelProntuario.setPanelProntuario(veterinarios, pets));
           panelPrincipal.repaint();
           panelPrincipal.revalidate();
         }
         
         public void clickedVeterinarioMenu(){
-                          panelVeterinario = new PanelVeterinario();
-                panelPrincipal.removeAll();
-                panelPrincipal.add(panelVeterinario.setPanelVeterinario());
-                panelPrincipal.repaint();
-                panelPrincipal.revalidate();
-                     }
+            panelVeterinario = new PanelVeterinario();
+            panelPrincipal.removeAll();
+            panelPrincipal.add(panelVeterinario.setPanelVeterinario());
+            panelPrincipal.repaint();
+            panelPrincipal.revalidate();
+        }
                               
 }
