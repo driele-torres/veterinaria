@@ -10,6 +10,9 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -20,6 +23,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuKeyEvent;
+import javax.swing.event.MenuKeyListener;
+import javax.swing.event.MenuListener;
 import model.Especie;
 import model.Exame;
 import model.Pet;
@@ -42,6 +49,11 @@ public class TelaPrincipalClass extends JFrame{
     private PanelRelatorio panelRelatorio;
     private JPanel panelInicial;
     private JPanel panelPrincipal;
+    private JLabel lblIcone;
+    private ImageIcon imagePrincipal;
+    private JLabel labelClinica;
+    private JLabel labelNome;
+    private Font fonte;
 
     public TelaPrincipalClass(){
         String nome = "Consultório Veterinário";
@@ -56,18 +68,43 @@ public class TelaPrincipalClass extends JFrame{
         setJMenuBar(menuVeterinaria);
         
         // Define e adiciona dois menus drop down na barra de menus
+        JMenu inicioMenu = new JMenu("Início");
         JMenu cadastrosMenu = new JMenu("Cadastros");
         JMenu relatoriosMenu = new JMenu("Relatórios");
         
-           relatoriosMenu.addActionListener(new ActionListener() {
+        inicioMenu.addMenuListener(new MenuListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void menuSelected(MenuEvent e) {
+                clickedInicioMenu();
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+            }
+        });      
+
+        relatoriosMenu.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
                 clickedRelatorioMenu();
             }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+            }
         });
+        
+        menuVeterinaria.add(inicioMenu);
         menuVeterinaria.add(cadastrosMenu);
         menuVeterinaria.add(relatoriosMenu);
-        
         
         // Cria e adiciona um item simples para o menu
         JMenuItem especieAction = new JMenuItem("Espécie");
@@ -145,25 +182,7 @@ public class TelaPrincipalClass extends JFrame{
         cadastrosMenu.add(prontuarioAction);
         cadastrosMenu.add(veterinarioAction);
         
-        JLabel lblIcone = new JLabel();
-        ImageIcon imagePrincipal = new ImageIcon(new ImageIcon("resources/animal-paw-print.png").getImage().
-                getScaledInstance(200, 200, Image.SCALE_DEFAULT));
-        lblIcone.setIcon(imagePrincipal);
-        lblIcone.setAlignmentX(TOP_ALIGNMENT);
-        panelInicial = new JPanel(); 
-        panelInicial.setLayout(new GridBagLayout());
-        Font fonte = new Font("Serif", Font.PLAIN, 50);
-        JLabel labelClinica = new JLabel("Clínica Veterinária");
-        JLabel labelNome = new JLabel("Santa Luzia");
-        
-        labelClinica.setFont(fonte);
-        labelNome.setFont(fonte);
-        labelClinica.setForeground(Color.DARK_GRAY);
-        labelNome.setForeground(Color.DARK_GRAY);
-        panelInicial.add(lblIcone, genConstraint(0, 1, 4 , 4));
-        panelInicial.add(labelClinica, genConstraint(0, 5, 3, 3));
-        panelInicial.add(labelNome, genConstraint(0, 8, 3, 3));
-        this.add(panelInicial, genConstraint(0, 0, 1, 1));       
+        inicializaJPanelInicial();
         
         panelPrincipal.add(panelInicial);
         this.add(panelPrincipal);
@@ -296,5 +315,34 @@ public class TelaPrincipalClass extends JFrame{
             panelPrincipal.repaint();
             panelPrincipal.revalidate();
         }
-                              
+        
+        public void clickedInicioMenu(){
+            panelPrincipal.removeAll();
+            inicializaJPanelInicial();
+            panelPrincipal.add(panelInicial);
+            panelPrincipal.repaint();
+            panelPrincipal.revalidate();
+        }
+        
+        public void inicializaJPanelInicial(){
+            lblIcone = new JLabel();
+            imagePrincipal = new ImageIcon(new ImageIcon("resources/animal-paw-print.png").getImage().
+                    getScaledInstance(200, 200, Image.SCALE_DEFAULT));
+            lblIcone.setIcon(imagePrincipal);
+            lblIcone.setAlignmentX(TOP_ALIGNMENT);
+            panelInicial = new JPanel(); 
+            panelInicial.setLayout(new GridBagLayout());
+            fonte = new Font("Serif", Font.PLAIN, 50);
+            labelClinica = new JLabel("Clínica Veterinária");
+            labelNome = new JLabel("Santa Luzia");
+
+            labelClinica.setFont(fonte);
+            labelNome.setFont(fonte);
+            labelClinica.setForeground(Color.DARK_GRAY);
+            labelNome.setForeground(Color.DARK_GRAY);
+            panelInicial.add(lblIcone, genConstraint(0, 1, 4 , 4));
+            panelInicial.add(labelClinica, genConstraint(0, 5, 3, 3));
+            panelInicial.add(labelNome, genConstraint(0, 8, 3, 3));
+            this.add(panelInicial, genConstraint(0, 0, 1, 1));  
+        }
 }
