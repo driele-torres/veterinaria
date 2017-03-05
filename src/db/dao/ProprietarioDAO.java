@@ -18,5 +18,9 @@ public class ProprietarioDAO extends DAOHibernate<Proprietario>{
 		return (Proprietario) getSession().createQuery("from Proprietario u where u.cpf = :cpf")
 				.setParameter("cpf", cpf).uniqueResult();
 	}
+        public Proprietario procuraProprietarioPorID(Integer ID) {
+		return (Proprietario) getSession().createQuery("from Proprietario u where u.idproprietario= :id")
+				.setParameter("id", ID).uniqueResult();
+	}
         
 }

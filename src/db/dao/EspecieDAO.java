@@ -17,4 +17,8 @@ public class EspecieDAO extends DAOHibernate<Especie>{
 		return (Especie) getSession().createQuery("from Especie u where u.nomecientifico = :nomeCientifico")
 				.setParameter("nomeCientifico", nomeCientifico).uniqueResult();
 	}
+        public Especie procuraEspeciePorID(Integer ID){
+            return (Especie) getSession().createQuery("from Especie u where u.idespecie = :id")
+				.setParameter("id", ID).uniqueResult();
+        }
 }

@@ -107,10 +107,6 @@ public class Usuario  implements java.io.Serializable {
     public void setFuncionarios(Set funcionarios) {
         this.funcionarios = funcionarios;
     }
-
-
-
-
 }
 
 

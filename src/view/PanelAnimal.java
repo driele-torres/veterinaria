@@ -56,10 +56,10 @@ public class PanelAnimal extends PanelMae{
        cmbProprietarioAnimal.setPreferredSize(new Dimension(200, 24));
        
        for(Raca item: allRacas){
-           cmbRacaAnimal.addItem(item.getDescricao());
+           cmbRacaAnimal.addItem(new ComboItem(item.getIdraca(), item.getDescricao()));
        }
        for(Proprietario item : allProprietarios){
-           cmbProprietarioAnimal.addItem(item.getCpf());
+           cmbProprietarioAnimal.addItem(new ComboItem(item.getIdproprietario(), item.getCpf()));
        }
        
        btnLimpar.addActionListener(new ActionListener() {
@@ -107,13 +107,16 @@ public class PanelAnimal extends PanelMae{
     
     public Pet salvarPanelAnimal() throws ParseException{
         Pet pet = new Pet();
-        Raca raca = cont.recuperarRacaDesc(cmbRacaAnimal.getSelectedItem().toString());
-        Proprietario prop = cont.recuperarProprietarioDesc(cmbProprietarioAnimal.getSelectedItem().toString());
+        
+        ComboItem cb = (ComboItem) cmbRacaAnimal.getSelectedItem();
+        pet.setRaca(cont.recuperarRacaPorID(cb.getValue()));
+        
+        cb = (ComboItem) cmbProprietarioAnimal.getSelectedItem();
+        pet.setProprietario(cont.recuperarProprietarioID(cb.getValue()));
+        
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         pet.setDataNascimento(format.parse(txtDataNascimento.getText()));
         pet.setDescricao(txtNomeAnimal.getText());
-        pet.setRaca(raca);
-        pet.setProprietario(prop);
         if(cont.salvarPet(pet)){
         limparPanelAnimal();
             return pet;

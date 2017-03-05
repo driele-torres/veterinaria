@@ -10,7 +10,6 @@ import java.util.Set;
  */
 public class Especie  implements java.io.Serializable {
 
-
      private Integer idespecie;
      private String descricao;
      private String nomeCientifico;

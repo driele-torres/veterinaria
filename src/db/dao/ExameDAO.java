@@ -20,5 +20,12 @@ public class ExameDAO extends DAOHibernate<Exame>{
 		return (Exame) getSession().createQuery("from Exame u where u.area = :area")
 				.setParameter("area", area).uniqueResult();
 	}
+        
+        public Exame procuraExamePorID(Integer ID) {
+		return (Exame) getSession().createQuery("from Exame u where u.idexame = :id")
+				.setParameter("id", ID).uniqueResult();
+	}
+        
+        
 }
 

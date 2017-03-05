@@ -6,11 +6,13 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.GrupoAcesso;
 import model.Usuario;
 import model.Veterinario;
 
@@ -124,6 +126,7 @@ public class PanelVeterinario extends PanelMae{
     
     private Veterinario salvarPanelVet(){
         Veterinario vet = new Veterinario();
+        GrupoAcesso ga = cont.recuperarGrupoID(1);
         Usuario usuario = new Usuario();
         usuario.setCpf(txtCPF.getText());
         usuario.setEndereco(txtEndereco.getText());
@@ -131,6 +134,7 @@ public class PanelVeterinario extends PanelMae{
         usuario.setTelefone(txtTelefone.getText());
         usuario.setUsername(txtUser.getText());
         usuario.setSenha(txtSenha.getText());
+        usuario.setGrupoAcesso(ga);
         vet.setCrv(txtCRV.getText());
         vet.setEspecialidade(txtEspecialidade.getText());
         vet.setUsuario(usuario);

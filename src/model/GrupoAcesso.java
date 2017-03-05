@@ -10,7 +10,6 @@ import java.util.Set;
  */
 public class GrupoAcesso  implements java.io.Serializable {
 
-
      private Integer idgrupoAcesso;
      private String descricao;
      private Set usuarios = new HashSet(0);

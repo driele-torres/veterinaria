@@ -14,4 +14,9 @@ public class RacaDAO extends DAOHibernate<Raca>{
 		return (Raca) getSession().createQuery("from Raca u where u.descricao = :descricao")
 				.setParameter("descricao", descricao).uniqueResult();
 	}
+        
+        public Raca procuraRacaPorID(Integer ID) {
+		return (Raca) getSession().createQuery("from Raca u where u.idraca = :id")
+				.setParameter("id", ID).uniqueResult();
+	}
 }

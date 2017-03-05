@@ -50,7 +50,8 @@ public class PanelItem extends PanelMae{
         txtNomeItem.setPreferredSize(new Dimension(200, 24));
         txtReferencia.setPreferredSize(new Dimension(200, 24));
         for(Exame item: allExames){
-           cmbExame.addItem(item.getNome());
+            ComboItem cb = new ComboItem(item.getIdexame(), item.getNome());
+           cmbExame.addItem(cb);
         }
         
         btnLimpar.addActionListener(new ActionListener() {
@@ -78,7 +79,7 @@ public class PanelItem extends PanelMae{
         panelItem.add(lblReferencia, genConstraint(0, 5, 1, 1));
         panelItem.add(txtReferencia, genConstraint(1, 5, 1, 1));
         panelItem.add(lblExame, genConstraint(0, 6, 1, 1));
-        panelItem.add(cmbExame, genConstraint(0, 6, 1, 1));
+        panelItem.add(cmbExame, genConstraint(1, 6, 1, 1));
         panelItem.add(btnLimpar, genConstraint(0, 7, 1, 1));
         panelItem.add(btnSalvar, genConstraint(1, 7, 1, 1));
         
@@ -92,10 +93,10 @@ public class PanelItem extends PanelMae{
     
     public Item salvarPanelItem(){
         Item item = new Item();
-        Exame exame = cont.recuperarExameporDesc(cmbExame.getSelectedItem().toString());
+        ComboItem cb = (ComboItem) cmbExame.getSelectedItem();
+        item.setExame(cont.recuperarExameporID(cb.getValue()));
         item.setNome(txtNomeItem.getText());
         item.setReferencia(txtReferencia.getText());
-        item.setExame(exame);
         if(cont.salvarItem(item)){
             return item;
         }else{

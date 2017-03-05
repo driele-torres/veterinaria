@@ -3,6 +3,7 @@ package controller;
 import db.connection.CriadorDeSessao;
 import db.dao.EspecieDAO;
 import db.dao.ExameDAO;
+import db.dao.GrupoAcessoDAO;
 import db.dao.ItemDAO;
 import db.dao.PetDAO;
 import db.dao.ProntuarioDAO;
@@ -10,9 +11,11 @@ import db.dao.ProprietarioDAO;
 import db.dao.RacaDAO;
 import db.dao.UsuarioDAO;
 import db.dao.VeterinarioDAO;
+import db.dao.FuncionarioDAO;
 import java.util.List;
 import model.Especie;
 import model.Exame;
+import model.GrupoAcesso;
 import model.Item;
 import model.Pet;
 import model.Prontuario;
@@ -20,6 +23,7 @@ import model.Proprietario;
 import model.Raca;
 import model.Usuario;
 import model.Veterinario;
+import model.Funcionario;
 
 public class VeterinariaController {
     private EspecieDAO especieDao;
@@ -31,6 +35,8 @@ public class VeterinariaController {
     private VeterinarioDAO veterinarioDao;
     private UsuarioDAO usuarioDao;
     private ItemDAO itemDao;
+    private GrupoAcessoDAO grupoDAO;
+    private FuncionarioDAO funcionarioDAO;
     
     public VeterinariaController(){
         especieDao = new EspecieDAO(CriadorDeSessao.getSession());
@@ -42,6 +48,8 @@ public class VeterinariaController {
         usuarioDao = new UsuarioDAO(CriadorDeSessao.getSession());
         itemDao = new ItemDAO(CriadorDeSessao.getSession());
         prontuarioDao = new ProntuarioDAO(CriadorDeSessao.getSession());
+        grupoDAO = new GrupoAcessoDAO(CriadorDeSessao.getSession());
+        funcionarioDAO = new FuncionarioDAO(CriadorDeSessao.getSession());
     }
    
     public void salvarEspecie(Especie especie){
@@ -72,13 +80,22 @@ public class VeterinariaController {
         return false;
     }
     public boolean salvarUsuario(Usuario usuario){
-        if(usuarioDao.procuraUsuarioPorCPPF(usuario.getCpf()) == null){
-            usuarioDao.adiciona(usuario);  
+        if(usuarioDao.procuraUsuarioPorCPF(usuario.getCpf()) == null){
+            usuarioDao.adiciona(usuario);
             return true;
         }
-        return false;
-         
+        return false;    
     }
+    
+    public boolean salvarFuncionario(Funcionario funcionario){
+        if(usuarioDao.procuraUsuarioPorCPF(funcionario.getUsuario().getCpf()) == null){
+            if(salvarUsuario(funcionario.getUsuario()))
+                funcionarioDAO.adiciona(funcionario);
+            return true;
+        }
+        return false;   
+    }
+    
     public boolean salvarItem(Item item){
         if(itemDao.procuraItemPorNome(item.getNome()) == null){
              itemDao.adiciona(item);
@@ -86,6 +103,7 @@ public class VeterinariaController {
         }
         return false;
     }
+    
     public boolean salvarProprietario(Proprietario prop){
         if(proprietarioDao.procuraProprietarioPorCPF(prop.getCpf()) == null){
             proprietarioDao.adiciona(prop);  
@@ -94,9 +112,11 @@ public class VeterinariaController {
         return false;
          
     }
+    
     public boolean salvarVeterinario(Veterinario veterinario){
-        if(usuarioDao.procuraUsuarioPorCPPF(veterinario.getUsuario().getCpf()) == null){
-           veterinarioDao.adiciona(veterinario); 
+        if(usuarioDao.procuraUsuarioPorCPF(veterinario.getUsuario().getCpf()) == null){
+            salvarUsuario(veterinario.getUsuario());
+            veterinarioDao.adiciona(veterinario); 
            return true;
         }
         return false;         
@@ -131,16 +151,40 @@ public class VeterinariaController {
      public Exame recuperarExameporDesc(String descricao){
          return exameDao.procuraExamePorNome(descricao);
      }
+     
+     public Exame recuperarExameporID(Integer ID){
+         return exameDao.procuraExamePorID(ID);
+     }
+     
      public Raca recuperarRacaDesc(String descricao){
          return racaDao.procuraRacaPorDescricao(descricao);
+     }
+     
+     public Raca recuperarRacaPorID(Integer ID){
+         return racaDao.procuraPorID(ID);
      }
      
     public Proprietario recuperarProprietarioDesc(String descricao){
          return proprietarioDao.procuraProprietarioPorNome(descricao);
     }
     
+    public Proprietario recuperarProprietarioID(Integer ID){
+        return proprietarioDao.procuraPorID(ID);
+    }
+    
     public List<Prontuario> recuperarProntuarios(){
          return prontuarioDao.procuraTodos();
     }
-     
+    
+    public Especie recuperarEspeciePorID(Integer ID){
+        return especieDao.procuraEspeciePorID(ID);
+    }
+    
+    public List<GrupoAcesso> recuperarGrupos(){
+        return grupoDAO.procuraTodos();
+    }
+    
+    public GrupoAcesso recuperarGrupoID(Integer ID){
+        return grupoDAO.procuraPorID(ID);
+    }
 }

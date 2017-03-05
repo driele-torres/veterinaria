@@ -62,10 +62,6 @@ public class Veterinario  implements java.io.Serializable {
     public void setProntuarios(Set prontuarios) {
         this.prontuarios = prontuarios;
     }
-
-
-
-
 }
 
 

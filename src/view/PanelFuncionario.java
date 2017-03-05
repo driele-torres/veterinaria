@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.GrupoAcesso;
 import model.Usuario;
 
 /**
@@ -25,7 +26,7 @@ public class PanelFuncionario extends PanelMae{
     private Font fonte = new Font("Serif", Font.PLAIN, 14);
     private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
     
-    JLabel lblTitulo = new JLabel("Cadastro de Veterinário");
+    JLabel lblTitulo = new JLabel("Cadastro de Funcionario");
     JLabel lblNome = new JLabel("Nome:");
     JTextField txtNome = new JTextField();
     JLabel lblCPF = new JLabel("CPF:");
@@ -109,12 +110,14 @@ public class PanelFuncionario extends PanelMae{
     
     public Usuario salvarPanelFuncionario(){
         Usuario usuario = new Usuario();
+        GrupoAcesso ga = cont.recuperarGrupoID(2);
         usuario.setCpf(txtCPF.getText());
         usuario.setEndereco(txtEndereco.getText());
         usuario.setNome(txtNome.getText());
         usuario.setTelefone(txtTelefone.getText());
         usuario.setUsername(txtUser.getText());
         usuario.setSenha(txtSenha.getText());
+        usuario.setGrupoAcesso(ga);        
         if(cont.salvarUsuario(usuario)){
             return usuario;
         }
