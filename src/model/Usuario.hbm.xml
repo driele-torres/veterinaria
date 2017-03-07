@@ -28,17 +28,5 @@
     <property name="cpf" type="string">
       <column length="45" name="cpf"/>
     </property>
-<!--    <set fetch="select" inverse="true" lazy="true" name="veterinarios" table="veterinario">
-      <key>
-        <column name="id_veterinario_usuario"/>
-      </key>
-      <one-to-many class="model.Veterinario"/>
-    </set>
-    <set fetch="select" inverse="true" lazy="true" name="funcionarios" table="funcionario">
-      <key>
-        <column name="id_funcionario_usuario"/>
-      </key>
-      <one-to-many class="model.Funcionario"/>
-    </set>-->
   </class>
 </hibernate-mapping>

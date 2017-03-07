@@ -66,16 +66,19 @@ public class PanelProntuario extends PanelMae{
         cmbVeterinario.setPreferredSize(new Dimension(200, 24));
         cmbAnimal.addItem("Selecione");
         for(Veterinario item: allVeterinarios){
-           cmbVeterinario.addItem(item.getUsuario().getCpf());   
+            ComboItem cb = new ComboItem(item.getIdveterinario(), item.getUsuario().getCpf());
+           cmbVeterinario.addItem(cb);   
         }
         cmbRealizado.addItem("Selecione");
         for(Pet item: allPets){
-           cmbAnimal.addItem(item.getDescricao());
+            ComboItem cb = new ComboItem(item.getIdpet(), item.getDescricao());
+           cmbAnimal.addItem(cb);
         }
-        cmbVeterinario.addItem("Selecione");
-        for(Veterinario item: allVeterinarios){
-           cmbVeterinario.addItem(item.getUsuario().getCpf());
-        }
+//        cmbVeterinario.addItem("Selecione");
+//        for(Veterinario item: allVeterinarios){
+//            ComboItem cb = new ComboItem(item.getIdveterinario(), item.getUsuario().getCpf());
+//           cmbVeterinario.addItem(item.getUsuario().getCpf());
+//        }
         cmbRealizado.addItem("Sim");
         cmbRealizado.addItem("Não");
         
@@ -131,11 +134,18 @@ public class PanelProntuario extends PanelMae{
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         pront.setData(format.parse(txtData.getText()));
         pront.setObservacao(txtObservacao.getText());
+        ComboItem cb = (ComboItem) cmbAnimal.getSelectedItem();
+        pront.setPet(cont.recuperarPetID(cb.getValue()));
+        cb = (ComboItem) cmbVeterinario.getSelectedItem();
+        pront.setVeterinario(cont.recuperarVeterinarioID(cb.getValue()));
         if(cmbRealizado.getSelectedItem() == "Sim"){
             pront.setRealizado(true);
         }else{
             pront.setRealizado(false);
         }
-        return pront;
+        if(cont.salvarProntuario(pront))
+            return pront;
+        else
+            return null;
     }
 }

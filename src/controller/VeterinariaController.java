@@ -82,12 +82,14 @@ public class VeterinariaController {
     public boolean salvarUsuario(Usuario usuario){
         if(usuarioDao.procuraUsuarioPorCPF(usuario.getCpf()) == null){
             usuarioDao.adiciona(usuario);
-//            if(usuarioDao.getSession().isOpen()){
-//                usuarioDao.getSession().close()
-//            }
             return true;
         }
         return false;    
+    }
+    
+    public boolean salvarProntuario(Prontuario prontuario){
+        prontuarioDao.adiciona(prontuario);
+        return true;
     }
     
     public boolean salvarFuncionario(Funcionario funcionario){
@@ -189,5 +191,13 @@ public class VeterinariaController {
     
     public GrupoAcesso recuperarGrupoID(Integer ID){
         return grupoDAO.procuraPorID(ID);
+    }
+    
+    public Pet recuperarPetID(Integer ID){
+        return petDao.procuraPorID(ID);
+    }
+    
+    public Veterinario recuperarVeterinarioID(Integer ID){
+        return veterinarioDao.procuraPorID(ID);
     }
 }

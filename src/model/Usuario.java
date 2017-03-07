@@ -19,8 +19,6 @@ public class Usuario  implements java.io.Serializable {
      private String endereco;
      private String telefone;
      private String cpf;
-//     private Set veterinarios = new HashSet(0);
-//     private Set funcionarios = new HashSet(0);
 
     public Usuario() {
     }
@@ -33,8 +31,6 @@ public class Usuario  implements java.io.Serializable {
        this.endereco = endereco;
        this.telefone = telefone;
        this.cpf = cpf;
-//       this.veterinarios = veterinarios;
-//       this.funcionarios = funcionarios;
     }
    
     public Integer getIdusuario() {
@@ -93,20 +89,6 @@ public class Usuario  implements java.io.Serializable {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-//    public Set getVeterinarios() {
-//        return this.veterinarios;
-//    }
-//    
-//    public void setVeterinarios(Set veterinarios) {
-//        this.veterinarios = veterinarios;
-//    }
-//    public Set getFuncionarios() {
-//        return this.funcionarios;
-//    }
-//    
-//    public void setFuncionarios(Set funcionarios) {
-//        this.funcionarios = funcionarios;
-//    }
 }
 
 

@@ -3,15 +3,18 @@ package view;
 import controller.VeterinariaController;
 import java.awt.BorderLayout;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.GeradorPDF;
 import model.Prontuario;
 
 public class PanelRelatorio extends PanelMae{
         private JPanel painelFundo;
 	private JTable tabela;
+        private JButton btnPDF = new JButton("Exportar para PDF");
 	private JScrollPane barraRolagem;
         private VeterinariaController cont;
 	private DefaultTableModel modelo = new DefaultTableModel(); 
@@ -38,7 +41,6 @@ public class PanelRelatorio extends PanelMae{
                 for (Prontuario c : allProntuarios) {
 			modelo.addRow(new Object[]{c.getIdprontuario(), c.getPet().getDescricao(), c.getVeterinario().getUsuario().getNome(), c.getData().toString(),c.getObservacao(), c.getRealizado()?"Realizado":"Nao Realizado"});
 		}
-                
                 
 		barraRolagem = new JScrollPane(tabela);
 		painelFundo = new JPanel();

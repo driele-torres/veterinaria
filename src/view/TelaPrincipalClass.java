@@ -11,6 +11,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -23,14 +24,10 @@ import javax.swing.JPanel;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import model.Especie;
-import model.Exame;
-import model.Pet;
-import model.Proprietario;
-import model.Raca;
-import model.Veterinario;
+import model.GeradorPDF;
+
 
 public class TelaPrincipalClass extends JFrame{
-//    private VeterinariaController controller = new VeterinariaController();
     
     private PanelEspecie panelEspecie;
     private PanelRaca panelRaca;
@@ -71,21 +68,6 @@ public class TelaPrincipalClass extends JFrame{
             @Override
             public void menuSelected(MenuEvent e) {
                 clickedInicioMenu();
-            }
-            
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-            
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
-        });
-        
-        relatoriosMenu.addMenuListener(new MenuListener() {
-            @Override
-            public void menuSelected(MenuEvent e) {
-                clickedRelatorioMenu();
             }
             
             @Override
@@ -176,6 +158,24 @@ public class TelaPrincipalClass extends JFrame{
         cadastrosMenu.add(funcionarioAction);
         cadastrosMenu.add(prontuarioAction);
         cadastrosMenu.add(veterinarioAction);
+        
+        JMenuItem visualizarRelatorio = new JMenuItem("Visualizar Relatorio");
+        visualizarRelatorio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                clickedRelatorioMenu();
+            }
+        });
+        
+        JMenuItem exportarPDF = new JMenuItem("Imprimir relatorio em PDF");
+        exportarPDF.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                clickedCriarPDF();
+            }
+        });
+        relatoriosMenu.add(visualizarRelatorio);
+        relatoriosMenu.add(exportarPDF);
         
         inicializaJPanelInicial();
         
@@ -312,6 +312,13 @@ public class TelaPrincipalClass extends JFrame{
         panelPrincipal.add(panelInicial);
         panelPrincipal.repaint();
         panelPrincipal.revalidate();
+    }
+    
+    public void clickedCriarPDF(){
+        VeterinariaController cont = new VeterinariaController();
+        GeradorPDF gerador = new GeradorPDF();
+        gerador.gerarPDF(cont.recuperarProntuarios());
+        JOptionPane.showMessageDialog(null, "Relatorio Gerado com Sucesso! Salvo em: " + System.getProperty("user.home")+ "/RelatorioProntuario"+ new Date().toString());
     }
     
     public void inicializaJPanelInicial(){
