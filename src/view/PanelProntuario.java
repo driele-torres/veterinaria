@@ -1,5 +1,6 @@
 package view;
 
+import controller.VeterinariaController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -25,6 +26,7 @@ public class PanelProntuario extends PanelMae{
     private JPanel panelProntuario = new JPanel();
     private Font fonte = new Font("Serif", Font.PLAIN, 14);
     private Font fonteTitle = new Font("Serif", Font.BOLD, 20);
+    private VeterinariaController cont = new VeterinariaController();
     
     JLabel lblTitulo = new JLabel("Cadastro de Prontuário");
     JLabel lblData = new JLabel("Data de realização:");
@@ -41,7 +43,12 @@ public class PanelProntuario extends PanelMae{
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
     
-    public JPanel setPanelProntuario(List<Veterinario> allVeterinarios, List<Pet> allPets){
+    public JPanel setPanelProntuario(){
+        List<Veterinario> allVeterinarios = cont.recuperarVeterinarios();
+        List<Pet> allPets = cont.recuperarPets();
+        if(allPets.size() < 0 && allVeterinarios.size() < 0){
+            return null;
+        }
         
         panelProntuario.setLayout(layout);
         

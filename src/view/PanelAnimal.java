@@ -42,7 +42,12 @@ public class PanelAnimal extends PanelMae{
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
     
-    public JPanel setPainelAnimal(List<Raca> allRacas, List<Proprietario> allProprietarios){
+    public JPanel setPainelAnimal(){
+        List<Raca> allRacas = cont.recuperarRacas();
+        List<Proprietario> allProprietarios = cont.recuperarProprietarios();
+        if(allProprietarios.size() < 0 && allRacas.size() < 0){
+            return null;
+        }
        panelAnimal.setLayout(layout);
        
        lblDataNascimento.setFont(fonte);

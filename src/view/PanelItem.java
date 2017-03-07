@@ -39,7 +39,11 @@ public class PanelItem extends PanelMae{
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
      
-    public JPanel setPanelItem(List<Exame> allExames){
+    public JPanel setPanelItem(){
+        List<Exame> allExames = cont.recuperarExames();
+        if(allExames.size() < 0){
+            return null;
+        }
         panelItem.setLayout(layout);
         
         lblExame.setFont(fonte);

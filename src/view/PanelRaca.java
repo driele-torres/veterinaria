@@ -32,7 +32,11 @@ public class PanelRaca extends PanelMae{
     private GridBagLayout layout = new GridBagLayout();
     
     
-     public JPanel setPainelRaca(List<Especie> allEspecies){  
+     public JPanel setPainelRaca(){  
+         List<Especie> allEspecies = cont.recuperarEspecies();
+         if(allEspecies.size() < 0){
+             return null;
+         }
         panelRaca.setLayout(layout);
         lblNomeEspecie.setFont(fonte);
         lbldescricaoRaca.setFont(fonte);

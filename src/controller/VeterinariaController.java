@@ -82,6 +82,9 @@ public class VeterinariaController {
     public boolean salvarUsuario(Usuario usuario){
         if(usuarioDao.procuraUsuarioPorCPF(usuario.getCpf()) == null){
             usuarioDao.adiciona(usuario);
+//            if(usuarioDao.getSession().isOpen()){
+//                usuarioDao.getSession().close()
+//            }
             return true;
         }
         return false;    

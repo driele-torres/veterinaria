@@ -29,6 +29,14 @@ public class CriadorDeSessao
     public static Session getSession()
     {
         inicializar();
-        return sessionFactory.openSession();
-    } 
+        try{
+            if(sessionFactory.getCurrentSession().isConnected()){
+                return sessionFactory.getCurrentSession();
+            }
+            return sessionFactory.openSession();
+        }catch(HibernateException ex){
+            return sessionFactory.openSession();
+        }
+//        return sessionFactory.openSession();
+    }
 }

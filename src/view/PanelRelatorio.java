@@ -1,5 +1,6 @@
 package view;
 
+import controller.VeterinariaController;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JPanel;
@@ -12,9 +13,15 @@ public class PanelRelatorio extends PanelMae{
         private JPanel painelFundo;
 	private JTable tabela;
 	private JScrollPane barraRolagem;
+        private VeterinariaController cont;
 	private DefaultTableModel modelo = new DefaultTableModel(); 
         
-        public JPanel setJTable(List<Prontuario> allProntuarios) {	
+        public PanelRelatorio(){
+            cont = new VeterinariaController();
+        }
+        
+        public JPanel setJTable() {	
+            List<Prontuario> allProntuarios = cont.recuperarProntuarios();
             tabela = new JTable(modelo);
                 modelo.addColumn("ID");
 		modelo.addColumn("NOME PET");
