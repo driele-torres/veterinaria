@@ -1,6 +1,7 @@
 package view;
 
 import controller.VeterinariaController;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -11,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -23,7 +25,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.Pet;
-import model.Prontuario;
 import model.Proprietario;
 import model.Raca;
 
@@ -46,9 +47,15 @@ public class PanelAnimal extends PanelMae{
     private JButton btnLimpar = new JButton("Limpar");
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
-    private DefaultTableModel modelo = new DefaultTableModel(); 
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }; 
     private JTable table = new JTable(modelo);
     private JScrollPane barraRolagem;
+    private Map <Integer, Pet>  animalTable;
 
     
     public JPanel setPainelAnimal(){
@@ -138,8 +145,7 @@ public class PanelAnimal extends PanelMae{
         return null;
     }
     
-    public void setPanelPesquisarAnimal(){
-
+    public JPanel setPanelPesquisarAnimal(){
         panelAnimal.setLayout(layout);
         JLabel lblTitle = new JLabel("Consulta Animal");
         JLabel lblNome = new JLabel("Digite o nome do Animal: ");
@@ -151,8 +157,29 @@ public class PanelAnimal extends PanelMae{
         btnPesquisar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<Pet> pets = new ArrayList<Pet>();
-                String nome = lblNomeAnimal.getText();
+               clickedBtnPesquisar();
+            }
+        });
+        
+        btnEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                clickedBtnEditar();
+            }
+        });
+        panelAnimal.add(lblTitle, genConstraint(0, 1, 3, 3));
+       panelAnimal.add(lblNome, genConstraint(0, 4, 1, 1));
+       panelAnimal.add(txtNomeAnimal, genConstraint(1, 4, 2, 1));
+       panelAnimal.add(barraRolagem,genConstraint(0, 6, 1, 1));
+       panelAnimal.add(btnPesquisar, genConstraint(0, 7, 1, 1));
+       panelAnimal.add(btnEditar, genConstraint(1, 7, 1, 1));
+       return panelAnimal;
+    }    
+    
+    
+    public void clickedBtnPesquisar(){
+        List<Pet> pets = new ArrayList<Pet>();
+        String nome = txtNomeAnimal.getText();
                 if(nome == ""){
                    pets = cont.recuperarPets();
                 }else{
@@ -169,14 +196,36 @@ public class PanelAnimal extends PanelMae{
 		table.getColumnModel().getColumn(1).setPreferredWidth(80);
 		table.getColumnModel().getColumn(1).setPreferredWidth(120);
 		modelo.setNumRows(0);
-                for (Pet p: pets) {
-			modelo.addRow(new Object[]{p.getIdpet(), p.getDescricao(), p.getProprietario().getNome(), p.getRaca().getDescricao(),
-                            p.getDataNascimento().toString()});
+                for (int i = 0; i < pets.size(); i++) {
+			modelo.addRow(new Object[]{pets.get(i).getIdpet(), pets.get(i).getDescricao(), pets.get(i).getProprietario().getNome(), pets.get(i).getRaca().getDescricao(),
+                            pets.get(i).getDataNascimento().toString()});
+                        animalTable.put(modelo.getRowCount(), pets.get(i));
 		}
-                
-                barraRolagem = new JScrollPane(table);  
-            }
-        });
+                barraRolagem = new JScrollPane(table);
     }
     
+    public void clickedBtnEditar(){
+        Integer row = table.getSelectedRow();
+        Pet pet = animalTable.get(row);
+        JPanel panel = setPainelAnimal();
+        txtNomeAnimal.setText(pet.getDescricao());
+        txtDataNascimento.setText(pet.getDataNascimento().toString());
+        
+        for(int i = 0; i < cmbRacaAnimal.getItemCount(); i++){
+            ComboItem item = (ComboItem) cmbRacaAnimal.getItemAt(i);
+            if(pet.getRaca().getIdraca().equals(item.getValue())){
+                cmbRacaAnimal.setSelectedItem(i);
+                break;
+            }
+        }
+        
+        for(int i = 0; i < cmbProprietarioAnimal.getItemCount(); i++){
+            ComboItem item = (ComboItem) cmbProprietarioAnimal.getItemAt(i);
+            if(pet.getProprietario().getIdproprietario().equals(item.getValue())){
+                cmbProprietarioAnimal.setSelectedItem(i);
+                break;
+            }
+        }
+        TelaLogin.telaPrincipal.setJPanel(panel);
+    }
 }

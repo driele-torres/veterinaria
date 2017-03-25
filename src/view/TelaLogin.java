@@ -28,6 +28,7 @@ public class TelaLogin extends JFrame{
     JPasswordField password = new JPasswordField(10);
     JPanel panel;
     private boolean click = false;
+    public static final TelaPrincipalClass telaPrincipal = new TelaPrincipalClass();
     
     public TelaLogin(){
         inicializar();
@@ -78,7 +79,7 @@ public class TelaLogin extends JFrame{
     }
     
     public void clickedLogin(){
-        TelaPrincipalClass telaPrincipal = new TelaPrincipalClass();
+        TelaPrincipalClass telaPrincipal = TelaLogin.telaPrincipal;
         telaPrincipal.setBounds(20, 20, 600, 600);
         telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JScrollPane scroll = new JScrollPane();

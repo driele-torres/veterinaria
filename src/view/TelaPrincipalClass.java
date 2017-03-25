@@ -62,6 +62,7 @@ public class TelaPrincipalClass extends JFrame{
         // Define e adiciona dois menus drop down na barra de menus
         JMenu inicioMenu = new JMenu("Início");
         JMenu cadastrosMenu = new JMenu("Cadastros");
+        JMenu pesquisaMenu = new JMenu("Pesquisa");
         JMenu relatoriosMenu = new JMenu("Relatórios");
         
         inicioMenu.addMenuListener(new MenuListener() {
@@ -82,8 +83,18 @@ public class TelaPrincipalClass extends JFrame{
         menuVeterinaria.add(inicioMenu);
         menuVeterinaria.add(cadastrosMenu);
         menuVeterinaria.add(relatoriosMenu);
+        menuVeterinaria.add(pesquisaMenu);
         
         // Cria e adiciona um item simples para o menu
+        
+        JMenuItem animalPesquisa = new JMenuItem("Animal");
+        animalPesquisa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                clickedAnimalPesquisaMenu();
+            }
+        });
+        pesquisaMenu.add(animalPesquisa);
         JMenuItem especieAction = new JMenuItem("Espécie");
         especieAction.addActionListener(new ActionListener() {
             @Override
@@ -342,4 +353,20 @@ public class TelaPrincipalClass extends JFrame{
         panelInicial.add(labelNome, genConstraint(0, 8, 3, 3));
         this.add(panelInicial, genConstraint(0, 0, 1, 1));
     }
+    
+    public void setJPanel(JPanel panel){
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panel);
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
+    public void clickedAnimalPesquisaMenu(){
+        panelAnimal = new PanelAnimal();
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelAnimal.setPanelPesquisarAnimal());
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
 }
