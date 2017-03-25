@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +18,12 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import model.Pet;
+import model.Prontuario;
 import model.Proprietario;
 import model.Raca;
 
@@ -41,6 +46,10 @@ public class PanelAnimal extends PanelMae{
     private JButton btnLimpar = new JButton("Limpar");
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
+    private DefaultTableModel modelo = new DefaultTableModel(); 
+    private JTable table = new JTable(modelo);
+    private JScrollPane barraRolagem;
+
     
     public JPanel setPainelAnimal(){
         List<Raca> allRacas = cont.recuperarRacas();
@@ -127,6 +136,47 @@ public class PanelAnimal extends PanelMae{
             return pet;
         }
         return null;
+    }
+    
+    public void setPanelPesquisarAnimal(){
+
+        panelAnimal.setLayout(layout);
+        JLabel lblTitle = new JLabel("Consulta Animal");
+        JLabel lblNome = new JLabel("Digite o nome do Animal: ");
+        lblTitle.setFont(fonteTitle);
+        lblNome.setFont(fonte);
+        JButton btnPesquisar = new JButton("Pesquisar");
+        JButton btnEditar = new JButton("Editar");
+        
+        btnPesquisar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<Pet> pets = new ArrayList<Pet>();
+                String nome = lblNomeAnimal.getText();
+                if(nome == ""){
+                   pets = cont.recuperarPets();
+                }else{
+                    pets = cont.recuperarPets(); //TODO LIKE NO BANCO
+                }
+                modelo.addColumn("ID");
+		modelo.addColumn("NOME PET");
+		modelo.addColumn("NOME PROPRIETÁRIO");
+		modelo.addColumn("RAÇA");
+		modelo.addColumn("DATA NASCIMENTO");
+                
+                table.getColumnModel().getColumn(0).setPreferredWidth(10);
+		table.getColumnModel().getColumn(1).setPreferredWidth(120);
+		table.getColumnModel().getColumn(1).setPreferredWidth(80);
+		table.getColumnModel().getColumn(1).setPreferredWidth(120);
+		modelo.setNumRows(0);
+                for (Pet p: pets) {
+			modelo.addRow(new Object[]{p.getIdpet(), p.getDescricao(), p.getProprietario().getNome(), p.getRaca().getDescricao(),
+                            p.getDataNascimento().toString()});
+		}
+                
+                barraRolagem = new JScrollPane(table);  
+            }
+        });
     }
     
 }
