@@ -143,8 +143,8 @@ public class VeterinariaController {
          return petDao.procuraTodos();
      }
      
-     public List<Pet> recuperarPetPorRaca(Raca raca){
-         return null; //TODO
+     public List<Pet> recuperarPetsPorDescricao(String descricao){
+         return petDao.procuraPetsPorDescricao(descricao);
      }
      public List<Proprietario> recuperarProprietarios(){
          return proprietarioDao.procuraTodos();

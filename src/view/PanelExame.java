@@ -87,4 +87,10 @@ public class PanelExame extends PanelMae{
         }
         
     } 
+    
+    public JPanel setPanelPesquisarExame(){
+        return panelExame;
+    }
+    
+    
 }

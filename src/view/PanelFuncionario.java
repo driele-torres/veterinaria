@@ -123,5 +123,9 @@ public class PanelFuncionario extends PanelMae{
         }
         return null;
     }
+    
+    public JPanel setPanelPesquisarFuncionario(){
+        return panelFuncionario;
+    }
  
 }

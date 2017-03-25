@@ -97,4 +97,8 @@ public class PanelRaca extends PanelMae{
         
     }
     
+    public JPanel setPanelPesquisarRaca(){ //TODO
+        return panelRaca;
+    }
+    
 }

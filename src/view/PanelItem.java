@@ -108,5 +108,9 @@ public class PanelItem extends PanelMae{
         }        
     }
     
+    public JPanel setPanelPesquisarItem(){ //TODO
+        return panelItem;
+    }
+    
     
 }

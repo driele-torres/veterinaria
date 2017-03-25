@@ -101,4 +101,8 @@ public class PanelProprietario extends PanelMae{
         }   
     }
     
+    public JPanel setPanelPesquisarProprietario(){ //TODO
+        return panelProprietario;
+    }
+    
 }

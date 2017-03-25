@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -143,6 +142,10 @@ public class PanelVeterinario extends PanelMae{
            return vet; 
         }
         return null;
+    }
+    
+    public JPanel setPanelPesquisarVeterinario(){
+        return panelVeterinario;
     }
     
 }

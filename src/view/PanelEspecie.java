@@ -81,4 +81,9 @@ public class PanelEspecie extends PanelMae{
         limparPanelEspecie();
         return especie;
     }
+    
+    public JPanel setPanelPesquisarEspecie(){
+        //TODO
+        return panelEspecie;
+    }
 }

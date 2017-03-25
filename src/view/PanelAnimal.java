@@ -154,6 +154,26 @@ public class PanelAnimal extends PanelMae{
         JButton btnPesquisar = new JButton("Pesquisar");
         JButton btnEditar = new JButton("Editar");
         
+       txtNomeAnimal.setPreferredSize(new Dimension(200, 24));
+       btnPesquisar.setPreferredSize(new Dimension(200, 24));
+       btnEditar.setPreferredSize(new Dimension(200, 24));
+       
+       table.setPreferredSize(new Dimension(200, 200));
+        
+        modelo.addColumn("ID");
+        modelo.addColumn("NOME PET");
+	modelo.addColumn("NOME PROPRIETÁRIO");
+	modelo.addColumn("RAÇA");
+	modelo.addColumn("DATA NASCIMENTO");
+        
+        table.getColumnModel().getColumn(0).setPreferredWidth(10);
+        table.getColumnModel().getColumn(1).setPreferredWidth(120);
+        table.getColumnModel().getColumn(1).setPreferredWidth(80);
+        table.getColumnModel().getColumn(1).setPreferredWidth(120);
+        modelo.setNumRows(0);
+        
+        barraRolagem = new JScrollPane(table);
+        
         btnPesquisar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -169,10 +189,10 @@ public class PanelAnimal extends PanelMae{
         });
         panelAnimal.add(lblTitle, genConstraint(0, 1, 3, 3));
        panelAnimal.add(lblNome, genConstraint(0, 4, 1, 1));
-       panelAnimal.add(txtNomeAnimal, genConstraint(1, 4, 2, 1));
-       panelAnimal.add(barraRolagem,genConstraint(0, 6, 1, 1));
-       panelAnimal.add(btnPesquisar, genConstraint(0, 7, 1, 1));
-       panelAnimal.add(btnEditar, genConstraint(1, 7, 1, 1));
+       panelAnimal.add(txtNomeAnimal, genConstraint(1, 4, 1, 1));
+       panelAnimal.add(barraRolagem, genConstraint(0, 5, 10, 10));
+       panelAnimal.add(btnPesquisar, genConstraint(0, 15, 1, 1));
+       panelAnimal.add(btnEditar, genConstraint(1, 15, 1, 1));
        return panelAnimal;
     }    
     
@@ -180,28 +200,16 @@ public class PanelAnimal extends PanelMae{
     public void clickedBtnPesquisar(){
         List<Pet> pets = new ArrayList<Pet>();
         String nome = txtNomeAnimal.getText();
-                if(nome == ""){
-                   pets = cont.recuperarPets();
-                }else{
-                    pets = cont.recuperarPets(); //TODO LIKE NO BANCO
-                }
-                modelo.addColumn("ID");
-		modelo.addColumn("NOME PET");
-		modelo.addColumn("NOME PROPRIETÁRIO");
-		modelo.addColumn("RAÇA");
-		modelo.addColumn("DATA NASCIMENTO");
-                
-                table.getColumnModel().getColumn(0).setPreferredWidth(10);
-		table.getColumnModel().getColumn(1).setPreferredWidth(120);
-		table.getColumnModel().getColumn(1).setPreferredWidth(80);
-		table.getColumnModel().getColumn(1).setPreferredWidth(120);
-		modelo.setNumRows(0);
-                for (int i = 0; i < pets.size(); i++) {
-			modelo.addRow(new Object[]{pets.get(i).getIdpet(), pets.get(i).getDescricao(), pets.get(i).getProprietario().getNome(), pets.get(i).getRaca().getDescricao(),
-                            pets.get(i).getDataNascimento().toString()});
-                        animalTable.put(modelo.getRowCount(), pets.get(i));
-		}
-                barraRolagem = new JScrollPane(table);
+        if(nome == ""){
+            pets = cont.recuperarPets();
+        }else{
+            pets = cont.recuperarPetsPorDescricao(nome);
+        }
+        for (int i = 0; i < pets.size(); i++) {
+            modelo.addRow(new Object[]{pets.get(i).getIdpet(), pets.get(i).getDescricao(), pets.get(i).getProprietario().getNome(), pets.get(i).getRaca().getDescricao(),
+            pets.get(i).getDataNascimento().toString()});
+            animalTable.put(modelo.getRowCount(), pets.get(i));
+	}
     }
     
     public void clickedBtnEditar(){

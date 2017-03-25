@@ -148,4 +148,8 @@ public class PanelProntuario extends PanelMae{
         else
             return null;
     }
+    
+    public JPanel setPanelPesquisarProntuario(){
+        return panelProntuario;
+    }
 }

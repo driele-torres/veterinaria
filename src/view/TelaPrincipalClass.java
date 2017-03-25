@@ -82,20 +82,85 @@ public class TelaPrincipalClass extends JFrame{
         
         menuVeterinaria.add(inicioMenu);
         menuVeterinaria.add(cadastrosMenu);
-        menuVeterinaria.add(relatoriosMenu);
         menuVeterinaria.add(pesquisaMenu);
+        menuVeterinaria.add(relatoriosMenu);
         
         // Cria e adiciona um item simples para o menu
-        
-        JMenuItem animalPesquisa = new JMenuItem("Animal");
-        animalPesquisa.addActionListener(new ActionListener() {
+        JMenuItem especiePesquisaAction = new JMenuItem("Espécie");
+        especiePesquisaAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clickedEspeciePesquisaMenu();
+            }
+        });
+        JMenuItem racaPesquisaAction = new JMenuItem("Raça");
+        racaPesquisaAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clickedRacaPesquisaMenu();
+            }
+        });
+        JMenuItem animalPesquisaAction = new JMenuItem("Animal");
+        animalPesquisaAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 clickedAnimalPesquisaMenu();
             }
         });
-        pesquisaMenu.add(animalPesquisa);
-        JMenuItem especieAction = new JMenuItem("Espécie");
+        JMenuItem donoPesquisaAction = new JMenuItem("Proprietário");
+        donoPesquisaAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clickedDonoPesquisaMenu();
+                
+            }
+        });
+        JMenuItem itemPesquisaAction = new JMenuItem("Item");
+        itemPesquisaAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clickedItemPesquisaMenu();
+            }
+        });
+        JMenuItem examePesquisaAction = new JMenuItem("Exame");
+        examePesquisaAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clickedExamePesquisaMenu();
+            }
+        });
+        JMenuItem funcionarioPesquisaAction = new JMenuItem("Funcionário");
+        funcionarioPesquisaAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clickedFuncionarioPesquisaMenu();
+            }
+        });
+        JMenuItem prontuarioPesquisaAction = new JMenuItem("Prontuário");
+        prontuarioPesquisaAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clickedProntuarioPesquisaMenu();
+            }
+        });
+        JMenuItem veterinarioPesquisaAction = new JMenuItem("Veterinário");
+        veterinarioPesquisaAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clickedVeterinarioPesquisaMenu();
+            }
+        });
+        
+        pesquisaMenu.add(especiePesquisaAction);
+        pesquisaMenu.add(racaPesquisaAction);
+        pesquisaMenu.add(animalPesquisaAction);
+        pesquisaMenu.add(donoPesquisaAction);
+        pesquisaMenu.add(itemPesquisaAction);
+        pesquisaMenu.add(examePesquisaAction);
+        pesquisaMenu.add(funcionarioPesquisaAction);
+        pesquisaMenu.add(prontuarioPesquisaAction);
+        pesquisaMenu.add(veterinarioPesquisaAction);
+                JMenuItem especieAction = new JMenuItem("Espécie");
         especieAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -365,6 +430,70 @@ public class TelaPrincipalClass extends JFrame{
         panelAnimal = new PanelAnimal();
         panelPrincipal.removeAll();
         panelPrincipal.add(panelAnimal.setPanelPesquisarAnimal());
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
+    public void clickedEspeciePesquisaMenu(){
+        panelEspecie = new PanelEspecie();
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelEspecie.setPanelPesquisarEspecie());
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
+    public void clickedRacaPesquisaMenu(){
+        panelRaca = new PanelRaca();
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelRaca.setPanelPesquisarRaca());
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
+    public void clickedDonoPesquisaMenu(){
+        panelProprietario = new PanelProprietario();
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelProprietario.setPanelPesquisarProprietario());
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
+    public void clickedItemPesquisaMenu(){
+        panelItem = new PanelItem();
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelItem.setPanelPesquisarItem());
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
+    public void clickedExamePesquisaMenu(){
+        panelExame = new PanelExame();
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelExame.setPanelPesquisarExame());
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
+    public void clickedFuncionarioPesquisaMenu(){
+        panelFuncionario = new PanelFuncionario();
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelFuncionario.setPanelPesquisarFuncionario());
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
+    public void clickedProntuarioPesquisaMenu(){
+        panelProntuario = new PanelProntuario();
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelProntuario.setPanelPesquisarProntuario());
+        panelPrincipal.repaint();
+        panelPrincipal.revalidate();
+    }
+    
+    public void clickedVeterinarioPesquisaMenu(){
+        panelVeterinario = new PanelVeterinario();
+        panelPrincipal.removeAll();
+        panelPrincipal.add(panelVeterinario.setPanelPesquisarVeterinario());
         panelPrincipal.repaint();
         panelPrincipal.revalidate();
     }
