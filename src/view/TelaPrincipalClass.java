@@ -1,8 +1,10 @@
 package view;
 
 import controller.VeterinariaController;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Component.TOP_ALIGNMENT;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -160,7 +162,8 @@ public class TelaPrincipalClass extends JFrame{
         pesquisaMenu.add(funcionarioPesquisaAction);
         pesquisaMenu.add(prontuarioPesquisaAction);
         pesquisaMenu.add(veterinarioPesquisaAction);
-                JMenuItem especieAction = new JMenuItem("Espécie");
+        
+        JMenuItem especieAction = new JMenuItem("Espécie");
         especieAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -255,7 +258,7 @@ public class TelaPrincipalClass extends JFrame{
         
         inicializaJPanelInicial();
         
-        panelPrincipal.add(panelInicial);
+        panelPrincipal.add(panelInicial, CENTER_ALIGNMENT);
         this.add(panelPrincipal);
     }
     
@@ -421,7 +424,8 @@ public class TelaPrincipalClass extends JFrame{
     
     public void setJPanel(JPanel panel){
         panelPrincipal.removeAll();
-        panelPrincipal.add(panel);
+        panelPrincipal.setLayout(new BorderLayout());
+        panelPrincipal.add(panel, BorderLayout.CENTER);
         panelPrincipal.repaint();
         panelPrincipal.revalidate();
     }
@@ -429,7 +433,8 @@ public class TelaPrincipalClass extends JFrame{
     public void clickedAnimalPesquisaMenu(){
         panelAnimal = new PanelAnimal();
         panelPrincipal.removeAll();
-        panelPrincipal.add(panelAnimal.setPanelPesquisarAnimal());
+        panelPrincipal.setLayout(new BorderLayout());
+        panelPrincipal.add(panelAnimal.setPanelPesquisarAnimal(), BorderLayout.CENTER);
         panelPrincipal.repaint();
         panelPrincipal.revalidate();
     }
