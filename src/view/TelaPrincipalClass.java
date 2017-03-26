@@ -4,7 +4,6 @@ import controller.VeterinariaController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Component.TOP_ALIGNMENT;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

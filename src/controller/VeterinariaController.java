@@ -56,21 +56,34 @@ public class VeterinariaController {
         especieDao.adiciona(especie);
     }
     
+    public void atualizaEspecie(Especie especie){
+        especieDao.atualiza(especie);
+    }
+    
     public boolean salvarRaca(Raca raca){
         if(racaDao.procuraRacaPorDescricao(raca.getDescricao()) == null){
             racaDao.adiciona(raca);
             return true;
         }
         return false;      
-    }   
+    } 
+    
+    public boolean atualizarRaca(Raca raca){
+        racaDao.atualiza(raca);
+        return true;
+    }
     
     public boolean salvarPet(Pet pet){
         if(petDao.procuraPetPorDescricao(pet.getDescricao()) == null){
             petDao.adiciona(pet);
             return true;
         }
-        return false;
-           
+        return false;      
+    }
+    
+    public boolean atualizarPet(Pet pet){
+        petDao.atualiza(pet);
+        return true;
     }
     public boolean salvarExame(Exame exame){
         if(exameDao.procuraExamePorNome(exame.getNome()) == null){
@@ -79,12 +92,31 @@ public class VeterinariaController {
         }
         return false;
     }
+    
+     public boolean atualizarExame(Exame exame){
+        exameDao.atualiza(exame);
+           return true;
+    }
+     
     public boolean salvarUsuario(Usuario usuario){
         if(usuarioDao.procuraUsuarioPorCPF(usuario.getCpf()) == null){
             usuarioDao.adiciona(usuario);
             return true;
         }
         return false;    
+    }
+    
+    public boolean atualizarUsuario(Usuario usuario){
+        usuarioDao.atualiza(usuario);
+            return true;
+    }
+    
+    public List<Usuario> procurarUsuariosPorDescricao(String name){
+        return usuarioDao.procuraUsuariosPorNome(name);
+    }
+    
+    public List<Veterinario> procurarVeterinariosPorDescricao(String name){
+        return veterinarioDao.procuraVeterinariosPorNome(name);
     }
     
     public boolean salvarProntuario(Prontuario prontuario){
@@ -109,6 +141,16 @@ public class VeterinariaController {
         return false;
     }
     
+    
+    public boolean atualizaItem(Item item){
+        itemDao.atualiza(item);
+        return true;
+    }
+    
+    public List<Item> recuperarItemsPorDescricao(String descricao){
+        return itemDao.procuraItemsPorDescricao(descricao);
+    }
+    
     public boolean salvarProprietario(Proprietario prop){
         if(proprietarioDao.procuraProprietarioPorCPF(prop.getCpf()) == null){
             proprietarioDao.adiciona(prop);  
@@ -118,6 +160,11 @@ public class VeterinariaController {
          
     }
     
+    public boolean atualizarProprietario(Proprietario prop){
+        proprietarioDao.atualiza(prop);
+            return true;  
+    }
+    
     public boolean salvarVeterinario(Veterinario veterinario){
         if(usuarioDao.procuraUsuarioPorCPF(veterinario.getUsuario().getCpf()) == null){
             salvarUsuario(veterinario.getUsuario());
@@ -125,6 +172,12 @@ public class VeterinariaController {
            return true;
         }
         return false;         
+    }
+    
+    public boolean atualizaVeterinario(Veterinario veterinario){
+        this.atualizarUsuario(veterinario.getUsuario());
+        veterinarioDao.atualiza(veterinario);
+        return true;         
     }
     
     public List<Especie> recuperarEspecies(){
@@ -139,6 +192,10 @@ public class VeterinariaController {
         return exameDao.procuraTodos();
     }
      
+    public List<Exame> recuperarExamesPorDescricao(String descricao){
+        return exameDao.procuraExamesPorNome(descricao);
+    }
+     
      public List<Pet> recuperarPets(){
          return petDao.procuraTodos();
      }
@@ -146,8 +203,16 @@ public class VeterinariaController {
      public List<Pet> recuperarPetsPorDescricao(String descricao){
          return petDao.procuraPetsPorDescricao(descricao);
      }
+     
+     public List<Especie> recuperarEspeciesPorDescricao(String descricao){
+         return especieDao.procuraEspeciesPorDescricao(descricao);
+     }
      public List<Proprietario> recuperarProprietarios(){
          return proprietarioDao.procuraTodos();
+     }
+     
+     public List<Proprietario> recuperarProprietariosPorDescricao(String descricao){
+         return proprietarioDao.procuraProprietariosPorNome(descricao);
      }
      
      public List<Veterinario> recuperarVeterinarios(){
@@ -167,6 +232,10 @@ public class VeterinariaController {
      
      public Raca recuperarRacaDesc(String descricao){
          return racaDao.procuraRacaPorDescricao(descricao);
+     }
+     
+     public List<Raca> recuperarRacasDesc(String descricao){
+         return racaDao.procuraRacasPorDescricao(descricao);
      }
      
      public Raca recuperarRacaPorID(Integer ID){
