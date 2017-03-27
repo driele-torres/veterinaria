@@ -6,11 +6,18 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import model.GrupoAcesso;
 import model.Usuario;
 import model.Veterinario;
@@ -46,6 +53,17 @@ public class PanelVeterinario extends PanelMae{
     private JButton btnLimpar = new JButton("Limpar");
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
+    
+      private DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }; 
+    private JTable table = new JTable(modelo);
+    private JScrollPane barraRolagem;
+    private Map <Integer, Veterinario>  veterinarioTable = new HashMap<Integer, Veterinario>();
+    private Veterinario veterinario;
     
     public JPanel setPanelVeterinario(){
         
@@ -124,7 +142,15 @@ public class PanelVeterinario extends PanelMae{
     }
     
     private Veterinario salvarPanelVet(){
-        Veterinario vet = new Veterinario();
+        if(txtCPF.getText().isEmpty() || txtEndereco.getText().isEmpty() || txtNome.getText().isEmpty() || 
+                txtTelefone.getText().isEmpty() || txtUser.getText().isEmpty() || txtCRV.getText().isEmpty() || txtEspecialidade.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha todos os dados!");
+            return null;
+        }
+        if(this.veterinario == null){
+            veterinario = new Veterinario();
+        }
+        
         GrupoAcesso ga = cont.recuperarGrupoID(1);
         Usuario usuario = new Usuario();
         usuario.setCpf(txtCPF.getText());
@@ -134,18 +160,107 @@ public class PanelVeterinario extends PanelMae{
         usuario.setUsername(txtUser.getText());
         usuario.setSenha(txtSenha.getText());
         usuario.setGrupoAcesso(ga);
-        vet.setCrv(txtCRV.getText());
-        vet.setEspecialidade(txtEspecialidade.getText());
-        vet.setUsuario(usuario);
-        if(cont.salvarVeterinario(vet)){
+        veterinario.setCrv(txtCRV.getText());
+        veterinario.setEspecialidade(txtEspecialidade.getText());
+        veterinario.setUsuario(usuario);
+        boolean salvou = false;
+        if(veterinario.getIdveterinario().equals(0))
+           salvou = cont.salvarVeterinario(veterinario); 
+        else
+            salvou = cont.atualizaVeterinario(veterinario);
+        if(salvou){
         limparPanelVet();
-           return vet; 
+           return veterinario; 
         }
         return null;
     }
     
     public JPanel setPanelPesquisarVeterinario(){
-        return panelVeterinario;
+        panelVeterinario = new JPanel();
+        panelVeterinario.setLayout(layout);
+        JLabel lblTitle = new JLabel("Consulta Veterinario");
+        JLabel lblNome = new JLabel("Digite o nome do Veterinario: ");
+        lblTitle.setFont(fonteTitle);
+        lblNome.setFont(fonte);
+        JButton btnPesquisar = new JButton("Pesquisar");
+        JButton btnEditar = new JButton("Editar");
+       
+       table.setPreferredScrollableViewportSize(new Dimension(400, 300));
+        
+         modelo.addColumn("ID");
+        modelo.addColumn("NOME");
+	modelo.addColumn("ENDERECO");
+	modelo.addColumn("TELEFONE");
+	modelo.addColumn("CPF");
+        modelo.addColumn("USERNAME");
+        modelo.addColumn("ESPECIALIDADE");
+        modelo.addColumn("CRV");
+        
+        barraRolagem = new JScrollPane(table);
+        barraRolagem.createVerticalScrollBar();
+        barraRolagem.createHorizontalScrollBar();
+        
+        btnPesquisar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               clickedBtnPesquisar();
+            }
+        });
+        
+        btnEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                clickedBtnEditar();
+            }
+        });
+        
+        txtNome.setPreferredSize(new Dimension(200, 24));
+        panelVeterinario.add(lblTitle, genConstraint(0, 0, 2, 1));
+       panelVeterinario.add(lblNome, genConstraint(0, 1, 1, 1));
+       panelVeterinario.add(txtNome, genConstraint(1, 1, 1, 1));
+       panelVeterinario.add(barraRolagem, genConstraint(0, 2, 2, 1));
+       panelVeterinario.add(btnPesquisar, genConstraint(0, 3, 1, 1));
+       panelVeterinario.add(btnEditar, genConstraint(1, 3, 1, 1));
+       return panelVeterinario;
+    }    
+    
+    
+    public void clickedBtnPesquisar(){
+                modelo.setNumRows(0);
+
+        List<Veterinario> veterinarios = new ArrayList<Veterinario>();
+        String nome = "%" + txtNome.getText() + "%";
+        veterinarios = cont.procurarVeterinariosPorDescricao(nome);
+        for (int i = 0; i < veterinarios.size(); i++) {
+            modelo.addRow(new Object[]{veterinarios.get(i).getUsuario().getIdusuario(), veterinarios.get(i).getUsuario().getNome(), 
+                veterinarios.get(i).getUsuario().getEndereco(),veterinarios.get(i).getUsuario().getTelefone(), 
+                veterinarios.get(i).getUsuario().getCpf(), veterinarios.get(i).getUsuario().getUsername(), 
+            veterinarios.get(i).getEspecialidade(), veterinarios.get(i).getCrv()});
+            veterinarioTable.put(i, veterinarios.get(i));
+	}
+        TelaLogin.telaPrincipal.setJPanel(panelVeterinario);
     }
     
+    public void clickedBtnEditar(){
+        Integer row = table.getSelectedRow();
+        if(row < 0){
+             JOptionPane.showMessageDialog(null, "Selecione um para editar");
+             return;
+        }
+        panelVeterinario.removeAll();
+        
+        Veterinario veterinario = veterinarioTable.get(row);
+        JPanel panel = setPanelVeterinario();
+        
+        txtNome.setText(veterinario.getUsuario().getNome());
+        txtCPF.setText(veterinario.getUsuario().getCpf());
+        txtEndereco.setText(veterinario.getUsuario().getEndereco());
+        txtTelefone.setText(veterinario.getUsuario().getTelefone());
+        txtUser.setText(veterinario.getUsuario().getUsername());
+        txtCRV.setText(veterinario.getCrv());
+        txtEspecialidade.setText(veterinario.getEspecialidade());
+        
+        this.veterinario = veterinario; 
+        TelaLogin.telaPrincipal.setJPanel(panel);
+    }
 }

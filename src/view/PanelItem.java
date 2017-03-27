@@ -6,13 +6,20 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import model.Exame;
 import model.Item;
 
@@ -38,6 +45,17 @@ public class PanelItem extends PanelMae{
     private JButton btnLimpar = new JButton("Limpar");
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
+    
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }; 
+    private JTable table = new JTable(modelo);
+    private JScrollPane barraRolagem;
+    private Map <Integer, Item>  itemTable = new HashMap<Integer, Item>();
+    private Item item;
      
     public JPanel setPanelItem(){
         List<Exame> allExames = cont.recuperarExames();
@@ -96,20 +114,113 @@ public class PanelItem extends PanelMae{
     }
     
     public Item salvarPanelItem(){
-        Item item = new Item();
+        if(txtNomeItem.getText().isEmpty() || txtReferencia.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha todos os dados!");
+            return null;
+        }
+        if(this.item == null){
+            item = new Item();
+        }
+
         ComboItem cb = (ComboItem) cmbExame.getSelectedItem();
         item.setExame(cont.recuperarExameporID(cb.getValue()));
         item.setNome(txtNomeItem.getText());
         item.setReferencia(txtReferencia.getText());
-        if(cont.salvarItem(item)){
+        boolean salvou = false;
+        if(item.getIditem().equals(0))
+           salvou = cont.salvarItem(item);
+        else
+            salvou  = cont.atualizaItem(item);
+        if(salvou){
             return item;
         }else{
             return null;
         }        
     }
     
-    public JPanel setPanelPesquisarItem(){ //TODO
-        return panelItem;
+    public JPanel setPanelPesquisarItem(){ 
+        panelItem = new JPanel();
+        panelItem.setLayout(layout);
+        JLabel lblTitle = new JLabel("Consulta Item");
+        JLabel lblNome = new JLabel("Digite o nome do Item: ");
+        lblTitle.setFont(fonteTitle);
+        lblNome.setFont(fonte);
+        JButton btnPesquisar = new JButton("Pesquisar");
+        JButton btnEditar = new JButton("Editar");
+       
+       table.setPreferredScrollableViewportSize(new Dimension(400, 300));
+        
+        modelo.addColumn("ID");
+        modelo.addColumn("EXAME");
+	modelo.addColumn("NOME");
+	modelo.addColumn("REFERENCIA");
+        
+        barraRolagem = new JScrollPane(table);
+        barraRolagem.createVerticalScrollBar();
+        barraRolagem.createHorizontalScrollBar();
+        
+        btnPesquisar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               clickedBtnPesquisar();
+            }
+        });
+        
+        btnEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                clickedBtnEditar();
+            }
+        });
+        
+        txtNomeItem.setPreferredSize(new Dimension(200, 24));
+        panelItem.add(lblTitle, genConstraint(0, 0, 2, 1));
+       panelItem.add(lblNome, genConstraint(0, 1, 1, 1));
+       panelItem.add(txtNomeItem, genConstraint(1, 1, 1, 1));
+       panelItem.add(barraRolagem, genConstraint(0, 2, 2, 1));
+       panelItem.add(btnPesquisar, genConstraint(0, 3, 1, 1));
+       panelItem.add(btnEditar, genConstraint(1, 3, 1, 1));
+       return panelItem;
+    }
+    
+     public void clickedBtnPesquisar(){
+                 modelo.setNumRows(0);
+
+        List<Item> items = new ArrayList<Item>();
+        String nome = "%" + txtNomeItem.getText() + "%";
+        items = cont.recuperarItemsPorDescricao(nome);
+        for (int i = 0; i < items.size(); i++) {
+            modelo.addRow(new Object[]{items.get(i).getIditem(), items.get(i).getExame().getNome(), items.get(i).getNome(), 
+                items.get(i).getReferencia()});
+            itemTable.put(i, items.get(i));
+	}
+        TelaLogin.telaPrincipal.setJPanel(panelItem);
+    }
+    
+    public void clickedBtnEditar(){
+        Integer row = table.getSelectedRow();
+        if(row < 0){
+             JOptionPane.showMessageDialog(null, "Selecione um para editar");
+             return;
+        }
+        panelItem.removeAll();
+        
+        Item item = itemTable.get(row);
+        JPanel panel = setPanelItem();
+        
+        txtNomeItem.setText(item.getNome());
+        txtReferencia.setText(item.getReferencia());
+        ComboBoxModel modelRaca = cmbExame.getModel();
+        for(int i = 0; i < modelRaca.getSize(); i++){
+            ComboItem itemCMB = (ComboItem) modelRaca.getElementAt(i);
+            if(item.getExame().getIdexame().equals(itemCMB.getValue())){
+                cmbExame.setSelectedIndex(i);
+                break;
+            }
+        }
+        
+        this.item = item; 
+        TelaLogin.telaPrincipal.setJPanel(panel);
     }
     
     

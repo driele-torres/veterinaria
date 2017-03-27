@@ -6,11 +6,18 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import model.Especie;
 
 public class PanelEspecie extends PanelMae{
@@ -27,6 +34,18 @@ public class PanelEspecie extends PanelMae{
     private JButton btnLimpar = new JButton("Limpar");
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
+    
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }; 
+    private JTable table = new JTable(modelo);
+    private JScrollPane barraRolagem;
+    private Map <Integer, Especie>  especieTable = new HashMap<Integer, Especie>();
+    private Especie especie;
+  
     
     
     public JPanel setPainelEspecie(){
@@ -74,16 +93,94 @@ public class PanelEspecie extends PanelMae{
     }
     
     public Especie salvarPanelEspecie(){
-        Especie especie = new Especie();
+        if(txtNomeEspecie.getText().isEmpty() || txtdescricaoEspecie.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Preencha todos os dados!");
+            return null;
+        }
+        if(this.especie == null){
+            especie = new Especie();
+        }
         especie.setDescricao(txtdescricaoEspecie.getText());
         especie.setNomeCientifico(txtNomeEspecie.getText());
-        cont.salvarEspecie(especie);
+        if(especie.getIdespecie().equals(0))
+            cont.salvarEspecie(especie);
+        else
+            cont.atualizaEspecie(especie);
         limparPanelEspecie();
         return especie;
     }
     
     public JPanel setPanelPesquisarEspecie(){
-        //TODO
-        return panelEspecie;
+       panelEspecie = new JPanel();
+        panelEspecie.setLayout(layout);
+        JLabel lblTitle = new JLabel("Consulta Especie");
+        JLabel lblNome = new JLabel("Digite a descricao da Especie: ");
+        lblTitle.setFont(fonteTitle);
+        lblNome.setFont(fonte);
+        JButton btnPesquisar = new JButton("Pesquisar");
+        JButton btnEditar = new JButton("Editar");
+       
+       table.setPreferredScrollableViewportSize(new Dimension(400, 300));
+        
+        modelo.addColumn("ID");
+	modelo.addColumn("NOME CIENTIFICO");
+        modelo.addColumn("DESCRICAO");
+        
+        barraRolagem = new JScrollPane(table);
+        barraRolagem.createVerticalScrollBar();
+        barraRolagem.createHorizontalScrollBar();
+        
+        btnPesquisar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               clickedBtnPesquisar();
+            }
+        });
+        
+        btnEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                clickedBtnEditar();
+            }
+        });
+        
+        txtdescricaoEspecie.setPreferredSize(new Dimension(200, 24));
+        panelEspecie.add(lblTitle, genConstraint(0, 0, 2, 1));
+       panelEspecie.add(lblNome, genConstraint(0, 1, 1, 1));
+       panelEspecie.add(txtdescricaoEspecie, genConstraint(1, 1, 1, 1));
+       panelEspecie.add(barraRolagem, genConstraint(0, 2, 2, 1));
+       panelEspecie.add(btnPesquisar, genConstraint(0, 3, 1, 1));
+       panelEspecie.add(btnEditar, genConstraint(1, 3, 1, 1));
+       return panelEspecie;
+    }
+    
+     public void clickedBtnPesquisar(){
+                 modelo.setNumRows(0);
+        List<Especie> especies = new ArrayList<Especie>();
+        String nome = "%" + txtdescricaoEspecie.getText() + "%";
+        especies = cont.recuperarEspeciesPorDescricao(nome);
+        for (int i = 0; i < especies.size(); i++) {
+            modelo.addRow(new Object[]{especies.get(i).getIdespecie(), especies.get(i).getDescricao(), especies.get(i).getNomeCientifico()});
+            especieTable.put(i, especies.get(i));
+	}
+        TelaLogin.telaPrincipal.setJPanel(panelEspecie);
+    }
+    
+    public void clickedBtnEditar(){
+        Integer row = table.getSelectedRow();
+        if(row < 0){
+             JOptionPane.showMessageDialog(null, "Selecione um para editar");
+             return;
+        }
+        panelEspecie.removeAll();
+        
+        Especie especie = especieTable.get(row);
+        JPanel panel = setPainelEspecie();
+        
+        txtdescricaoEspecie.setText(especie.getDescricao());
+        txtNomeEspecie.setText(especie.getNomeCientifico());
+       
+        this.especie = especie; 
+        TelaLogin.telaPrincipal.setJPanel(panel);
     }
 }

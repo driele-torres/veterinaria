@@ -6,11 +6,18 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import model.GrupoAcesso;
 import model.Usuario;
 
@@ -43,6 +50,17 @@ public class PanelFuncionario extends PanelMae{
     private JButton btnLimpar = new JButton("Limpar");
     private JButton btnSalvar = new JButton("Salvar"); 
     private GridBagLayout layout = new GridBagLayout();
+    
+     private DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }; 
+    private JTable table = new JTable(modelo);
+    private JScrollPane barraRolagem;
+    private Map <Integer, Usuario>  usuarioTable = new HashMap<Integer, Usuario>();
+    private Usuario usuario;
     
     public JPanel setPanelFuncionario(){
         
@@ -109,7 +127,14 @@ public class PanelFuncionario extends PanelMae{
     }
     
     public Usuario salvarPanelFuncionario(){
-        Usuario usuario = new Usuario();
+        if(txtCPF.getText().isEmpty() || txtEndereco.getText().isEmpty() || txtNome.getText().isEmpty() || 
+                txtTelefone.getText().isEmpty() || txtUser.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha todos os dados!");
+            return null;
+        }
+        if(this.usuario == null){
+            usuario = new Usuario();
+        }
         GrupoAcesso ga = cont.recuperarGrupoID(2);
         usuario.setCpf(txtCPF.getText());
         usuario.setEndereco(txtEndereco.getText());
@@ -117,15 +142,103 @@ public class PanelFuncionario extends PanelMae{
         usuario.setTelefone(txtTelefone.getText());
         usuario.setUsername(txtUser.getText());
         usuario.setSenha(txtSenha.getText());
-        usuario.setGrupoAcesso(ga);        
-        if(cont.salvarUsuario(usuario)){
+        usuario.setGrupoAcesso(ga);
+
+        boolean salvou = false;
+        if(usuario.getIdusuario().equals(0)){
+            salvou = cont.salvarUsuario(usuario);
+        }else{
+            salvou= cont.atualizarUsuario(usuario);
+        }
+        if(salvou){
             return usuario;
         }
         return null;
     }
     
     public JPanel setPanelPesquisarFuncionario(){
-        return panelFuncionario;
+        panelFuncionario = new JPanel();
+        panelFuncionario.setLayout(layout);
+        JLabel lblTitle = new JLabel("Consulta Funcionario");
+        JLabel lblNome = new JLabel("Digite o nome do Funcionario: ");
+        lblTitle.setFont(fonteTitle);
+        lblNome.setFont(fonte);
+        JButton btnPesquisar = new JButton("Pesquisar");
+        JButton btnEditar = new JButton("Editar");
+       
+       table.setPreferredScrollableViewportSize(new Dimension(400, 300));
+        
+        modelo.addColumn("ID");
+        modelo.addColumn("NOME");
+	modelo.addColumn("ENDERECO");
+	modelo.addColumn("TELEFONE");
+	modelo.addColumn("CPF");
+        modelo.addColumn("USERNAME");
+
+        
+        barraRolagem = new JScrollPane(table);
+        barraRolagem.createVerticalScrollBar();
+        barraRolagem.createHorizontalScrollBar();
+        
+        btnPesquisar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               clickedBtnPesquisar();
+            }
+        });
+        
+        btnEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                clickedBtnEditar();
+            }
+        });
+        
+        txtNome.setPreferredSize(new Dimension(200, 24));
+        panelFuncionario.add(lblTitle, genConstraint(0, 0, 2, 1));
+       panelFuncionario.add(lblNome, genConstraint(0, 1, 1, 1));
+       panelFuncionario.add(txtNome, genConstraint(1, 1, 1, 1));
+       panelFuncionario.add(barraRolagem, genConstraint(0, 2, 2, 1));
+       panelFuncionario.add(btnPesquisar, genConstraint(0, 3, 1, 1));
+       panelFuncionario.add(btnEditar, genConstraint(1, 3, 1, 1));
+       return panelFuncionario;
+    }    
+    
+    
+    public void clickedBtnPesquisar(){
+                modelo.setNumRows(0);
+
+        List<Usuario> funcionarios = new ArrayList<Usuario>();
+        String nome = "%" + txtNome.getText() + "%";
+        funcionarios = cont.procurarUsuariosPorDescricao(nome);
+                System.out.println(funcionarios.size());
+
+        for (int i = 0; i < funcionarios.size(); i++) {
+            modelo.addRow(new Object[]{funcionarios.get(i).getIdusuario(), funcionarios.get(i).getNome(), funcionarios.get(i).getEndereco(),
+                funcionarios.get(i).getTelefone(), funcionarios.get(i).getCpf(), funcionarios.get(i).getUsername()});
+            usuarioTable.put(i, funcionarios.get(i));
+	}
+        TelaLogin.telaPrincipal.setJPanel(panelFuncionario);
     }
- 
+    
+    public void clickedBtnEditar(){
+        Integer row = table.getSelectedRow();
+        if(row< 0){
+             JOptionPane.showMessageDialog(null, "Selecione um para editar");
+             return;
+        }
+        panelFuncionario.removeAll();
+        
+        Usuario funcionario = usuarioTable.get(row);
+        JPanel panel = setPanelFuncionario();
+        
+        txtNome.setText(funcionario.getNome());
+        txtCPF.setText(funcionario.getCpf());
+        txtEndereco.setText(funcionario.getEndereco());
+        txtTelefone.setText(funcionario.getTelefone());
+        txtUser.setText(funcionario.getUsername());
+        
+        this.usuario = funcionario; 
+        TelaLogin.telaPrincipal.setJPanel(panel);
+    }
 }
