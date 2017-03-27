@@ -301,3 +301,7 @@ CREATE INDEX `fk_tipo_grupo_acesso_idx` ON `veterinaria`.`tipo_acesso` (`id_tipo
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO `veterinaria`.`grupo_acesso` (`idgrupo_acesso`, `descricao`) VALUES ('1', 'Todo');
+INSERT INTO `veterinaria`.`grupo_acesso` (`idgrupo_acesso`, `descricao`) VALUES ('2', 'Parcial');
+

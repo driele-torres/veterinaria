@@ -12,10 +12,12 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import model.Usuario;
 
 public class TelaLogin extends JFrame{
     private VeterinariaController cont  = new VeterinariaController();
@@ -79,16 +81,35 @@ public class TelaLogin extends JFrame{
     }
     
     public void clickedLogin(){
-        TelaPrincipalClass telaPrincipal = TelaLogin.telaPrincipal;
-        telaPrincipal.setBounds(20, 20, 600, 600);
-        telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JScrollPane scroll = new JScrollPane();
-        telaPrincipal.add(scroll);
-        telaPrincipal.setVisible(true);
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        if(loga()){
+            TelaPrincipalClass telaPrincipal = TelaLogin.telaPrincipal;
+            telaPrincipal.setBounds(20, 20, 600, 600);
+            telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JScrollPane scroll = new JScrollPane();
+            telaPrincipal.add(scroll);
+            telaPrincipal.setVisible(true);
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }else{
+            JOptionPane.showMessageDialog(null, "Nao foi possivel fazer o Login");
+        }
     }  
     
-    public void loga(){
+    public boolean loga(){
+        String user = txtUsuario.getText();
+        String senha = password.getText();
         
+        if(user.equals("admin") && senha.equals("admin")){
+            return true;
+        }else{
+            Usuario usuario = cont.procuraUsuarioPorUsername(user);
+            if(usuario != null){
+                if(usuario.getSenha().equals(senha))
+                    return true;
+                JOptionPane.showMessageDialog(null, "Senha incorreta!");
+                return false;
+            }
+            JOptionPane.showMessageDialog(null, "Usuario nao encontrado!");
+            return false;
+        }
     }
 }

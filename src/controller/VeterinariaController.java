@@ -133,6 +133,10 @@ public class VeterinariaController {
         return false;   
     }
     
+    public Usuario procuraUsuarioPorUsername(String username){
+        return usuarioDao.procuraUsuarioPorUsername(username);
+    }
+    
     public boolean salvarItem(Item item){
         if(itemDao.procuraItemPorNome(item.getNome()) == null){
              itemDao.adiciona(item);
