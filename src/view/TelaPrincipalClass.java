@@ -88,7 +88,6 @@ public class TelaPrincipalClass extends JFrame{
          sairMenu.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-                Veterinaria.getLogin().setVisible(true);
                 logout();
             }
             @Override
@@ -534,7 +533,7 @@ public class TelaPrincipalClass extends JFrame{
     
     public void logout(){
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        
+        Veterinaria.getLogin().setVisible(true);
     }
     
 }

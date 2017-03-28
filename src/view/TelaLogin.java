@@ -90,12 +90,13 @@ public class TelaLogin extends JFrame{
             List<GrupoAcesso> grupos = cont.recuperarGrupos();
             TelaPrincipalClass telaPrincipal = TelaLogin.telaPrincipal;
             telaPrincipal.setBounds(450, 150, 600, 600);
-            telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            telaPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             JScrollPane scroll = new JScrollPane();
             telaPrincipal.add(scroll);
             telaPrincipal.setVisible(true);
             this.setVisible(false);
-//            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            txtUsuario.setText("");
+            password.setText("");
         }else{
             JOptionPane.showMessageDialog(null, "Nao foi possivel fazer o Login");
         }
