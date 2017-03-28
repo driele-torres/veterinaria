@@ -94,8 +94,8 @@ public class TelaLogin extends JFrame{
             JScrollPane scroll = new JScrollPane();
             telaPrincipal.add(scroll);
             telaPrincipal.setVisible(true);
-//            this.setVisible(false);
-            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            this.setVisible(false);
+//            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }else{
             JOptionPane.showMessageDialog(null, "Nao foi possivel fazer o Login");
         }

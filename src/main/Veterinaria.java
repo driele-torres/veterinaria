@@ -10,6 +10,15 @@ import javax.swing.UnsupportedLookAndFeelException;
 import view.TelaLogin;
 
 public class Veterinaria {
+    public static TelaLogin login;
+
+    public static TelaLogin getLogin() {
+        return login;
+    }
+
+    public static void setLogin(TelaLogin login) {
+        Veterinaria.login = login;
+    }
     
     public static void main(String[] args) {
         try {
@@ -26,7 +35,7 @@ public class Veterinaria {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                TelaLogin login = new TelaLogin();
+                login = new TelaLogin();
                 login.setBounds(550, 250, 300, 300);
                 login.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 JScrollPane scroll = new JScrollPane();

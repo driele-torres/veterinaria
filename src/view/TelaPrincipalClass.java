@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import main.Veterinaria;
 import model.Especie;
 import model.GeradorPDF;
 import static view.TelaLogin.telaPrincipal;
@@ -87,6 +88,7 @@ public class TelaPrincipalClass extends JFrame{
          sairMenu.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
+                Veterinaria.getLogin().setVisible(true);
                 logout();
             }
             @Override
