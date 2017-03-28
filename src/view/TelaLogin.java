@@ -53,6 +53,8 @@ public class TelaLogin extends JFrame{
         btnCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                txtUsuario.setText("");
+                password.setText("");
             }
         });
         
@@ -87,11 +89,12 @@ public class TelaLogin extends JFrame{
         if(loga()){
             List<GrupoAcesso> grupos = cont.recuperarGrupos();
             TelaPrincipalClass telaPrincipal = TelaLogin.telaPrincipal;
-            telaPrincipal.setBounds(20, 20, 600, 600);
+            telaPrincipal.setBounds(450, 150, 600, 600);
             telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             JScrollPane scroll = new JScrollPane();
             telaPrincipal.add(scroll);
             telaPrincipal.setVisible(true);
+//            this.setVisible(false);
             this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }else{
             JOptionPane.showMessageDialog(null, "Nao foi possivel fazer o Login");
@@ -105,11 +108,9 @@ public class TelaLogin extends JFrame{
         if (grupos.isEmpty()){
             GrupoAcesso grupo1 = new GrupoAcesso();
             grupo1.setDescricao("Total");
-//            grupo1.setIdgrupoAcesso(1);
             cont.salvarGrupo(grupo1);
             GrupoAcesso grupo2 = new GrupoAcesso();
             grupo2.setDescricao("Parcial");
-//            grupo2.setIdgrupoAcesso(2);
             cont.salvarGrupo(grupo2);
         }
         

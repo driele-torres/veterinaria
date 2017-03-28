@@ -71,6 +71,7 @@ public class PanelItem extends PanelMae{
         
         txtNomeItem.setPreferredSize(new Dimension(200, 24));
         txtReferencia.setPreferredSize(new Dimension(200, 24));
+        cmbExame.setPreferredSize(new Dimension(200, 24));
         for(Exame item: allExames){
             ComboItem cb = new ComboItem(item.getIdexame(), item.getNome());
            cmbExame.addItem(cb);
@@ -127,7 +128,7 @@ public class PanelItem extends PanelMae{
         item.setNome(txtNomeItem.getText());
         item.setReferencia(txtReferencia.getText());
         boolean salvou = false;
-        if(item.getIditem().equals(0))
+        if(item.getIditem() == null)
            salvou = cont.salvarItem(item);
         else
             salvou  = cont.atualizaItem(item);

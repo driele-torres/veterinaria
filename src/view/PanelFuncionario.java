@@ -145,7 +145,7 @@ public class PanelFuncionario extends PanelMae{
         usuario.setGrupoAcesso(ga);
 
         boolean salvou = false;
-        if(usuario.getIdusuario().equals(0)){
+        if(usuario.getIdusuario() == null){
             salvou = cont.salvarUsuario(usuario);
         }else{
             salvou= cont.atualizarUsuario(usuario);

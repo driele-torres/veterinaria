@@ -106,7 +106,7 @@ public class PanelExame extends PanelMae{
         exame.setNome(txtNomeExame.getText());
         
         boolean salvou = false;
-        if(exame.getIdexame().equals(0)){
+        if(exame.getIdexame() == null){
             salvou = cont.salvarExame(exame);
         }else{
             salvou= cont.atualizarExame(exame);

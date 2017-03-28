@@ -102,12 +102,11 @@ public class PanelEspecie extends PanelMae{
         }
         especie.setDescricao(txtdescricaoEspecie.getText());
         especie.setNomeCientifico(txtNomeEspecie.getText());
-                    cont.salvarEspecie(especie);
-
-//        if(especie.getIdespecie().equals(0))
-//            cont.salvarEspecie(especie);
-//        else
-//            cont.atualizaEspecie(especie);
+        if(especie.getIdespecie() == null)
+            cont.salvarEspecie(especie);
+        else
+            cont.atualizaEspecie(especie);
+        
         limparPanelEspecie();
         return especie;
     }

@@ -27,7 +27,7 @@ public class Veterinaria {
             @Override
             public void run() {
                 TelaLogin login = new TelaLogin();
-                login.setBounds(20, 20, 300, 300);
+                login.setBounds(550, 250, 300, 300);
                 login.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 JScrollPane scroll = new JScrollPane();
                 login.add(scroll);

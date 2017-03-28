@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import model.Especie;
 import model.GeradorPDF;
+import static view.TelaLogin.telaPrincipal;
 
 
 public class TelaPrincipalClass extends JFrame{
@@ -65,6 +67,7 @@ public class TelaPrincipalClass extends JFrame{
         JMenu cadastrosMenu = new JMenu("Cadastros");
         JMenu pesquisaMenu = new JMenu("Pesquisa");
         JMenu relatoriosMenu = new JMenu("Relatórios");
+        JMenu sairMenu = new JMenu("Sair");
         
         inicioMenu.addMenuListener(new MenuListener() {
             @Override
@@ -81,10 +84,25 @@ public class TelaPrincipalClass extends JFrame{
             }
         });
         
+         sairMenu.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+                logout();
+            }
+            @Override
+            public void menuDeselected(MenuEvent e) {
+            }
+            
+            @Override
+            public void menuCanceled(MenuEvent e) {
+            }
+        });
+        
         menuVeterinaria.add(inicioMenu);
         menuVeterinaria.add(cadastrosMenu);
         menuVeterinaria.add(pesquisaMenu);
         menuVeterinaria.add(relatoriosMenu);
+        menuVeterinaria.add(sairMenu);
         
         // Cria e adiciona um item simples para o menu
         JMenuItem especiePesquisaAction = new JMenuItem("Espécie");
@@ -137,13 +155,13 @@ public class TelaPrincipalClass extends JFrame{
                 clickedFuncionarioPesquisaMenu();
             }
         });
-        JMenuItem prontuarioPesquisaAction = new JMenuItem("Prontuário");
-        prontuarioPesquisaAction.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clickedProntuarioPesquisaMenu();
-            }
-        });
+//        JMenuItem prontuarioPesquisaAction = new JMenuItem("Prontuário");
+//        prontuarioPesquisaAction.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                clickedProntuarioPesquisaMenu();
+//            }
+//        });
         JMenuItem veterinarioPesquisaAction = new JMenuItem("Veterinário");
         veterinarioPesquisaAction.addActionListener(new ActionListener() {
             @Override
@@ -159,7 +177,7 @@ public class TelaPrincipalClass extends JFrame{
         pesquisaMenu.add(itemPesquisaAction);
         pesquisaMenu.add(examePesquisaAction);
         pesquisaMenu.add(funcionarioPesquisaAction);
-        pesquisaMenu.add(prontuarioPesquisaAction);
+//        pesquisaMenu.add(prontuarioPesquisaAction);
         pesquisaMenu.add(veterinarioPesquisaAction);
         
         JMenuItem especieAction = new JMenuItem("Espécie");
@@ -340,7 +358,6 @@ public class TelaPrincipalClass extends JFrame{
             JOptionPane.showMessageDialog(null, "É necessário informar um Exame para cadastrar um Item!");
             clickedRacaMenu();
             return;
-            
         }
     }
     
@@ -405,6 +422,13 @@ public class TelaPrincipalClass extends JFrame{
     
     public void inicializaJPanelInicial(){
         lblIcone = new JLabel();
+//        JButton btnSair = new  JButton("SAIR");
+//        btnSair.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                logout();
+//            }
+//        });
         imagePrincipal = new ImageIcon(new ImageIcon("resources/animal-paw-print.png").getImage().
                 getScaledInstance(200, 200, Image.SCALE_DEFAULT));
         lblIcone.setIcon(imagePrincipal);
@@ -504,6 +528,11 @@ public class TelaPrincipalClass extends JFrame{
         panelPrincipal.add(panelVeterinario.setPanelPesquisarVeterinario());
         panelPrincipal.repaint();
         panelPrincipal.revalidate();
+    }
+    
+    public void logout(){
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        
     }
     
 }

@@ -24,7 +24,7 @@ public class EspecieDAO extends DAOHibernate<Especie>{
         }
         
         public List<Especie> procuraEspeciesPorDescricao(String descricao) {
-		return (List<Especie>) getSession().createQuery("from Especie u where u.nomeCientifico like :descricao")
+		return (List<Especie>) getSession().createQuery("from Especie u where u.descricao like :descricao")
 				.setParameter("descricao", descricao).list();
 	}
 }

@@ -151,7 +151,7 @@ public class PanelAnimal extends PanelMae{
         }
         pet.setDescricao(txtNomeAnimal.getText());
         boolean salvou = false;
-        if(pet.getIdpet().equals(0)){
+        if(pet.getIdpet() == null){
             salvou = cont.salvarPet(pet);
         }else{
             salvou= cont.atualizarPet(pet);

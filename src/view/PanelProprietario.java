@@ -119,7 +119,7 @@ public class PanelProprietario extends PanelMae{
         proprietario.setNome(txtNomeProprietario.getText());
         proprietario.setTelefone(txtTelefoneProprietario.getText());
         boolean salvou = false;
-        if(proprietario.getIdproprietario().equals(0))
+        if(proprietario.getIdproprietario() == null)
            salvou = cont.salvarProprietario(proprietario);
         else
             salvou = cont.atualizarProprietario(proprietario);

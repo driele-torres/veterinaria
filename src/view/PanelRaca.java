@@ -114,7 +114,7 @@ public class PanelRaca extends PanelMae{
         raca.setDescricao(txtdescricaoRaca.getText());
         limparPanelRaca();
         boolean salvou = false;
-        if(raca.getIdraca().equals(0))
+        if(raca.getIdraca() == null)
            salvou = cont.salvarRaca(raca);
         else
             salvou = cont.atualizarRaca(raca);

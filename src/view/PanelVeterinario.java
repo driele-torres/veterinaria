@@ -164,7 +164,7 @@ public class PanelVeterinario extends PanelMae{
         veterinario.setEspecialidade(txtEspecialidade.getText());
         veterinario.setUsuario(usuario);
         boolean salvou = false;
-        if(veterinario.getIdveterinario().equals(0))
+        if(veterinario.getIdveterinario() == null)
            salvou = cont.salvarVeterinario(veterinario); 
         else
             salvou = cont.atualizaVeterinario(veterinario);
