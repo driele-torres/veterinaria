@@ -1,10 +1,12 @@
 package db.connection;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+
 
 public class CriadorDeSessao 
 {
@@ -30,13 +32,12 @@ public class CriadorDeSessao
     {
         inicializar();
         try{
-            if(sessionFactory.getCurrentSession().isConnected()){
-                return sessionFactory.getCurrentSession();
+            if(sessionFactory == null){
+                inicializar();
             }
             return sessionFactory.openSession();
         }catch(HibernateException ex){
             return sessionFactory.openSession();
         }
-//        return sessionFactory.openSession();
     }
 }

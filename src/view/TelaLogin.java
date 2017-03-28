@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import model.GrupoAcesso;
 import model.Usuario;
 
 public class TelaLogin extends JFrame{
@@ -31,6 +33,7 @@ public class TelaLogin extends JFrame{
     JPanel panel;
     private boolean click = false;
     public static final TelaPrincipalClass telaPrincipal = new TelaPrincipalClass();
+    public static Usuario usuarioLogado = new Usuario();
     
     public TelaLogin(){
         inicializar();
@@ -82,6 +85,7 @@ public class TelaLogin extends JFrame{
     
     public void clickedLogin(){
         if(loga()){
+            List<GrupoAcesso> grupos = cont.recuperarGrupos();
             TelaPrincipalClass telaPrincipal = TelaLogin.telaPrincipal;
             telaPrincipal.setBounds(20, 20, 600, 600);
             telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,14 +101,35 @@ public class TelaLogin extends JFrame{
     public boolean loga(){
         String user = txtUsuario.getText();
         String senha = password.getText();
+        List<GrupoAcesso> grupos = cont.recuperarGrupos();
+        if (grupos.isEmpty()){
+            GrupoAcesso grupo1 = new GrupoAcesso();
+            grupo1.setDescricao("Total");
+//            grupo1.setIdgrupoAcesso(1);
+            cont.salvarGrupo(grupo1);
+            GrupoAcesso grupo2 = new GrupoAcesso();
+            grupo2.setDescricao("Parcial");
+//            grupo2.setIdgrupoAcesso(2);
+            cont.salvarGrupo(grupo2);
+        }
         
         if(user.equals("admin") && senha.equals("admin")){
+            GrupoAcesso grupo = cont.recuperarGrupoID(1);
+            usuarioLogado.setUsername("admin");
+            usuarioLogado.setGrupoAcesso(grupo);
+            usuarioLogado.setSenha("admin");
+            usuarioLogado.setCpf("");
+            usuarioLogado.setEndereco("");
+            usuarioLogado.setNome("");
+            usuarioLogado.setTelefone("");
             return true;
         }else{
             Usuario usuario = cont.procuraUsuarioPorUsername(user);
             if(usuario != null){
-                if(usuario.getSenha().equals(senha))
+                if(usuario.getSenha().equals(senha)){
+                    usuarioLogado = usuario;
                     return true;
+                }
                 JOptionPane.showMessageDialog(null, "Senha incorreta!");
                 return false;
             }

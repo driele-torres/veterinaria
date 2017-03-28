@@ -4,11 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/view/TelaPrincipalClass.java</file>
-            <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/view/PanelRelatorio.java</file>
-            <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/model/Pet.java</file>
-            <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/view/PanelVeterinario.java</file>
-            <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/view/PanelAnimal.java</file>
+            <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/db/connection/CriadorDeSessao.java</file>
+            <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/view/PanelEspecie.java</file>
+            <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/view/TelaLogin.java</file>
             <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/controller/VeterinariaController.java</file>
+            <file>file:/home/gmcore/Documents/IFMA/LPIII/Veterinaria/src/db/access/DAOHibernate.java</file>
         </group>
     </open-files>
 </project-private>

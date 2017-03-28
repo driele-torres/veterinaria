@@ -17,9 +17,9 @@ public abstract class DAOHibernate <T> implements GenericAccess<T>{
     public void adiciona(T t) {
         getSession().save(t);
         getSession().flush();
-        if(getSession().isOpen()){
-            getSession().close();
-        }
+//        if(getSession().isOpen()){
+//            getSession().close();
+//        }
     }
     
     public void atualiza(T t) {

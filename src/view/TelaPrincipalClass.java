@@ -361,17 +361,21 @@ public class TelaPrincipalClass extends JFrame{
     }
     
     public void clickedProntuarioMenu(){
-        
-        panelProntuario = new PanelProntuario();
-        panelPrincipal.removeAll();
-        JPanel panel = panelProntuario.setPanelProntuario();
-        if(panel != null){
-            panelPrincipal.add(panel);
-            panelPrincipal.repaint();
-            panelPrincipal.revalidate();
+        if(TelaLogin.usuarioLogado.getGrupoAcesso().getIdgrupoAcesso().equals(1)){
+            panelProntuario = new PanelProntuario();
+            panelPrincipal.removeAll();
+            JPanel panel = panelProntuario.setPanelProntuario();
+            if(panel != null){
+                panelPrincipal.add(panel);
+                panelPrincipal.repaint();
+                panelPrincipal.revalidate();
+            }else{
+                JOptionPane.showMessageDialog(null, "É necessário informar o Animal e o Veterinario para cadastrar um Prontuário!");
+                clickedVeterinarioMenu();
+                return;
+        } 
         }else{
-            JOptionPane.showMessageDialog(null, "É necessário informar o Animal e o Veterinario para cadastrar um Prontuário!");
-            clickedVeterinarioMenu();
+            JOptionPane.showMessageDialog(null, "Você não possui acesso para essa atividade!"); 
             return;
         }
     }

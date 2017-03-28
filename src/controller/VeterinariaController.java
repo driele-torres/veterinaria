@@ -51,6 +51,10 @@ public class VeterinariaController {
         grupoDAO = new GrupoAcessoDAO(CriadorDeSessao.getSession());
         funcionarioDAO = new FuncionarioDAO(CriadorDeSessao.getSession());
     }
+    
+    public void salvarGrupo(GrupoAcesso grupo){
+        grupoDAO.adiciona(grupo);
+    }
    
     public void salvarEspecie(Especie especie){
         especieDao.adiciona(especie);
